@@ -1,3 +1,72 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: silver;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 20px;
+  color: black;
+}
+
+#searchBar, #showSelector, #episodeSelector {
+  width: 30%;
+  max-width: 600px;
+  padding: 10px;
+  margin: 10px auto;
+  border: 3px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 14px 14px 20px rgba(0, 0, 0, 0.1);
+}
+
 #root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.episode-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 15px;
+  transition: transform 0.3s;
+}
+
+.episode-card:hover {
+  transform: scale(1.05);
+}
+
+
+p {
+  font-size: 14px;
+}
+
+footer {
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px;
+  font-size: 24px;
+  background-color: white;
+}
+
+/* New styles for loading and errors */
+.loading {
+  font-size: 18px;
+  font-weight: bold;
+  color: #555;
+}
+
+.error {
+  font-size: 18px;
+  font-weight: bold;
   color: red;
 }
