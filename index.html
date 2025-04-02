@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
-
-  <body>
+</head>
+<body>
     <div id="root">
+        <header>
+            <h1>TV Show Episode Explorer</h1>
+            <input type="text" id="searchInput" placeholder="Search episodes..." />
+            <select id="episodeSelect">
+                <option value="">All Episodes</option>
+            </select>
+            <p id="displayCount"></p>
+        </header>
+        <div id="episodeContainer"></div>
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
