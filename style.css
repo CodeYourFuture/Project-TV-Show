@@ -1,3 +1,109 @@
-#root {
-  color: red;
+/* Design palette */
+:root {
+  --font: ui-sans-serif, system-ui, sans-serif;
+  --paper: hsla(275, 100%, 95%, 0.985);
+  --ink: hsla(257, 61%, 9%, 0.85);
+  --spacing-s: 4px;
+  --spacing-m: 8px;
+  --spacing-l: 24px;
+  --container: 1280px;
+  --box: 410px;
+}
+/* Base element styles */
+html {
+  margin: 0;
+  background: linear-gradient(var(--ink), var(--paper), var(--ink), var(--ink));
+}
+body {
+  font-family: var(--font);
+  background: linear-gradient(var(--ink), var(--ink), var(--ink), transparent);
+  color: var(--paper);
+  margin: 0;
+  padding: var(--spacing-l);
+}
+
+a:any-link {
+  color: currentColor;
+}
+
+img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
+
+h1 {
+  font-size: 3rem;
+}
+form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-m);
+  padding: var(--spacing-l) 0;
+}
+input,
+select,
+button {
+  padding: var(--spacing-m);
+}
+/* Whole Page Layout */
+.container {
+  max-width: var(--container);
+  margin: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(auto, var(--box)));
+  gap: calc(var(--spacing-l) * 2) var(--spacing-l);
+  justify-content: center;
+}
+/* Card component  */
+.card {
+  display: grid;
+  grid-template:
+    "image image image" 140px
+    ". title ." auto
+    ". summary ." 1fr
+    ". meta    ." min-content
+    ". ....... ." var(--spacing-l)
+    / var(--spacing-l) 1fr var(--spacing-l);
+  border: 1px solid var(--ink);
+  box-shadow: var(--spacing-s) var(--spacing-s) var(--spacing-l) var(--ink);
+  animation: cubic-bezier(0.47, 0, 0.745, 0.715) 300ms fade-in;
+}
+.card__title {
+  grid-area: title;
+}
+.card__summary {
+  grid-area: summary;
+}
+.card__image {
+  grid-area: image;
+}
+.card__rating {
+  grid-area: image;
+  padding: var(--spacing-m);
+  margin: 0 auto auto 0;
+  background: var(--ink);
+  z-index: 1;
+  font-weight: bolder;
+}
+.card__meta {
+  grid-area: meta;
+}
+.card--show:hover,
+.card--show:focus {
+  opacity: 0.75;
+  mix-blend-mode: exclusion;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
