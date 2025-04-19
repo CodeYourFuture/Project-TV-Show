@@ -1,3 +1,61 @@
-#root {
-  color: red;
+body{
+  background-color: #BDDDE4;
+}
+#episodes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+#episode-card {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 1rem;
+  flex: 0 1 calc(33.333% - 2rem);
+  width: 300px; 
+  text-align: center;
+  box-sizing: border-box;
+  background: white;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#episode-card img {
+  width: 100%; 
+  height: auto; 
+}
+
+#episode-card h2 {
+  font-size: 1.2rem;
+  border: 1px solid black;
+  border-radius: 4px; 
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+#episode-code {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+#episode-card a {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #0077cc;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+#root > p {
+  text-align: center;
+  font-size: 1rem;
+  margin: 1rem 0;
+  width: 100%;
 }
