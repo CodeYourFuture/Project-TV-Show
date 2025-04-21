@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Bakytbek Sydykov | Bahasyd </title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <h1>TV Show Episode Guide</h1>
+
+  <!-- search box and select box section-->
+  <section id="controls">
+    <label for="search-input">Search Episodes:</label>
+    <input type="search" id="search-input" placeholder="Search by name or summary" />
+
+    <label for="show-select">Choose a show:</label>
+    <select id="show-select">
+      <option value="">Select a show</option>
+    </select>
+
+    <label for="episode-select">Jump to episode:</label>
+    <select id="episode-select">
+      <option value="">-- Select an episode --</option>
+    </select>
+    <!--for status-->
+    <div id="status-message"></div>
+
     <div id="root">
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
