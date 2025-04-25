@@ -13,28 +13,19 @@
       <h1>TV Show Project</h1>
       <h2>Sample Solution</h2>
       <form>
-        <label for="show-select"
-          >Select A Show
-          <select id="show-select" name="episode-select"></select
-        ></label>
-        <label for="episode-select"
-          >Select One Episode
-          <select id="episode-select" name="episode-select"></select
-        ></label>
-        <label for="episode-search"
-          >Filter
-          <input
-            type="search"
-            id="episode-search"
-            name="episode-search"
-            placeholder="Search"
-        /></label>
+        <label for="show-select" class="is-invisible">Select A Show</label>
+        <select id="show-select" name="show-select"></select>
+        <label for="episode-select" class="is-invisible"
+          >Select One Episode</label
+        >
+        <select id="episode-select" name="episode-select"></select>
+        <button id="reset-state" type="reset">Reset</button>
         <template id="option-template">
           <option>Select an option</option>
         </template>
       </form>
     </header>
-    <main>
+    <main class="container">
       <div id="card-container" class="grid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50">
           <style>
@@ -74,7 +65,7 @@
         </section>
       </template>
     </main>
-    <footer>
+    <footer class="container">
       <h2>Data originally from <a href="https://tvmaze.com/">TV Maze</a></h2>
     </footer>
     <!-- Loads YOUR javascript code -->

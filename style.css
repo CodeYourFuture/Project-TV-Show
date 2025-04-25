@@ -42,8 +42,11 @@ form {
   padding: var(--spacing-l) 0;
 }
 input,
-select {
+select,
+button {
   padding: var(--spacing-m);
+  min-width: 20ch;
+  margin: 0;
 }
 /* Whole Page Layout */
 .container {
@@ -78,6 +81,11 @@ select {
 }
 .card__image {
   grid-area: image;
+}
+
+.is-invisible {
+  position: absolute;
+  margin-left: -999em;
 }
 
 @keyframes fade-in {
