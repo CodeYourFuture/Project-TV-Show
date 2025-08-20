@@ -3,19 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Rahwa Zeslus Haile</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+   
+    <template id="episode-template">
+      <div class="episode-card">
+        <a href="#" target="_blank" rel="noopener">
+          <div class="episode-header shadow-box">
+            <span class="episode-name"></span> - <span class="episode-code"></span>
+          </div>
+          <img src="" alt="TV Show Image" />
+        </a>
+        <div class="episode-summary"></div>
+      </div>
+    </template>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+    <div id="root"></div>
+
+    <footer>
+      Data originally from
+      <a href="https://tvmaze.com/" target="_blank" rel="noopener">TVMaze.com</a>
+    </footer>
+
     <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
 </html>

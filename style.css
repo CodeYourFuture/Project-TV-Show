@@ -1,3 +1,79 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+  padding: 1rem;
+}
+
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+#searchInput,
+#episodeSelect {
+  padding: 0.5rem;
+  font-size: 1rem;
+  max-width: 300px;
+  width: 100%;
+}
+
+#episodeCount {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
 #root {
-  color: red;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.episode-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.episode-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.episode-header {
+  padding: 0.75rem;
+  background: #1e1e1e;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.shadow-box {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.episode-summary {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  font-size: 0.9rem;
 }
