@@ -18,7 +18,7 @@ Specific learning objectives of the project:
 <!--{{<objectives>}}-->
 - [ ] Consume structured data in JavaScript using `fetch`.
 - [ ] Build UI components dynamically.
-- [ ] React to user input to update a UI.
+- [ ] Update a UI dynamically in response to user input.
 - [ ] Make sense of a codebase produced by someone else.
 - [ ] Refactor an existing codebase to make it easier to understand and modify.
 - [ ] Collaborate with another programmer in a single shared GitHub repository.
