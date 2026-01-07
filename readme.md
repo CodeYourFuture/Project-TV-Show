@@ -6,6 +6,25 @@ The aim of this project is to take some data someone else has (and exposes over 
 
 This project will take you multiple weeks to complete. As always, we will break down the project into levels we can deliver incrementally. You must finish each milestone before you start working on the next one (but it's ok to know what the future levels are going to be - it may help you design things). Your goal is to complete all of the levels up to and including level 500 during the Data Flows module.
 
+## Goals
+
+There are three primary goals of this project:
+1. Get experience building a non-trivial application end-to-end.
+2. Get experience understanding, modifying, and working with code someone else wrote.
+3. Build an impressive application you can demo and show off.
+
+Specific learning objectives of the project:
+
+<!--{{<objectives>}}-->
+- [ ] Consume structured data in JavaScript using `fetch`.
+- [ ] Build UI components dynamically.
+- [ ] Update a UI dynamically in response to user input.
+- [ ] Make sense of a codebase produced by someone else.
+- [ ] Refactor an existing codebase to make it easier to understand and modify.
+- [ ] Collaborate with another programmer in a single shared GitHub repository.
+- [ ] Add functionality to a codebase you didn't design/write.
+<!--{{</objectives>}}-->
+
 ## Data
 
 The data we're going to use comes from a website called TVmaze. For the first few levels, you can call a function `getAllEpisodes()` and you will get an array of objects, one per episode of a TV show. Later on, you will use `fetch` to get the data dynamically from the API. Here is an example object for one episode:
