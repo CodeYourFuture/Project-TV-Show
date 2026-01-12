@@ -3,19 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | SallyMcGrath</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
+    <header class="container">
+      <h1>TV Show Project</h1>
+      <h2>Sample Solution</h2>
+      <form>
+        <div id="controls-container"></div>
+        <label for="search"
+          >Filter
+          <input
+            type="search"
+            id="search"
+            name="search"
+            placeholder="Type to filter"
+        /></label>
+      </form>
+      <template id="select-template">
+        <label for="episode-select"
+          >Select One Episode
+          <select id="episode-select" name="episode-select"></select
+        ></label>
+        <button id="reset" type="button">Back to Shows</button>
+      </template>
+      <template id="option-template">
+        <option>Select an option</option>
+      </template>
+    </header>
+    <main>
+      <div id="card-container" class="grid">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50">
+          <style>
+            @keyframes dash {
+              to {
+                stroke-dashoffset: 20;
+              }
+            }
+          </style>
+          <circle
+            cx="25"
+            cy="25"
+            r="10"
+            fill="none"
+            stroke="white"
+            stroke-width="2"
+            stroke-dasharray="4"
+            style="animation: dash 3s infinite"
+          />
+          <text x="0" y="25" color="#fff">Loading</text>
+        </svg>
+      </div>
+      <template id="episode-template">
+        <section data-card class="card">
+          <h3 class="card__title" data-title>Name Goes Here</h3>
+          <div class="card__summary" data-summary>Summary Goes Here</div>
+          <img
+            class="card__image"
+            data-image
+            src=""
+            alt=""
+            height="140"
+            width="250"
+          />
+        </section>
+      </template>
+      <template id="show-template">
+        <section data-card data-show-id class="card card--show" tabindex="0">
+          <h3 class="card__title" data-title>Name Goes Here</h3>
+          <h4 class="card__meta">
+            <span class="card__status" data-status></span>
+            <time class="card__runtime" data-runtime></time>
+          </h4>
+          <div class="card__summary" data-summary>Summary Goes Here</div>
+          <div class="card__rating" data-rating></div>
+          <img
+            class="card__image"
+            data-image
+            src=""
+            alt=""
+            height="140"
+            width="250"
+          />
+        </section>
+      </template>
+    </main>
+    <footer class="container">
+      <h2>Data originally from <a href="https://tvmaze.com/">TV Maze</a></h2>
+    </footer>
     <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+    <script src="lib/app.mjs" type="module"></script>
   </body>
 </html>
