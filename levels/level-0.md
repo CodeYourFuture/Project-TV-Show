@@ -2,8 +2,8 @@
 
 The goals of level 0 are to:
 * Create a GitHub repository with the starter scaffolding in-place.
-* Deploy it to Netlify.
-* Make sure whenever you push changes your Netlify site will be updated.
+* Deploy it to **GitHub Pages**.
+* Make sure whenever you push changes, your live site will be updated.
 
 ## Fork your repository
 
@@ -11,30 +11,31 @@ The goals of level 0 are to:
 2. Fork the repo to your account
 3. Do not enable `Include all branches`
 
-## Deploy your site
+## Deployment to GitHub Pages
 
-1. Follow [the instructions to deploy your site to Netlify](https://curriculum.codeyourfuture.io/guides/deployment-netlify/).
-2. Configure your site for auto-deployments.
-3. Ensure your Netlify site is named exactly `cyf-USERNAME-tv.netlify.app` where `USERNAME` is your GitHub username.
+Follow the [CYF GitHub Pages Deployment Guide](https://curriculum.codeyourfuture.io/guides/deploying/ghpages/).
+
+> [!TIP]
+> Deployment to **Netlify** is only required upon reaching **Level 500**. Using GitHub Pages until then helps conserve build credits during the development phase.
 
 ## Get set up on your laptop
 
-1. Clone your repository
-2. Open your repository in VS Code
-3. Open the `index.html` page in Chrome
+1. Clone your repository.
+2. Open your repository in VS Code.
+3. Open the `index.html` page in Chrome.
 4. Make sure in Chrome you can see the text "Got 73 episode(s)" in red. If you can't, something has gone wrong.
 5. Edit `index.html` to include your name and GitHub username in the page title instead of "(My Name (My GitHub username))".
 
 ## Push your changes
 
 1. Commit your changes to your `index.html` to your git repository (with a clear commit message).
-2. Push your changes to your GitHub repository. Make sure they show up on GitHub.
-3. Ensure your updated site has been deployed to Netlify.
+2. Push your changes to your GitHub repository.
+3. Check your GitHub Pages URL to ensure the changes are live.
 
 ## Completion criteria
 
 You have completed level 0 when:
 - [ ] You have forked the GitHub repository called `Project-TV-Show` into your account.
 - [ ] The `index.html` page on your GitHub project contains your name and GitHub username.
-- [ ] Your project is deployed to Netlify at `cyf-USERNAME-tv.netlify.app`.
+- [ ] Your project is successfully deployed to **GitHub Pages**.
 - [ ] Your deployed project has your name and GitHub username in its title.
