@@ -4,7 +4,7 @@ One of the most powerful things a software engineer can do is take some data and
 
 The aim of this project is to take some data someone else has (and exposes over an API), and display it to users. The data we're using for this project is about episodes of TV shows.
 
-This project will take you multiple weeks to complete. As always, we will break down the project into levels we can deliver incrementally. You must finish each milestone before you start working on the next one (but it's ok to know what the future levels are going to be - it may help you design things). Your goal is to complete all of the levels up to and including level 500 during the Data Flows module.
+This project will take you multiple weeks to complete. As always, we will break down the project into levels we can deliver incrementally. You must finish each milestone before you start working on the next one (but it's OK to know what the future levels are going to be - it may help you design things). Your goal is to complete all of the levels up to and including level 500 during the Data Flows module.
 
 ## Goals
 
@@ -85,3 +85,29 @@ After that, you're going to swap codebases with someone else. You should complet
 You are allowed to change anything in your partner's code to make it easier to understand or build on, but they must understand and accept your changes.
 
 Remember, finish each level before you move on to the next. Reach out for help when you're stuck.
+
+## Submission
+When you are ready to submit this task, you will submit it in a different way to normal.
+You will **not** use PRs.
+Instead, you will deploy your TV project website to GitHub pages and reviewers will assess, check the code, and leave issues for you to fix.
+
+When you have finished level 500:
+1. Go to the CYF Portal and fill out the submission step for the TV Project. Include a link to the deployed page, your repository, and the branch you used for level 500.
+2. A reviewer will check your project and leave issues on your repository.
+3. Resolve the issues, and use the issue comments to check that the reviewer is happy the problems are resolved.
+4. The reviewer will close the issues when they are fixed.
+4. Once all issues raised are fixed and closed, your TV project is submitted and complete.
+
+### Instructions for Reviewers
+**Requirements**
+If this is your first review of the TV show project, familiarise yourself with the task requirements.
+For your convenience, you can find a list of all the requirements [here](levels/Reviewers-All-Requirements.md).
+There are no rules about how the site should look, only how it behaves.
+
+**How to review**
+Submission is not done via a PR, instead any problems you find should be raised as issues in the repository.
+Given there may be multiple problems, grouping them into issues by related themes may be easiest, so use your own judgement.
+The trainee will deal with the issues and should check in replying to these issues.
+Check any changes made, and if all problems are resolved, you can close the issue.
+You may wish to double-check your notification settings to make sure you are notified for any replies or activity on these issues.
+When all the issues you opened are closed, the task is considered complete.
