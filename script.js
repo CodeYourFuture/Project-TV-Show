@@ -1,12 +1,36 @@
 //You can edit ALL of the code here
+
+//This content is from https://www.tvmaze.com/
+//specifically: https://api.tvmaze.com/shows/82/episodes
+
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
 }
 
+// formats episode and season numbers to show 2 digits
+const formatEpisodeCode = (prefix, value) =>
+  `${prefix}${String(value).padStart(2, '0')}`;
+
+const createFilmCard = (film) => {
+  const filmCard = document.getElementById('film-card').content.cloneNode(true);
+  const title = filmCard.querySelector('h2');
+  title.innerText = `${film.name} - ${formatEpisodeCode('S', film.season)}${formatEpisodeCode('E', film.number)}`;
+
+  const filmImage = filmCard.querySelector('img');
+  filmImage.src = film.image.medium;
+  filmImage.alt = 'image from film';
+
+  const filmSummary = filmCard.querySelector('p');
+  filmSummary.innerHTML = film.summary;
+
+  return filmCard;
+};
+
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  const rootElem = document.getElementById('film-grid');
+  const filmCards = episodeList.map(createFilmCard);
+  rootElem.append(...filmCards);
 }
 
 window.onload = setup;

@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Martin Mwaka (temceo)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <main id="root">
+    <div id="film-grid" class="film-grid">
+      <template id="film-card">
+        <section class="card">
+          <header>
+            <h2 class="title"></h2>
+          </header>
+          <img src="" alt="">
+          <p class="summary">
+
+          </p>
+        </section>
+      </template>
     </div>
+  </main>
+  <h3 class="source">Film data source: <a href="https://www.tvmaze.com/" target="_blank">tvmaze.com</a></h3>
+  <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+  <script src="episodes.js"></script>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+</body>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
 </html>
