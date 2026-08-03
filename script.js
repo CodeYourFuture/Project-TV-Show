@@ -10,7 +10,11 @@ function setup() {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  const title = document.createElement("h2");
+
+  title.textContent = episodeList[0].name;
+
+  rootElem.appendChild(title);
   }
 
 
