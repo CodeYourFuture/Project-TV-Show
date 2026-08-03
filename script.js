@@ -26,6 +26,7 @@ function makePageForEpisodes(episodeList) {
 
      title.textContent = episode.name;
      code.textContent = episodeCode;
+     const link = document.createElement("a");
 
  
      card.appendChild(summary);
