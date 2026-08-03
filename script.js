@@ -20,6 +20,7 @@ function makePageForEpisodes(episodeList) {
      const code = document.createElement("p");
      const image = document.createElement("img");
      image.src = episode.image.medium;
+     image.alt = episode.name;
 
      title.textContent = episode.name;
      code.textContent = episodeCode;
