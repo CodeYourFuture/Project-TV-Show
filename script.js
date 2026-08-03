@@ -30,6 +30,7 @@ function makePageForEpisodes(episodeList) {
      link.href = episode.url;
      link.textContent = "View on TVMaze";
      link.target = "_blank";
+     link.rel = "noopener noreferrer";
 
  
      card.appendChild(summary);
