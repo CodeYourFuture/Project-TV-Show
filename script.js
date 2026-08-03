@@ -29,6 +29,7 @@ function makePageForEpisodes(episodeList) {
      const link = document.createElement("a");
      link.href = episode.url;
      link.textContent = "View on TVMaze";
+     link.target = "_blank";
 
  
      card.appendChild(summary);
