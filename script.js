@@ -32,7 +32,7 @@ function makePageForEpisodes(episodeList) {
      link.target = "_blank";
      link.rel = "noopener noreferrer";
 
- 
+    card.appendChild(link);
      card.appendChild(summary);
      card.appendChild(image);
      card.appendChild(code);
