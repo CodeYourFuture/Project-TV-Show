@@ -24,8 +24,9 @@ function makePageForEpisodes(episodeList) {
 
      title.textContent = episode.name;
      code.textContent = episodeCode;
-     
-    card.appendChild(code);
+
+     card.appendChild(image);
+     card.appendChild(code);
      card.appendChild(title);
      rootElem.appendChild(card);
    });
