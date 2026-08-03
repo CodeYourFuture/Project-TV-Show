@@ -52,17 +52,16 @@ function createChildElement(parentElement, tagName, textContent) {
 
 function createDramaCard(episode) {
   const card = document.createElement("section");
+  card.classList.add("drama-card");
 
   const formattedSeason = String(episode.season).padStart(2, "0");
   const formattedNumber = String(episode.number).padStart(2, "0");
   const episodeCode = `S${formattedSeason}E${formattedNumber}`;
 
-  createChildElement(card, "h3", `${episode.name} - ${episodeCode}`);
-  createChildElement(
-    card,
-    "h3",
-    `season number: ${episode.season}${episode.number} `,
-  );
+  const smallcard = document.createElement("div");
+  smallcard.classList.add("small-card");
+  createChildElement(smallcard, "h3", `${episode.name} - ${episodeCode}`);
+  card.append(smallcard);
 
   const img = document.createElement("img");
   img.src = episode.image ? episode.image.medium : "";
