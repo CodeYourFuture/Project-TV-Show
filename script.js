@@ -10,11 +10,13 @@ function setup() {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  const title = document.createElement("h2");
+   episodeList.forEach(function (episode) {
+     const title = document.createElement("h2");
 
-  title.textContent = episodeList[0].name;
+     title.textContent = episode.name;
 
-  rootElem.appendChild(title);
+     rootElem.appendChild(title);
+   });
   }
 
 
