@@ -21,10 +21,14 @@ function makePageForEpisodes(episodeList) {
      const image = document.createElement("img");
      image.src = episode.image.medium;
      image.alt = episode.name;
+     const summary = document.createElement("div");
+     summary.innerHTML = episode.summary;
 
      title.textContent = episode.name;
      code.textContent = episodeCode;
 
+ 
+     card.appendChild(summary);
      card.appendChild(image);
      card.appendChild(code);
      card.appendChild(title);
