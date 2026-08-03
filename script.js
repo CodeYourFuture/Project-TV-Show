@@ -11,11 +11,13 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
    episodeList.forEach(function (episode) {
+    const card = document.createElement("article");
      const title = document.createElement("h2");
 
      title.textContent = episode.name;
 
-     rootElem.appendChild(title);
+     card.appendChild(title);
+     rootElem.appendChild(card);
    });
   }
 
