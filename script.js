@@ -3,34 +3,45 @@
 //This content is from https://www.tvmaze.com/
 //specifically: https://api.tvmaze.com/shows/82/episodes
 
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-}
+const filmGrid = document.getElementById('film-grid');
+const allEpisodes = getAllEpisodes();
 
-// formats episode and season numbers to show 2 digits
-const formatEpisodeCode = (prefix, value) =>
-  `${prefix}${String(value).padStart(2, '0')}`;
-
-const createFilmCard = (film) => {
-  const filmCard = document.getElementById('film-card').content.cloneNode(true);
-  const title = filmCard.querySelector('h2');
-  title.innerText = `${film.name} - ${formatEpisodeCode('S', film.season)}${formatEpisodeCode('E', film.number)}`;
-
-  const filmImage = filmCard.querySelector('img');
-  filmImage.src = film.image.medium;
-  filmImage.alt = 'image from film';
-
-  const filmSummary = filmCard.querySelector('p');
-  filmSummary.innerHTML = film.summary;
-
-  return filmCard;
+const formatEpisodeCode = (prefix, value) => {
+  return `${prefix}${String(value).padStart(2, 0)}`;
 };
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById('film-grid');
-  const filmCards = episodeList.map(createFilmCard);
-  rootElem.append(...filmCards);
+const createFilmCard = ({
+  name,
+  number,
+  season,
+  summary,
+  image: { medium },
+}) => {
+  const filmCardTemplate = document
+    .getElementById('film-card')
+    .content.cloneNode(true);
+  const filmTitle = filmCardTemplate.querySelector('h2');
+  filmTitle.innerText = `${name} - ${formatEpisodeCode('S', season)}${formatEpisodeCode('E', number)}`;
+
+  const filmImage = filmCardTemplate.querySelector('img');
+  filmImage.src = medium;
+  filmImage.alt = 'image from film';
+
+  const filmSummary = filmCardTemplate.querySelector('.summary');
+  filmSummary.innerHTML = summary;
+
+  return filmCardTemplate;
+};
+
+function setup() {
+  render();
 }
+
+const render = () => {
+  const filmCards = allEpisodes.map(createFilmCard);
+  console.log(filmCards);
+  filmGrid.innerHTML = '';
+  filmGrid.append(...filmCards);
+};
 
 window.onload = setup;
