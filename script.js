@@ -25,8 +25,59 @@ const episodeList = {
   },
 };
 
+function formatEpisodeCode(season, episode) {
+  const formattedSeason = String(season).padStart(2, "0");
+  const formattedNumber = String(episode).padStart(2, "0");
+  return `S${formattedSeason}E${formattedNumber}`;
+}
+
+function createSelectElement(episodeList) {
+  const createSelect = document.createElement("select");
+  createSelect.id = "episode-select";
+  const rootElem = document.getElementById("root");
+  document.body.insertBefore(createSelect, rootElem);
+  return createSelect;
+}
+
+function createOptionElements() {
+  const allEpisodes = getAllEpisodes();
+  const createSelect = document.getElementById("episode-select");
+
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "ALL";
+  defaultOption.textContent = "Show all episodes";
+  createSelect.appendChild(defaultOption);
+  //create option value for every episode in the list
+  allEpisodes.map((episode) => {
+    let option = document.createElement("option");
+    option.value = episode.id;
+    option.textContent = `${formatEpisodeCode(episode.season, episode.number)} - ${episode.name}`;
+    createSelect.appendChild(option);
+  });
+}
+
+function EventChange() {
+  const allEpisodes = getAllEpisodes();
+  const createSelect = document.getElementById("episode-select");
+
+  createSelect.addEventListener("change", (event) => {
+    const selectedValue = event.target.value;
+    if (selectedValue === "ALL") {
+      makePageForEpisodes(allEpisodes);
+    } else {
+      const result = allEpisodes.filter(
+        (episode) => episode.id === Number(createSelect.value),
+      );
+      makePageForEpisodes(result);
+    }
+  });
+}
+
 function setup() {
   const allEpisodes = getAllEpisodes();
+  createSelectElement();
+  createOptionElements();
+  EventChange();
   makePageForEpisodes(allEpisodes);
 }
 
@@ -74,10 +125,8 @@ function createDramaCard(episode) {
   return card;
 }
 
-//build a function;
-//put the template insides
-//loop it
+const createSelect = document.createElement("select");
+createSelect.id = "episode-select";
 
-// Grab one from th
-// create a space and put the information inside.
-//create a card and put the data type inside
+const RootContainer = document.getElementById("root");
+RootContainer.appendChild(createSelect);
