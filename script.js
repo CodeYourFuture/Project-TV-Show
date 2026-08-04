@@ -3,7 +3,6 @@
 //This content is from https://www.tvmaze.com/
 //specifically: https://api.tvmaze.com/shows/82/episodes
 
-const searchInput = document.getElementById('film-search');
 const allEpisodes = getAllEpisodes();
 
 function setup() {
