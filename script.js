@@ -10,26 +10,31 @@ function setup() {
 
 // formats episode and season numbers to show 2 digits
 const formatEpisodeCode = (prefix, value) =>
-  `${prefix}${String(value).padStart(2, '0')}`;
+  `${prefix}${String(value).padStart(2, "0")}`;
 
 const createFilmCard = (film) => {
-  const filmCard = document.getElementById('film-card').content.cloneNode(true);
-  const title = filmCard.querySelector('h2');
-  title.innerText = `${film.name} - ${formatEpisodeCode('S', film.season)}${formatEpisodeCode('E', film.number)}`;
+  const filmCard = document.getElementById("film-card").content.cloneNode(true);
+  const title = filmCard.querySelector("h2");
+  title.innerText = `${film.name} - ${formatEpisodeCode(
+    "S",
+    film.season
+  )}${formatEpisodeCode("E", film.number)}`;
 
-  const filmImage = filmCard.querySelector('img');
+  const filmImage = filmCard.querySelector("img");
   filmImage.src = film.image.medium;
-  filmImage.alt = 'image from film';
+  filmImage.alt = "image from film";
 
-  const filmSummary = filmCard.querySelector('p');
+  const filmSummary = filmCard.querySelector("p");
   filmSummary.innerHTML = film.summary;
 
   return filmCard;
 };
 
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById('film-grid');
+  const rootElem = document.getElementById("film-grid");
   const filmCards = episodeList.map(createFilmCard);
+  // Clearing the rootElem(the page )before appending the film cards,so if we rerender the cards again we delete first then append.
+  rootElem.innerHTML = "";
   rootElem.append(...filmCards);
 }
 
