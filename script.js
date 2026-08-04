@@ -14,7 +14,8 @@ const formatEpisodeCode = (prefix, value) =>
 
 const createFilmCard = (film) => {
   const filmCard = document.getElementById("film-card").content.cloneNode(true);
-  const title = filmCard.querySelector("h2");
+  // Use class selectors instead of tag selectors for title
+  const title = filmCard.querySelector(".title");
   title.innerText = `${film.name} - ${formatEpisodeCode(
     "S",
     film.season
@@ -23,8 +24,8 @@ const createFilmCard = (film) => {
   const filmImage = filmCard.querySelector("img");
   filmImage.src = film.image.medium;
   filmImage.alt = "image from film";
-
-  const filmSummary = filmCard.querySelector("p");
+  //Use class selectors instead of tag selectors for summary
+  const filmSummary = filmCard.querySelector(".summary");
   filmSummary.innerHTML = film.summary;
 
   return filmCard;
