@@ -15,7 +15,13 @@ html {
   font-size: 100%;
   line-height: 1.5;
 }
-
+#input-search {
+  height: 50px;
+  width: 50%;
+}
+.search-bar-div {
+  margin-bottom: 2rem;
+}
 img {
   display: block;
   width: 100%;

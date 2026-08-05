@@ -6,12 +6,12 @@
 const allEpisodes = getAllEpisodes();
 
 function setup() {
-  renderFilms();
+  renderFilms(allEpisodes);
 }
 
 // formats episode and season numbers to show 2 digits
 const formatEpisodeCode = (prefix, value) =>
-  `${prefix}${String(value).padStart(2, '0')}`;
+  `${prefix}${String(value).padStart(2, "0")}`;
 
 const createFilmCard = (film) => {
   const {
@@ -21,23 +21,42 @@ const createFilmCard = (film) => {
     image: { medium },
     summary,
   } = film;
-  const filmCard = document.getElementById('film-card').content.cloneNode(true);
-  const title = filmCard.querySelector('h2');
-  title.innerText = `${name} - ${formatEpisodeCode('S', season)}${formatEpisodeCode('E', number)}`;
+  const filmCard = document.getElementById("film-card").content.cloneNode(true);
+  const title = filmCard.querySelector("h2");
+  title.innerText = `${name} - ${formatEpisodeCode(
+    "S",
+    season
+  )}${formatEpisodeCode("E", number)}`;
 
-  const filmImage = filmCard.querySelector('img');
+  const filmImage = filmCard.querySelector("img");
   filmImage.src = medium;
-  filmImage.alt = 'image from film';
+  filmImage.alt = "image from film";
 
-  const filmSummary = filmCard.querySelector('p');
+  const filmSummary = filmCard.querySelector("p");
   filmSummary.innerHTML = summary;
 
   return filmCard;
 };
 
-const renderFilms = () => {
-  const rootElem = document.getElementById('film-grid');
-  const filmCards = allEpisodes.map(createFilmCard);
+const inputSearch = document.getElementById("input-search");
+const countSearch = document.getElementById("count-search");
+
+inputSearch.addEventListener("input", function () {
+  const inputSearchValueLowerCase = inputSearch.value.toLowerCase();
+  const searchedEpisodes = allEpisodes.filter((episode) => {
+    return (
+      episode.name.toLowerCase().includes(inputSearchValueLowerCase) ||
+      episode.summary.toLowerCase().includes(inputSearchValueLowerCase)
+    );
+  });
+  renderFilms(searchedEpisodes);
+  countSearch.innerText = `Displaying ${searchedEpisodes.length} of 73 episodes`;
+});
+
+const renderFilms = (data) => {
+  const rootElem = document.getElementById("film-grid");
+  rootElem.innerHTML = "";
+  const filmCards = data.map(createFilmCard);
   rootElem.append(...filmCards);
 };
 
