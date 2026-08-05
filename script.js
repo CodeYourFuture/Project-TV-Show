@@ -38,9 +38,8 @@ function createSelectElement(episodeList) {
   document.body.insertBefore(createSelect, rootElem);
   return createSelect;
 }
-
+const allEpisodes = getAllEpisodes();
 function createOptionElements() {
-  const allEpisodes = getAllEpisodes();
   const createSelect = document.getElementById("episode-select");
 
   const defaultOption = document.createElement("option");
@@ -57,7 +56,6 @@ function createOptionElements() {
 }
 
 function EventChange() {
-  const allEpisodes = getAllEpisodes();
   const createSelect = document.getElementById("episode-select");
 
   createSelect.addEventListener("change", (event) => {
@@ -73,23 +71,58 @@ function EventChange() {
   });
 }
 
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  createSelectElement();
-  createOptionElements();
-  EventChange();
-  makePageForEpisodes(allEpisodes);
+// set the search bar...
+const searchInput = document.createElement("input");
+searchInput.type = "search";
+searchInput.id = "search-input";
+searchInput.name = "q";
+searchInput.placeholder = "Search the episodes..,";
+
+const searchCount = document.createElement("span");
+searchCount.id = "search-count";
+
+//From here , the purpose is to build the search bar
+function SetupSearchBar() {
+  const rootElem = document.getElementById("root");
+  document.body.insertBefore(searchInput, rootElem);
 }
 
-function makePageForEpisodes(episodeList) {
+//show the specific episode when the user types.
+function displayEpisodes(EpisodeToDisplay, allEpisodes) {
+  const count = document.getElementById("search-count");
+  if (count) {
+    count.textContent = ` Displaying ${EpisodeToDisplay.length}/${allEpisodes.length} episodes `;
+  }
+
+  EpisodeToDisplay.forEach((episode) => {
+    count.textContent = `Displaying ${EpisodeToDisplay.length}/ ${allEpisodes.length} episodes `;
+  });
+}
+displayEpisodes(allEpisodes);
+
+// when they type in the search bar, it will filter the selected episode.
+
+function handleSearchINput(event) {
+  const searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", (event) => {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    const FilterEpisode = allEpisodes.filter((episode) => {
+      const matchName = episode.name.includes(searchTerm);
+      const matchSummary = episode.summary.includes(searchTerm);
+
+      return matchName || matchSummary;
+    });
+    makePageForEpisodes(FilterEpisode);
+  });
+}
+
+function makePageForEpisodes(episodeTodisplay) {
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "";
 
-  const card = episodeList.map((episode) => createDramaCard(episode));
+  const card = episodeTodisplay.map((episode) => createDramaCard(episode));
   rootElem.append(...card);
 }
-
-window.onload = setup;
 
 //Purpose: Put the episode objects  into the root
 //grab the root and then you put it insides : function 1: put the object insides the root
@@ -130,3 +163,17 @@ createSelect.id = "episode-select";
 
 const RootContainer = document.getElementById("root");
 RootContainer.appendChild(createSelect);
+
+function setup() {
+  const allEpisodes = getAllEpisodes();
+  createSelectElement();
+  createOptionElements();
+  EventChange();
+
+  SetupSearchBar();
+  handleSearchINput();
+
+  makePageForEpisodes(allEpisodes);
+}
+
+window.onload = setup;
