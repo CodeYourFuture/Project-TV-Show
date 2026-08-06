@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Martin Mwaka (temceo)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <template id="film-card">
-      <section class="card">
-        <header>
-          <h2 class="title"></h2>
-        </header>
-        <div><img src="" alt="" /></div>
-        <p class="summary"></p>
-      </section>
-    </template>
-    <main id="root">
-      <div id="search-bar-div" class="search-bar-div">
-        <input type="text" id="input-search" placeholder="Search for episode" />
-        <select id="select-episode"></select>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Martin Mwaka (temceo)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
 
-        <p id="count-search"></p>
-      </div>
-      <div id="film-grid" class="film-grid"></div>
-    </main>
-    <h3 class="source">
-      Film data source:
-      <a href="https://www.tvmaze.com/" target="_blank">tvmaze.com</a>
-    </h3>
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+<body>
+  <form class="search-area">
+    <label for="film-select">Choose a film:</label>
+    <select id="film-select">
+      <option value="">Select a film</option>
+    </select>
+    <label for="film-search">Search films:</label>
+    <input type="search" id="film-search">
+    <p class="filter-display"></p>
+  </form>
+  <template id="film-card-template">
+    <section class="card">
+      <h3 class="title"></h3>
+      <img src="" alt="" />
+      <p class="summary"></p>
+    </section>
+  </template>
+  <main>
+    <div class="film-grid" id="film-grid"></div>
+    <div class="single-film-grid hidden">
+      <button class="exit">Return to film listings</button>
+      <div class="show-single-film"></div>
+    </div>
+  </main>
+  <h3 class="source">
+    Film data source:
+    <a href="https://www.tvmaze.com/" target="_blank">tvmaze.com</a>
+  </h3>
+  <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+  <script src="episodes.js"></script>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+</body>
+
 </html>
