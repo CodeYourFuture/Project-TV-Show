@@ -1,33 +1,31 @@
 //You can edit ALL of the code here
 
-//This content is from https://www.tvmaze.com/
-//specifically: https://api.tvmaze.com/shows/82/episodes
-
-// ======= DOM REFERENCES ======
-const inputSearch = document.getElementById("input-search");
-const countSearch = document.getElementById("count-search");
-const selectEpisode = document.getElementById("select-episode");
-
-// ========== DATA =========
+const filmGrid = document.getElementById('film-grid');
+const singleFilmContainer = document.querySelector('.single-film-grid');
+const filterDisplay = document.querySelector('.filter-display');
+const searchArea = document.querySelector('.search-area');
+const filmSelect = document.getElementById('film-select');
+const searchInput = document.getElementById('film-search');
+const exitButton = document.querySelector('.exit');
 const allEpisodes = getAllEpisodes();
 
+// track state of changes - eg input searches
+const state = {
+  query: '',
+  films: allEpisodes,
+  selectedFilm: {},
+};
+
 function setup() {
-  renderFilms(allEpisodes);
-  createResetOption();
-  populateEpisodeOptions();
-  handleEpisodeSelection();
-  handleSearchInput();
+  renderFilms();
+  populateFilmSelect();
 }
 
-// ========= UTILITIES =======
-// Formats episode and season numbers to show 2 digits
+// formats episode and season numbers to show 2 digits
 const formatEpisodeCode = (prefix, value) =>
-  `${prefix}${String(value).padStart(2, "0")}`;
-
-// ========= RENDERING =======
+  `${prefix}${String(value).padStart(2, '0')}`;
 
 const createFilmCard = (film) => {
-  // Build a single episode card using the <template> element.
   const {
     name,
     season,
@@ -35,78 +33,107 @@ const createFilmCard = (film) => {
     image: { medium },
     summary,
   } = film;
-  const filmCard = document.getElementById("film-card").content.cloneNode(true);
-  const title = filmCard.querySelector("h2");
-  title.innerText = `${name} - ${formatEpisodeCode(
-    "S",
-    season
-  )}${formatEpisodeCode("E", number)}`;
+  const filmCard = document
+    .getElementById('film-card-template')
+    .content.cloneNode(true);
+  const title = filmCard.querySelector('h3');
+  title.innerText = `${name} - ${formatEpisodeCode('S', season)}${formatEpisodeCode('E', number)}`;
 
-  const filmImage = filmCard.querySelector("img");
+  const filmImage = filmCard.querySelector('img');
   filmImage.src = medium;
-  filmImage.alt = "image from film";
+  filmImage.alt = 'image from film';
 
-  const filmSummary = filmCard.querySelector("p");
+  const filmSummary = filmCard.querySelector('p');
   filmSummary.innerHTML = summary;
 
   return filmCard;
 };
 
-// Render a list of episode cards into the grid container.
-const renderFilms = (data) => {
-  const rootElem = document.getElementById("film-grid");
-  rootElem.innerHTML = "";
-  const filmCards = data.map(createFilmCard);
+const renderFilms = () => {
+  const rootElem = document.getElementById('film-grid');
+  // clear film grid before repopulating it
+  rootElem.innerHTML = '';
+
+  // input query searches
+  const { query, films } = state;
+  const filmSearch = films.filter((film) => {
+    return (
+      film.name.toLowerCase().includes(query) ||
+      film.summary.toLowerCase().includes(query)
+    );
+  });
+
+  let episodeList;
+
+  // check if film list is filtered or not
+  if (state.query === '') {
+    episodeList = films;
+    filterDisplay.innerText = '';
+  } else {
+    episodeList = filmSearch;
+    filterDisplay.innerText = `Displaying ${filmSearch.length}/${films.length}`;
+  }
+  // create film cards and append to film-grid
+  const filmCards = episodeList.map(createFilmCard);
   rootElem.append(...filmCards);
 };
-//========= SEARCH SETUP ========
-// Filter episodes by title or summary as the user types.
-function handleSearchInput() {
-  inputSearch.addEventListener("input", function () {
-    const inputSearchValueLowerCase = inputSearch.value.toLowerCase();
-    const searchedEpisodes = allEpisodes.filter((episode) => {
-      return (
-        episode.name.toLowerCase().includes(inputSearchValueLowerCase) ||
-        episode.summary.toLowerCase().includes(inputSearchValueLowerCase)
-      );
-    });
-    renderFilms(searchedEpisodes);
-    countSearch.innerText = `Displaying ${searchedEpisodes.length} of ${allEpisodes.length} episodes`;
-  });
-}
-// ======== SELECTOR SETUP ========
-// Add the "Show All Episodes" option at the top of the dropdown.
-function createResetOption() {
-  const resetOption = document.createElement("option");
-  resetOption.value = "all";
-  resetOption.textContent = "Show All Episodes";
-  selectEpisode.appendChild(resetOption);
-}
-// Populate the dropdown with one option per episode.
-function populateEpisodeOptions() {
-  allEpisodes.forEach((episode) => {
-    const option = document.createElement("option");
-    option.value = episode.id;
-    option.textContent = `${formatEpisodeCode(
-      "S",
-      episode.season
-    )}${formatEpisodeCode("E", episode.number)} - ${episode.name}`;
-    selectEpisode.appendChild(option);
-  });
-}
 
-// Handle dropdown changes: show all episodes or filter by selected episode.
-function handleEpisodeSelection() {
-  selectEpisode.addEventListener("change", function () {
-    if (selectEpisode.value == "all") {
-      return renderFilms(allEpisodes);
-    }
-    console.log("change event working");
-    const selectedEpisode = allEpisodes.filter((episode) => {
-      return episode.id === Number(selectEpisode.value);
-    });
-    renderFilms(selectedEpisode);
-  });
-}
+// populate each option for film select
+const populateOption = (film) => {
+  const option = document.createElement('option');
+  const { id, season, number, name } = film;
+  const seasonEpisodeDetails = `${formatEpisodeCode('S', season)}${formatEpisodeCode('E', number)}`;
+  option.value = String(id);
+  option.textContent = `${seasonEpisodeDetails} - ${name}`;
+  return option;
+};
+// populate film select
+const populateFilmSelect = () => {
+  const populateOptions = allEpisodes.map(populateOption);
+  filmSelect.append(...populateOptions);
+};
+// display single film when select option is chosen
+const displaySelectedFilm = () => {
+  const singleFilmContent = document.querySelector('.show-single-film');
+  // get film card
+  const chosenFilm = createFilmCard(state.selectedFilm);
+  // clear single film grid before adding a film
+  singleFilmContent.innerHTML = '';
+  // reset state.selectedFilm to empty object
+  state.selectedFilm = {};
+  singleFilmContent.append(chosenFilm);
+  // show the single selected film
+  singleFilmContainer.classList.remove('hidden');
+  // hide search area and film grid
+  searchArea.classList.add('hidden');
+  filmGrid.classList.add('hidden');
+};
+
+// EVENT LISTENERS
+//event listener for search input
+searchInput.addEventListener('input', (e) => {
+  state.query = e.target.value.toLowerCase();
+  renderFilms();
+});
+
+//event listener for select
+filmSelect.addEventListener('change', (e) => {
+  if (!e.target.value) return;
+  state.selectedFilm = allEpisodes.filter(
+    (film) => film.id === Number(e.target.value.trim())
+  )[0];
+  // reset select
+  e.target.value = '';
+  displaySelectedFilm();
+});
+
+// event listener to exit single film grid
+exitButton.addEventListener('click', (e) => {
+  // hide the single film grid
+  singleFilmContainer.classList.add('hidden');
+  // show search area and film grid
+  searchArea.classList.remove('hidden');
+  filmGrid.classList.remove('hidden');
+});
 
 window.onload = setup;
