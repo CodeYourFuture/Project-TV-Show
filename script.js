@@ -56,7 +56,6 @@ function handleSelect(event) {
   if (selectedId === "ALL") {
     makePageForEpisodes(allEpisodes);
   } else {
-
     const selectedEpisode = allEpisodes.filter(
       (episode) => String(episode.id) === String(selectedId),
     );
