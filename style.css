@@ -90,7 +90,8 @@ main {
   align-items: center;
 }
 .show-single-film {
-  width: 500px;
+  max-width: 500px;
+  width: 90%;
 }
 
 button.exit {
@@ -102,6 +103,20 @@ button.exit {
   color: white;
   font-weight: 700;
 }
+
+.app-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 /* css to hide divs as required */
 .hidden {
   display: none;

@@ -7,18 +7,73 @@ const searchArea = document.querySelector('.search-area');
 const filmSelect = document.getElementById('film-select');
 const searchInput = document.getElementById('film-search');
 const exitButton = document.querySelector('.exit');
-const allEpisodes = getAllEpisodes();
+const API_URL = 'https://api.tvmaze.com/shows/82/episodes';
 
-// track state of changes - eg input searches
+let filmsCache = null;
+let filmsPromise = null;
+
+function showMessage(message, duration = 3000) {
+  const existingMessage = document.querySelector('.app-message');
+  if (existingMessage) existingMessage.remove();
+
+  const messageBox = document.createElement('div');
+  messageBox.className = 'app-message';
+  messageBox.textContent = message;
+  document.body.appendChild(messageBox);
+
+  setTimeout(() => {
+    messageBox.remove();
+  }, duration);
+}
+
+async function fetchFilms() {
+  if (filmsCache) return filmsCache;
+
+  if (!filmsPromise) {
+    filmsPromise = fetch(API_URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        filmsCache = data;
+        console.log(filmsCache, '<---- filmsCache');
+        return filmsCache;
+      });
+  }
+  console.log(filmsCache, '<---- filmsPromise');
+  return filmsPromise;
+}
+
+// track state of changes
 const state = {
   query: '',
-  films: allEpisodes,
+  films: [],
   selectedFilm: {},
 };
 
-function setup() {
-  renderFilms();
-  populateFilmSelect();
+async function setup() {
+  showMessage('Loading films...', 1000);
+
+  try {
+    const fetchedFilms = await fetchFilms();
+    state.films = fetchedFilms;
+    console.log('Downloaded films:', fetchedFilms);
+    renderFilms();
+    populateFilmSelect();
+
+    const loadingMessage = document.querySelector('.app-message');
+    if (loadingMessage) {
+      loadingMessage.remove();
+    }
+
+    showMessage('Films loaded', 1500);
+  } catch (error) {
+    console.error('Failed to load films:', error);
+    showMessage('Sorry, we could not load the films right now.');
+  }
 }
 
 // formats episode and season numbers to show 2 digits
@@ -51,29 +106,26 @@ const createFilmCard = (film) => {
 
 const renderFilms = () => {
   const rootElem = document.getElementById('film-grid');
-  // clear film grid before repopulating it
   rootElem.innerHTML = '';
 
-  // input query searches
   const { query, films } = state;
-  const filmSearch = films.filter((film) => {
-    return (
-      film.name.toLowerCase().includes(query) ||
-      film.summary.toLowerCase().includes(query)
-    );
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const filteredFilms = films.filter((film) => {
+    const name = film.name?.toLowerCase() || '';
+    const summary = film.summary?.toLowerCase() || '';
+
+    return name.includes(normalizedQuery) || summary.includes(normalizedQuery);
   });
 
-  let episodeList;
+  const episodeList = normalizedQuery === '' ? films : filteredFilms;
 
-  // check if film list is filtered or not
-  if (state.query === '') {
-    episodeList = films;
+  if (normalizedQuery === '') {
     filterDisplay.innerText = '';
   } else {
-    episodeList = filmSearch;
-    filterDisplay.innerText = `Displaying ${filmSearch.length}/${films.length}`;
+    filterDisplay.innerText = `Displaying ${episodeList.length}/${films.length}`;
   }
-  // create film cards and append to film-grid
+
   const filmCards = episodeList.map(createFilmCard);
   rootElem.append(...filmCards);
 };
@@ -89,7 +141,8 @@ const populateOption = (film) => {
 };
 // populate film select
 const populateFilmSelect = () => {
-  const populateOptions = allEpisodes.map(populateOption);
+  filmSelect.innerHTML = '<option value="">Select a film</option>';
+  const populateOptions = state.films.map(populateOption);
   filmSelect.append(...populateOptions);
 };
 // display single film when select option is chosen
@@ -112,16 +165,16 @@ const displaySelectedFilm = () => {
 // EVENT LISTENERS
 //event listener for search input
 searchInput.addEventListener('input', (e) => {
-  state.query = e.target.value.toLowerCase();
+  state.query = e.target.value;
   renderFilms();
 });
 
 //event listener for select
 filmSelect.addEventListener('change', (e) => {
   if (!e.target.value) return;
-  state.selectedFilm = allEpisodes.filter(
+  state.selectedFilm = state.films.find(
     (film) => film.id === Number(e.target.value.trim())
-  )[0];
+  );
   // reset select
   e.target.value = '';
   displaySelectedFilm();
