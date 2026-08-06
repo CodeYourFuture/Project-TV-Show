@@ -16,11 +16,15 @@ html {
   line-height: 1.5;
 }
 #input-search {
-  height: 50px;
-  width: 50%;
+  height: 40px;
+  width: 40%;
 }
 .search-bar-div {
   margin-bottom: 2rem;
+}
+#select-episode {
+  height: 40px;
+  width: 40%;
 }
 img {
   display: block;
