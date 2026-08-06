@@ -39,11 +39,9 @@ async function fetchFilms() {
       })
       .then((data) => {
         filmsCache = data;
-        console.log(filmsCache, '<---- filmsCache');
         return filmsCache;
       });
   }
-  console.log(filmsCache, '<---- filmsPromise');
   return filmsPromise;
 }
 
@@ -60,7 +58,6 @@ async function setup() {
   try {
     const fetchedFilms = await fetchFilms();
     state.films = fetchedFilms;
-    console.log('Downloaded films:', fetchedFilms);
     renderFilms();
     populateFilmSelect();
 
