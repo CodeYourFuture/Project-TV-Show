@@ -1,10 +1,47 @@
 let allEpisodes = [];
 
-function setup() {
-  allEpisodes = getAllEpisodes();
-  createControls();
-  makePageForEpisodes(allEpisodes);
+async function setup() {
   addTvmazeAttribution();
+  showLoading();
+
+  try {
+    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    allEpisodes = await response.json();
+
+    // Clear loading message and build UI
+    const rootElem = document.getElementById("root");
+    rootElem.innerHTML = "";
+
+    createControls();
+    makePageForEpisodes(allEpisodes);
+  } catch (error) {
+    showError("Failed to load episode data. Please try again later.");
+  }
+}
+
+function showLoading() {
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = `
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p>Loading episodes, please wait...</p>
+    </div>
+  `;
+}
+
+function showError(message) {
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = `
+    <div class="error-container">
+      <h3>Something went wrong</h3>
+      <p>${message}</p>
+    </div>
+  `;
 }
 
 function createControls() {
