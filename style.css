@@ -1,3 +1,23 @@
 #root {
   color: black;
+  font-family: Arial, sans-serf;
+}
+
+section {
+  width: 250px;
+}
+
+img {
+  width: 100%;
+}
+
+h3 {
+  font-size: 18px;
+  border: 2px solid black;
+  padding: 10px;
+  text-align: centre;
+}
+
+p {
+  font-size: 14px;
 }
