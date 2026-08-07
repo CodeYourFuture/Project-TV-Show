@@ -1,6 +1,9 @@
 #root {
   color: black;
   font-family: Arial, sans-serf;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 section {
