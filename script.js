@@ -1,23 +1,27 @@
 //You can edit ALL of the code here
 
-console.log("to display?");
+const tvShows = getAllEpisodes();
 
-const tvShow = getOneEpisode();
+function createTvShowCard(tvShow) {
+  const tvShowCard = document
+    .getElementById("tv-show-card")
+    .content.cloneNode(true);
 
- const tvShowCard = document
-.getElementById("tv-show-card")
-.content.cloneNode(true);
+  tvShowCard.querySelector("h3").textContent = `${tvShow.name} - S${String(
+    tvShow.season,
+  ).padStart(2, "0")}E${String(tvShow.number).padStart(2, "0")}`;
+  const image = tvShowCard.querySelector("img");
+  image.src = tvShow.image.medium;
+  image.alt = tvShow.name;
+  tvShowCard.querySelector("p").innerHTML = tvShow.summary;
 
-//console.log(tvShowCard);
+  return tvShowCard;
+}
 
- tvShowCard.querySelector("h3")
- .textContent = `${tvShow.name} - S ${String(tvShow.season).padStart(2, "0")}E${String(tvShow.number).padStart(2, "0")}`;
- const image = tvShowCard.querySelector("img");
- image.src = tvShow.image.medium;
- image.alt = tvShow.name;
- tvShowCard.querySelector("p").innerHTML = tvShow.summary;
+const tvShowCards = tvShows.map(createTvShowCard);
 
-  root.appendChild(tvShowCard);
+root.append(...tvShowCards);
+
 
 /*
 const root = document.getElementById("root"); use map()
