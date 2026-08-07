@@ -10,16 +10,17 @@ const tvShow = getOneEpisode();
 
 //console.log(tvShowCard);
 
- tvShowCard.querySelector("h3").textContent = tvShow.name;
+ tvShowCard.querySelector("h3")
+ .textContent = `${tvShow.name} - S ${String(tvShow.season).padStart(2, "0")}E${String(tvShow.number).padStart(2, "0")}`;
  const image = tvShowCard.querySelector("img");
  image.src = tvShow.image.medium;
  image.alt = tvShow.name;
- tvShowCard.querySelector("p").textContent = tvShow.summary;
+ tvShowCard.querySelector("p").innerHTML = tvShow.summary;
 
   root.appendChild(tvShowCard);
 
 /*
-const root = document.getElementById("root");
+const root = document.getElementById("root"); use map()
 
 //film.forEach((film) => {
   const filmCard = document.createElement("section");
