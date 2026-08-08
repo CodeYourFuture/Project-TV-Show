@@ -1,22 +1,54 @@
-//You can edit ALL of the code here
+// You can edit ALL of the code here
 let allEpisodes = [];
 
-function setup() {
-  allEpisodes = getAllEpisodes();
-  populateSelectDropdown(allEpisodes);
-  makePageForEpisodes(allEpisodes);
-  updateSearchCount(allEpisodes.length, allEpisodes.length);
-  // Event Listeners for Live Search & Dropdown Selection
+async function setup() {
+  const rootElem = document.getElementById("root");
+
+  // 1. Show Loading State
+  rootElem.innerHTML = `<p class="loading-state">Loading episodes, please wait...</p>`;
+
+  // Setup Event Listeners early (attached once on load)
   const searchInput = document.getElementById("search-input");
   const episodeSelect = document.getElementById("episode-select");
 
-  searchInput.addEventListener("input", handleSearch);
-  episodeSelect.addEventListener("change", handleSelect);
+  if (searchInput) searchInput.addEventListener("input", handleSearch);
+  if (episodeSelect) episodeSelect.addEventListener("change", handleSelect);
+
+  try {
+    // 2. Fetch Data ONCE from the API
+    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+
+    if (!response.ok) {
+      throw new Error(
+        `Server error: ${response.status} ${response.statusText}`,
+      );
+    }
+
+    // Store fetched episodes in global variable
+    allEpisodes = await response.json();
+
+    // 3. Initialize UI with fetched data
+    populateSelectDropdown(allEpisodes);
+    makePageForEpisodes(allEpisodes);
+    updateSearchCount(allEpisodes.length, allEpisodes.length);
+  } catch (error) {
+    // 4. Notify the user of any network or server errors on screen
+    rootElem.innerHTML = `
+      <div class="error-banner">
+        <h2>Unable to load episodes</h2>
+        <p>There was a problem fetching the data from TVMaze (${error.message}). Please check your connection and refresh the page.</p>
+      </div>
+    `;
+  }
 }
 
 // 2. Populate the <select> dropdown (e.g., "S01E01 - Winter is Coming")
 function populateSelectDropdown(episodes) {
   const select = document.getElementById("episode-select");
+  if (!select) return;
+
+  // Clear existing options except the default "ALL" option if it exists
+  select.innerHTML = '<option value="ALL">All episodes</option>';
 
   episodes.forEach((episode) => {
     const option = document.createElement("option");
@@ -27,12 +59,13 @@ function populateSelectDropdown(episodes) {
   });
 }
 
-// 3. Live Search Handler
+// 3. Live Search Handler (Operates on memory - NO refetching)
 function handleSearch(event) {
   const searchTerm = event.target.value.toLowerCase().trim();
 
   // Reset dropdown back to "Show all episodes" when typing in search
-  document.getElementById("episode-select").value = "ALL";
+  const episodeSelect = document.getElementById("episode-select");
+  if (episodeSelect) episodeSelect.value = "ALL";
 
   const filteredEpisodes = allEpisodes.filter((episode) => {
     const nameMatches = episode.name.toLowerCase().includes(searchTerm);
@@ -47,12 +80,13 @@ function handleSearch(event) {
   updateSearchCount(filteredEpisodes.length, allEpisodes.length);
 }
 
-// 4. Dropdown Selector Handler
+// 4. Dropdown Selector Handler (Operates on memory - NO refetching)
 function handleSelect(event) {
   const selectedId = event.target.value;
 
   // Clear search input text when picking from dropdown
-  document.getElementById("search-input").value = "";
+  const searchInput = document.getElementById("search-input");
+  if (searchInput) searchInput.value = "";
 
   if (selectedId === "ALL") {
     makePageForEpisodes(allEpisodes);
@@ -85,7 +119,7 @@ function formatEpisodeCode(season, number) {
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
 
-  // Clear the placeholder text before appending content
+  // Clear the container
   rootElem.innerHTML = "";
 
   // Create an episode container or grid wrapper
