@@ -37,3 +37,13 @@ align-items: center;
 justify-content: center;
 display: flex;
  }
+.episode-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 15px;
+  width: 300px;
+}
+
+.episode-card img {
+  width: 100%;
+}
