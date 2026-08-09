@@ -1,5 +1,17 @@
 //You can edit ALL of the code here
 
+function setup() {
+  const allEpisodes = getAllEpisodes();
+  SetupSearchBar();
+  createSelectElement();
+  createOptionElements();
+  EventChange();
+
+  handleSearchINput();
+
+  makePageForEpisodes(allEpisodes);
+}
+
 function formatEpisodeCode(season, episode) {
   const formattedSeason = String(season).padStart(2, "0");
   const formattedNumber = String(episode).padStart(2, "0");
@@ -7,8 +19,7 @@ function formatEpisodeCode(season, episode) {
 }
 
 //Drop-down list
-function createSelectElement(episodeList) {
-  const allEpisodes = getAllEpisodes();
+function createSelectElement() {
   const createSelect = document.createElement("select");
   createSelect.id = "episode-select";
   const rootElem = document.getElementById("root");
@@ -51,8 +62,6 @@ function EventChange() {
 }
 
 // set the search bar...
-
-//From here , the purpose is to build the search bar
 function SetupSearchBar() {
   const searchInput = document.createElement("input");
   searchInput.type = "search";
@@ -69,7 +78,7 @@ function SetupSearchBar() {
 
 //show the specific episode when the user types.
 
-function handleSearchINput(event) {
+function handleSearchINput() {
   const allEpisodes = getAllEpisodes();
   const searchInput = document.getElementById("search-input");
   searchInput.addEventListener("input", (event) => {
@@ -132,24 +141,6 @@ function createDramaCard(episode) {
   card.append(summaryElem);
 
   return card;
-}
-
-const createSelect = document.createElement("select");
-createSelect.id = "episode-select";
-
-const RootContainer = document.getElementById("root");
-RootContainer.appendChild(createSelect);
-
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  createSelectElement();
-  createOptionElements();
-  EventChange();
-
-  SetupSearchBar();
-  handleSearchINput();
-
-  makePageForEpisodes(allEpisodes);
 }
 
 window.onload = setup;
