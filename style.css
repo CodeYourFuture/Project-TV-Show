@@ -1,23 +1,122 @@
-#root {
-  max-width: 1200px;
-  margin: auto;
+body {
   font-family: Arial, sans-serif;
+  margin: 0;
   padding: 20px;
+  background-color: #f4f4f9;
 }
 
-article {
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin: 20px 0;
+/* Controls Header */
+.controls-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  background: #ffffff;
+  padding: 15px;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-article img {
-  max-width: 300px;
+#episode-select,
+#search-input {
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#search-input {
+  width: 250px;
+}
+
+#search-count {
+  font-weight: bold;
+  color: #555;
+  margin-left: auto;
+}
+
+/* Grid Layout: 3 columns per row */
+.episodes-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Responsive adjustments for mobile/tablet */
+@media (max-width: 900px) {
+  .episodes-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .controls-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #search-count {
+    margin-left: 0;
+  }
+
+  .episodes-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.episode-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.episode-title {
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+
+.episode-title a {
+  color: #333;
+  text-decoration: none;
+}
+
+.episode-title a:hover {
+  text-decoration: underline;
+  color: #0066cc;
+}
+
+.episode-image {
   width: 100%;
   height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
 }
 
-h1 {
+.episode-summary {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+.tvmaze-attribution {
+  margin-top: 40px;
   text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.tvmaze-attribution a {
+  color: #0066cc;
+}  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.tvmaze-attribution a {
+  color: #0066cc;
+  text-decoration: none;
 }
