@@ -1,8 +1,9 @@
 //You can edit ALL of the code here
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
   const rootElem = document.getElementById("root");
+  // Show a loading message as we are now loading data async.
+  rooElem.innerHTML = "<p class ='Loading-message'>loading episodes, please wait ..</p>";
 
   // Create the search and filter controls
   const controls = document.createElement("div");
