@@ -4,7 +4,18 @@ function setup() {
   const rootElem = document.getElementById("root");
   // Show a loading message as we are now loading data async.
   rooElem.innerHTML = "<p class ='Loading-message'>loading episodes, please wait ..</p>";
-
+  //implement fetch request to TVMaze API (Executed exactly once)
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+  .then(function (response) {
+    if (!response.ok){
+      throw new Error(`Server responded with status:${response.status}`);
+    }
+    return response.json();
+  })
+  .then(function (allEpisodes) {
+    // clear the loading message before rendering the application layout
+    rootElem.innerHTML ="";
+  
   // Create the search and filter controls
   const controls = document.createElement("div");
 
@@ -79,8 +90,18 @@ function setup() {
 
     searchInput.value = "";
   });
+})
+.catch(function (error) {
+  // implement error that  user will see 
+   rootElem.innerHTML = `
+        <div class="error-container" style="border: 2px solid red; padding: 15px; background: #fff0f0;">
+          <h3>Oops! Something went wrong.</h3>
+          <p>We couldn't load the episodes right now. Please try refreshing the page.</p>
+          <p style="font-size: 0.85rem; color: gray;">Error details: ${error.message}</p>
+        </div>
+      `;
+    });
 }
-
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
 
