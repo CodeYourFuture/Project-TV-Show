@@ -3,7 +3,7 @@
 function setup() {
   const rootElem = document.getElementById("root");
   // Show a loading message as we are now loading data async.
-  rooElem.innerHTML = "<p class ='Loading-message'>loading episodes, please wait ..</p>";
+  rootElem.innerHTML = "<p class ='Loading-message'>loading episodes, please wait ..</p>";
   //implement fetch request to TVMaze API (Executed exactly once)
   fetch("https://api.tvmaze.com/shows/82/episodes")
   .then(function (response) {
