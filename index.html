@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Russom Gebremeskel russom-g</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="root">
-      <template id = "tv-show-card">
-          <section>
-            <h3>Tv show title</h3>
-            <img alt="Episode image">
-            </p></p>
-          </section>
-        </section>
-      </template>
-      <!--hello world! -->
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Russom Gebremeskel russom-g</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+<body>
+  <label>
+    Search <input type="search" id="q" name="q" placeholder="Search term" /> 🔍
+  </label>
+  <div id="root">
+    <template id="tv-show-card">
+      <h3>Tv show title</h3>
+      <img alt="Episode image">
+      </p>
+      </p>
+    </template>
+    <section id="film-box"></section>
+    <!--hello world! -->
+  </div>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js" defer></script>
-  </body>
+  <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+
+  <script src="episodes.js"></script>
+
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js" defer></script>
+</body>
+
 </html>
