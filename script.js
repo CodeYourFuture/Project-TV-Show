@@ -1,72 +1,15 @@
 // Global State & Cache
 let allShows = [];
 let allEpisodes = [];
-const showsCache = {}; // Cache episodes by show ID to enforce the single-fetch rule
 
-async function setup() {
-  const rootElem = document.getElementById("root");
-  rootElem.innerHTML = `<p class="loading-state">Loading shows, please wait...</p>`;
-
-  // Wire event listeners once on load
-  const showSelect = document.getElementById("show-select");
-  const searchInput = document.getElementById("search-input");
-  const episodeSelect = document.getElementById("episode-select");
-
-  if (showSelect) showSelect.addEventListener("change", handleShowSelect);
-  if (searchInput) searchInput.addEventListener("input", handleSearch);
-  if (episodeSelect) episodeSelect.addEventListener("change", handleSelect);
-
-  try {
-    // 1. Fetch shows list
-    const response = await fetch("https://api.tvmaze.com/shows");
-    if (!response.ok) {
-      throw new Error(`Failed to load shows (${response.status})`);
-    }
-
-    const rawShows = await response.json();
-
-    // 2. Sort shows alphabetically (case-insensitive)
-    allShows = rawShows.sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: "accent" }),
-    );
-
-    // 3. Populate Show Dropdown
-    populateShowDropdown(allShows);
-
-    // 4. Load initial show (e.g., Game of Thrones - ID 82, or the first show in list)
-    const defaultShowId = allShows.find((show) => show.id === 82)
-      ? 82
-      : allShows[0].id;
-
-    showSelect.value = defaultShowId;
-    await loadEpisodesForShow(defaultShowId);
-  } catch (error) {
-    rootElem.innerHTML = `
-      <div class="error-banner">
-        <h2>Unable to load shows</h2>
-        <p>Error: ${error.message}. Please check your connection and refresh.</p>
-      </div>
-    `;
-  }
+function setup() {
+  allEpisodes = getAllEpisodes();
+  createControls();
+  makePageForEpisodes(allEpisodes);
+  addTvmazeAttribution();
 }
 
-// Populate Show Selector
-function populateShowDropdown(shows) {
-  const select = document.getElementById("show-select");
-  if (!select) return;
-
-  select.innerHTML = ""; // Clear options
-
-  shows.forEach((show) => {
-    const option = document.createElement("option");
-    option.value = show.id;
-    option.textContent = show.name;
-    select.appendChild(option);
-  });
-}
-
-// Fetch or retrieve episodes from cache
-async function loadEpisodesForShow(showId) {
+function createControls() {
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = `<p class="loading-state">Loading episodes...</p>`;
 
