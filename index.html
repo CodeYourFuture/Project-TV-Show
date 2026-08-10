@@ -4,18 +4,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TV Show Project | Toluwalase Tiamiyu (TTiamiyu)</title>
+  <title>TV Show Project | Ogbemi Mene (meneogbemi42-bit)</title>
   <link href="style.css" rel="stylesheet" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 </head>
 
 <body>
-  <div id="root">
-  </div>
+  <header class="controls-header">
+    <select id="show-select">
+      <option value="">Select a show...</option>
+    </select>
+    <select id="episode-select">
+      <option value="ALL">All episodes</option>
+    </select>
+    <input type="text" id="search-input" placeholder="Search episodes..." />
+    <span id="search-count"></span>
+  </header>
 
+  <div id="root"></div>
 
-
-  <!-- Loads YOUR javascript code -->
   <script src="script.js"></script>
 </body>
 
