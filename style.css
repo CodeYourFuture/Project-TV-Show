@@ -8,9 +8,8 @@
 }
 
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
   background-color: #f4f6f8;
   color: #333;
   line-height: 1.5;
@@ -24,8 +23,9 @@ body {
 }
 
 /* ================================
-   2. Controls Container (Top Bar)
+   2. Controls Container (Top Header Bar)
    ================================ */
+.controls-header,
 .controls-container {
   position: sticky;
   top: 0;
@@ -35,13 +35,15 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 12px;
   padding: 16px 24px;
   margin-bottom: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
 }
 
+.controls-header select,
+.controls-header input[type="text"],
 .controls-container select,
 .controls-container input[type="text"] {
   padding: 10px 14px;
@@ -49,14 +51,15 @@ body {
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-  flex: 1 1 220px;
-  /* Responsive sizing */
-  max-width: 350px;
+  background-color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  flex: 1 1 200px;
+  /* Responsive flex sizing for 3 control elements */
+  max-width: 280px;
 }
 
+.controls-header select:focus,
+.controls-header input[type="text"]:focus,
 .controls-container select:focus,
 .controls-container input[type="text"]:focus {
   border-color: #0066cc;
@@ -71,7 +74,40 @@ body {
 }
 
 /* ================================
-   3. Episodes Grid
+   3. Loading & Error Feedback States
+   ================================ */
+.loading-state {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0066cc;
+  padding: 60px 20px;
+}
+
+.error-banner {
+  background-color: #fdf2f2;
+  border: 1px solid #f8b4b4;
+  border-left: 5px solid #e53e3e;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 20px auto;
+  max-width: 800px;
+  color: #9b2c2c;
+}
+
+.error-banner h2 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: #c53030;
+}
+
+.error-banner p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ================================
+   4. Episodes Grid
    ================================ */
 .episodes-container {
   display: grid;
@@ -81,7 +117,7 @@ body {
 }
 
 /* ================================
-   4. Episode Card
+   5. Episode Card
    ================================ */
 .episode-card {
   background-color: #ffffff;
@@ -90,9 +126,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .episode-card:hover {
@@ -134,7 +168,7 @@ body {
 }
 
 /* ================================
-   5. Footer (TVMaze Attribution)
+   6. Footer (TVMaze Attribution)
    ================================ */
 #tvmaze-attribution {
   text-align: center;
@@ -156,83 +190,25 @@ body {
 }
 
 /* ================================
-   6. Mobile Responsiveness
+   7. Mobile Responsiveness
    ================================ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
+  .controls-header,
   .controls-container {
     flex-direction: column;
     align-items: stretch;
   }
 
+  .controls-header select,
+  .controls-header input[type="text"],
   .controls-container select,
   .controls-container input[type="text"] {
     max-width: 100%;
+    width: 100%;
   }
 
   #search-count {
     text-align: center;
   }
-}
-/* ==========================================
-   Loading State & Spinner
-   ========================================== */
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 1rem;
-  color: #4a5568;
-}
-
-.spinner {
-  width: 48px;
-  height: 48px;
-  border: 4px solid #e2e8f0;
-  border-top: 4px solid #3182ce;
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
-  margin-bottom: 1rem;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.loading-container p {
-  font-size: 1.125rem;
-  font-weight: 500;
-  margin: 0;
-}
-
-/* ==========================================
-   Error Alert Banner
-   ========================================== */
-.error-container {
-  max-width: 500px;
-  margin: 3rem auto;
-  padding: 1.5rem;
-  background-color: #fff5f5;
-  border: 1px solid #feb2b2;
-  border-left: 5px solid #e53e3e;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.error-container h3 {
-  color: #9b2c2c;
-  margin: 0 0 0.5rem 0;
-  font-size: 1.25rem;
-}
-
-.error-container p {
-  color: #742a2a;
-  margin: 0;
-  font-size: 0.95rem;
 }
