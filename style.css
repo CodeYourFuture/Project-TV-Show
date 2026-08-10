@@ -23,8 +23,9 @@ body {
 }
 
 /* ================================
-   2. Controls Container (Top Bar)
+   2. Controls Container (Top Header Bar)
    ================================ */
+.controls-header,
 .controls-container {
   position: sticky;
   top: 0;
@@ -34,13 +35,15 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 12px;
   padding: 16px 24px;
   margin-bottom: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-radius: 8px;
 }
 
+.controls-header select,
+.controls-header input[type="text"],
 .controls-container select,
 .controls-container input[type="text"] {
   padding: 10px 14px;
@@ -48,12 +51,15 @@ body {
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
+  background-color: #fff;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  flex: 1 1 220px;
-  /* Responsive sizing */
-  max-width: 350px;
+  flex: 1 1 200px;
+  /* Responsive flex sizing for 3 control elements */
+  max-width: 280px;
 }
 
+.controls-header select:focus,
+.controls-header input[type="text"]:focus,
 .controls-container select:focus,
 .controls-container input[type="text"]:focus {
   border-color: #0066cc;
@@ -68,7 +74,40 @@ body {
 }
 
 /* ================================
-   3. Episodes Grid
+   3. Loading & Error Feedback States
+   ================================ */
+.loading-state {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0066cc;
+  padding: 60px 20px;
+}
+
+.error-banner {
+  background-color: #fdf2f2;
+  border: 1px solid #f8b4b4;
+  border-left: 5px solid #e53e3e;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 20px auto;
+  max-width: 800px;
+  color: #9b2c2c;
+}
+
+.error-banner h2 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: #c53030;
+}
+
+.error-banner p {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ================================
+   4. Episodes Grid
    ================================ */
 .episodes-container {
   display: grid;
@@ -78,7 +117,7 @@ body {
 }
 
 /* ================================
-   4. Episode Card
+   5. Episode Card
    ================================ */
 .episode-card {
   background-color: #ffffff;
@@ -129,7 +168,7 @@ body {
 }
 
 /* ================================
-   5. Footer (TVMaze Attribution)
+   6. Footer (TVMaze Attribution)
    ================================ */
 #tvmaze-attribution {
   text-align: center;
@@ -151,17 +190,22 @@ body {
 }
 
 /* ================================
-   6. Mobile Responsiveness
+   7. Mobile Responsiveness
    ================================ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+
+  .controls-header,
   .controls-container {
     flex-direction: column;
     align-items: stretch;
   }
 
+  .controls-header select,
+  .controls-header input[type="text"],
   .controls-container select,
   .controls-container input[type="text"] {
     max-width: 100%;
+    width: 100%;
   }
 
   #search-count {
