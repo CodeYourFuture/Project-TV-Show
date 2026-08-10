@@ -18,6 +18,7 @@ const API_SHOW_URL = 'https://api.tvmaze.com/shows';
 
 let showsCache = null;
 let showsPromise = null;
+// store key-value pairs for easy lookup
 const filmsCache = new Map();
 const filmsPromises = new Map();
 
