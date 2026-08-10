@@ -1,4 +1,4 @@
-//You can edit ALL of the code here
+// You can edit ALL of the code here
 
 async function fetchEpisodes() {
   try {
@@ -21,7 +21,6 @@ const filmSelect = document.getElementById("film-select");
 const searchInput = document.getElementById("film-search");
 const exitButton = document.querySelector(".exit");
 
-// track state of changes - eg input searches
 const state = {
   query: "",
   films: allEpisodes,
@@ -82,23 +81,23 @@ const createFilmCard = (film) => {
   filmSummary.innerHTML = summary;
 
   return filmCard;
-};
+}
 
 const renderFilms = () => {
   const rootElem = document.getElementById("film-grid");
   // clear film grid before repopulating it
   rootElem.innerHTML = "";
 
-  // input query searches
   const { query, films } = state;
-  const filmSearch = films.filter((film) => {
-    return (
-      film.name.toLowerCase().includes(query) ||
-      film.summary.toLowerCase().includes(query)
-    );
+  const normalisedQuery = query.trim().toLowerCase();
+
+  const filteredFilms = films.filter((film) => {
+    const name = film.name?.toLowerCase() || '';
+    const summary = film.summary?.toLowerCase() || '';
+    return name.includes(normalisedQuery) || summary.includes(normalisedQuery);
   });
 
-  let episodeList;
+  const episodeList = normalisedQuery === '' ? films : filteredFilms;
 
   // check if film list is filtered or not
   if (state.query === "") {
