@@ -1,214 +1,263 @@
-/* ================================
-   1. Base & Layout Styles
-   ================================ */
+/* General Layout & Fonts */
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  background-color: #f4f6f8;
-  color: #333;
-  line-height: 1.5;
-  padding-bottom: 60px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7fafc;
+  color: #2d3748;
 }
 
-#root {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.hidden {
+  display: none !important;
 }
 
-/* ================================
-   2. Controls Container (Top Header Bar)
-   ================================ */
-.controls-header,
+/* Controls Container Styling */
 .controls-container {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #ffffff;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
+  background-color: #2b6cb0;
   padding: 16px 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.controls-header select,
-.controls-header input[type="text"],
 .controls-container select,
 .controls-container input[type="text"] {
-  padding: 10px 14px;
-  font-size: 0.95rem;
-  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e0;
   border-radius: 6px;
+  font-size: 0.95rem;
   outline: none;
-  background-color: #fff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  flex: 1 1 200px;
-  /* Responsive flex sizing for 3 control elements */
-  max-width: 280px;
 }
 
-.controls-header select:focus,
-.controls-header input[type="text"]:focus,
-.controls-container select:focus,
-.controls-container input[type="text"]:focus {
-  border-color: #0066cc;
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.15);
+.controls-container select {
+  max-width: 220px;
+  background-color: #ffffff;
+}
+
+.controls-container input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  background-color: #3182ce;
+  color: #ffffff;
+  border: 1px solid #63b3ed;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: #2b6cb0;
 }
 
 #search-count {
+  color: #ffffff;
   font-weight: 600;
-  color: #555;
-  font-size: 0.95rem;
-  white-space: nowrap;
+  font-size: 0.9rem;
+  margin-left: auto;
 }
 
-/* ================================
-   3. Loading & Error Feedback States
-   ================================ */
-.loading-state {
+/* Loading & Error States */
+.loading-container,
+.error-container {
   text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #0066cc;
   padding: 60px 20px;
 }
 
-.error-banner {
-  background-color: #fdf2f2;
-  border: 1px solid #f8b4b4;
-  border-left: 5px solid #e53e3e;
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 16px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3182ce;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Main Container Layouts */
+#root {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Shows Listing Layout - 2 Side by Side */
+.shows-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.show-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 8px;
-  padding: 20px 24px;
-  margin: 20px auto;
-  max-width: 800px;
-  color: #9b2c2c;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-.error-banner h2 {
-  font-size: 1.25rem;
-  margin-bottom: 8px;
-  color: #c53030;
+.show-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.error-banner p {
-  font-size: 0.95rem;
+.show-card-body {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.show-card-media {
+  flex-shrink: 0;
+  width: 120px;
+  cursor: pointer;
+}
+
+.show-card-media img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.show-card-content {
+  flex: 1;
+}
+
+.show-card-content h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+  color: #2b6cb0;
+  cursor: pointer;
+}
+
+.show-card-content h2:hover {
+  text-decoration: underline;
+}
+
+.show-card-summary {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: #4a5568;
+}
+
+.show-card-meta {
+  background-color: #f7fafc;
+  border-top: 1px solid #e2e8f0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  font-size: 0.85rem;
+  margin-top: auto;
+}
+
+.show-card-meta p {
   margin: 0;
+  color: #4a5568;
 }
 
-/* ================================
-   4. Episodes Grid
-   ================================ */
+/* Episodes Grid Layout */
 .episodes-container {
   display: grid;
-  /* Automatically fits as many 280px cards per row as possible */
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
 }
 
-/* ================================
-   5. Episode Card
-   ================================ */
 .episode-card {
   background-color: #ffffff;
-  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.episode-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.episode-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #1a1a1a;
-  padding: 16px;
+.episode-header {
+  background-color: #edf2f7;
+  padding: 12px 16px;
   text-align: center;
-  background-color: #f9f9fb;
-  border-bottom: 1px solid #eeeeee;
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.episode-header h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #2b6cb0;
 }
 
 .episode-card img {
   width: 100%;
-  height: 200px;
+  height: 160px;
   object-fit: cover;
-  display: block;
+  background-color: #e2e8f0;
 }
 
 .episode-summary {
   padding: 16px;
   font-size: 0.9rem;
-  color: #4a4a4a;
-  flex-grow: 1;
-  /* Ensures equal-height cards in grid */
+  line-height: 1.5;
+  color: #4a5568;
+  flex: 1;
 }
 
-.episode-summary p {
-  margin-bottom: 8px;
-}
-
-/* ================================
-   6. Footer (TVMaze Attribution)
-   ================================ */
+/* High Contrast TVMaze Footer */
 #tvmaze-attribution {
   text-align: center;
-  padding: 20px;
-  margin-top: 40px;
+  padding: 24px 16px;
+  color: #2d3748;
   font-size: 0.9rem;
-  color: #666;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #cbd5e0;
+  margin-top: 40px;
 }
 
 #tvmaze-attribution a {
-  color: #0066cc;
-  text-decoration: none;
+  color: #1a202c;
   font-weight: 600;
-}
-
-#tvmaze-attribution a:hover {
   text-decoration: underline;
 }
 
-/* ================================
-   7. Mobile Responsiveness
-   ================================ */
-@media (max-width: 768px) {
+#tvmaze-attribution a:hover,
+#tvmaze-attribution a:focus {
+  color: #2b6cb0;
+  outline: 2px solid #2b6cb0;
+}
 
-  .controls-header,
-  .controls-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .controls-header select,
-  .controls-header input[type="text"],
-  .controls-container select,
-  .controls-container input[type="text"] {
-    max-width: 100%;
-    width: 100%;
-  }
-
-  #search-count {
-    text-align: center;
+/* Responsive adjustment */
+@media (max-width: 820px) {
+  .shows-container {
+    grid-template-columns: 1fr;
   }
 }
