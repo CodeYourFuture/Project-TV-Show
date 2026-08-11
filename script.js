@@ -75,9 +75,18 @@ function showShowsListingView() {
     showSearchInput.style.display = "inline-block";
     showSearchInput.value = "";
   }
-  if (searchInput) searchInput.style.display = "none";
-  if (episodeSelect) episodeSelect.style.display = "none";
-  if (showSelect) showSelect.value = "";
+  if (searchInput) {
+    searchInput.style.display = "none";
+    searchInput.value = "";
+  }
+  if (episodeSelect) {
+    episodeSelect.style.display = "none";
+    episodeSelect.innerHTML = "";
+  }
+  if (showSelect) {
+    showSelect.style.display = "inline-block";
+    showSelect.value = "";
+  }
 
   makePageForShows(allShows);
 }
@@ -94,11 +103,18 @@ function showEpisodesView() {
   const showSearchInput = document.getElementById("show-search-input");
   const searchInput = document.getElementById("search-input");
   const episodeSelect = document.getElementById("episode-select");
+  const showSelect = document.getElementById("show-select");
 
   if (backBtn) backBtn.style.display = "inline-block";
   if (showSearchInput) showSearchInput.style.display = "none";
-  if (searchInput) searchInput.style.display = "inline-block";
-  if (episodeSelect) episodeSelect.style.display = "inline-block";
+  if (showSelect) showSelect.style.display = "inline-block";
+  if (searchInput) {
+    searchInput.style.display = "inline-block";
+    searchInput.value = "";
+  }
+  if (episodeSelect) {
+    episodeSelect.style.display = "inline-block";
+  }
 }
 
 // ==========================================
@@ -106,6 +122,8 @@ function showEpisodesView() {
 // ==========================================
 function createControls() {
   const rootElem = document.getElementById("root");
+
+  if (document.querySelector(".controls-container")) return;
 
   const controlsContainer = document.createElement("div");
   controlsContainer.className = "controls-container";
@@ -142,8 +160,8 @@ function createControls() {
 
   controlsContainer.appendChild(backBtn);
   controlsContainer.appendChild(showSelect);
-  controlsContainer.appendChild(episodeSelect);
   controlsContainer.appendChild(showSearchInput);
+  controlsContainer.appendChild(episodeSelect);
   controlsContainer.appendChild(searchInput);
   controlsContainer.appendChild(countDisplay);
 
@@ -154,7 +172,7 @@ function createControls() {
   const episodesContainer = document.createElement("div");
   episodesContainer.id = "episodes-container";
 
-  rootElem.parentNode.insertBefore(controlsContainer, rootElem);
+  rootElem.appendChild(controlsContainer);
   rootElem.appendChild(showsContainer);
   rootElem.appendChild(episodesContainer);
 
@@ -285,6 +303,7 @@ function handleShowSearch(event) {
   makePageForShows(filteredShows);
 }
 
+// Line 233: Made async to handle loading episodes properly
 async function handleShowClick(showId) {
   const showSelect = document.getElementById("show-select");
   if (showSelect) showSelect.value = showId;
@@ -304,10 +323,17 @@ async function handleShowSelect(event) {
 // EPISODES LISTING & SEARCH
 // ==========================================
 async function loadEpisodesForShow(showId) {
-  showLoading();
+  const episodesContainer = document.getElementById("episodes-container");
+  if (episodesContainer) {
+    episodesContainer.innerHTML = `
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading episodes, please wait...</p>
+      </div>
+    `;
+  }
 
   try {
-    // Requirement 6: Check cache first to avoid re-fetching
     if (episodesCache[showId]) {
       allEpisodes = episodesCache[showId];
     } else {
@@ -318,7 +344,7 @@ async function loadEpisodesForShow(showId) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       allEpisodes = await response.json();
-      episodesCache[showId] = allEpisodes; // Save to cache
+      episodesCache[showId] = allEpisodes;
     }
 
     showEpisodesView();
@@ -333,15 +359,17 @@ async function loadEpisodesForShow(showId) {
   }
 }
 
-// Episode Search Handler
+// Line 291: Episode Search Handler with safe target evaluation and dropdown reset
 function handleSearch(event) {
-  const searchTerm = event.target.value.toLowerCase().trim();
+  const searchTerm = (event?.target?.value || "").toLowerCase().trim();
 
   const episodeSelect = document.getElementById("episode-select");
   if (episodeSelect) episodeSelect.value = "ALL";
 
   const filteredEpisodes = allEpisodes.filter((episode) => {
-    const nameMatches = episode.name.toLowerCase().includes(searchTerm);
+    const nameMatches = episode.name
+      ? episode.name.toLowerCase().includes(searchTerm)
+      : false;
     const summaryMatches = episode.summary
       ? episode.summary.toLowerCase().includes(searchTerm)
       : false;
@@ -369,7 +397,8 @@ function handleSelect(event) {
   }
 }
 
-function updateCount(matchCount, totalCount, type = "episodes") {
+// Line 314: Updated count function to safely handle missing elements and display counts
+function updateCount(matchCount = 0, totalCount = 0, type = "episodes") {
   const countDisplay = document.getElementById("search-count");
   if (countDisplay) {
     countDisplay.textContent = `Displaying ${matchCount}/${totalCount} ${type}`;
