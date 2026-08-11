@@ -3,9 +3,63 @@
 let allEpisodes = []; // Global array to store all loaded episodes
 
 function setup() {
-  allEpisodes = getAllEpisodes();
-  createControls(); // Create search box & drop-down
-  makePageForEpisodes(allEpisodes);
+  showLoadingMessage();
+
+  // Fetch the episodes ONCE when the website loads
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then((episodes) => {
+      // Store the fetched data
+      allEpisodes = episodes;
+
+      // Remove loading message
+      const loadingMessage = document.getElementById("loading-message");
+      if (loadingMessage) {
+        loadingMessage.remove();
+      }
+
+      // Build the page using the fetched data
+      createControls();
+      makePageForEpisodes(allEpisodes);
+    })
+    .catch((error) => {
+      console.error("Failed to load episodes:", error);
+      showErrorMessage();
+    });
+}
+
+// Shows a message while the API request is in progress
+function showLoadingMessage() {
+  const rootElem = document.getElementById("root");
+
+  const loadingMessage = document.createElement("p");
+  loadingMessage.id = "loading-message";
+  loadingMessage.textContent = "Loading episodes, please wait...";
+
+  rootElem.appendChild(loadingMessage);
+}
+
+// Shows an error message if the API request fails
+function showErrorMessage() {
+  const rootElem = document.getElementById("root");
+
+  const loadingMessage = document.getElementById("loading-message");
+  if (loadingMessage) {
+    loadingMessage.remove();
+  }
+
+  const errorMessage = document.createElement("p");
+  errorMessage.id = "error-message";
+  errorMessage.textContent =
+    "Sorry, we couldn't load the episodes. Please try again later.";
+
+  rootElem.appendChild(errorMessage);
 }
 
 // Builds top controls: Search bar, Count display, and Drop-down selector
