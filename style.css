@@ -13,7 +13,6 @@ body {
   padding: 2rem;
 }
 
-
 /* Controls */
 .controls {
   display: flex;
@@ -31,7 +30,8 @@ body {
   font-weight: bold;
 }
 
-.controls input,.controls select {
+.controls input,
+.controls select {
   padding: 8px 12px;
   font-size: 16px;
   border: 1px solid #aaa;
@@ -192,8 +192,8 @@ footer a:hover {
   }
 }
 
-
-.loading, .error {
+.loading,
+.error {
   min-height: 400px;
   display: flex;
   align-items: center;
@@ -203,4 +203,12 @@ footer a:hover {
 .error {
   color: #dc2626;
   font-weight: bold;
+}
+/*------*/
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  color: #1d4ed8;
 }
