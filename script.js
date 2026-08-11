@@ -6,6 +6,15 @@ const state = {
 };
 
 const elements = {};
+// Fetch shows from the TVMaze
+function fetchShows() {
+  return fetch("https://api.tvmaze.com/shows").then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  });
+}
 
 // Fetch episodes from the TVMaze API
 function fetchEpisodes() {
@@ -26,6 +35,22 @@ function setup() {
 
   elements.root.innerHTML = `<div class="loading">Loading episodes...</div>`;
 
+  //Shows
+  fetchShows()
+    .then((shows) => {
+      state.shows = shows;
+
+      state.shows.sort((a, b) =>
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
+      );
+
+      createShowOptions();
+      setupShowSelector();
+    })
+    .catch((error) => {
+      console.error("Failed to load shows:", error);
+    });
+
   fetchEpisodes()
     .then((episodes) => {
       state.episodes = episodes;
@@ -38,6 +63,22 @@ function setup() {
       elements.root.innerHTML = `<div class="error">Failed to load episodes.</div>`;
       console.error(error);
     });
+}
+// create options for the shows selector dropdown
+function createShowOptions() {
+  const showSelect = document.getElementById("show-selector");
+
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "Select Show";
+  showSelect.appendChild(defaultOption);
+
+  state.shows.forEach((show) => {
+    const option = document.createElement("option");
+    option.value = show.id;
+    option.textContent = show.name;
+    showSelect.appendChild(option);
+  });
 }
 
 // Create options for the episode selector dropdown
