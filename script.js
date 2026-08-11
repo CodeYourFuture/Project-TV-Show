@@ -20,7 +20,7 @@ async function fetchEpisodes() {
     console.error("Fetch error:", error);
     return [];
   }
-}
+} //commit trying//
 
 // Format SxxExx
 function formatEpisodeCode(season, episode) {
@@ -66,7 +66,7 @@ function EventChange() {
       makePageForEpisodes(allEpisodes);
     } else {
       const result = allEpisodes.filter(
-        (episode) => episode.id === Number(selectedValue)
+        (episode) => episode.id === Number(selectedValue),
       );
       makePageForEpisodes(result);
     }
