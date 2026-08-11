@@ -3,9 +3,19 @@ const state = {
   episodes: [],
   searchTerm: "",
   selectedEpisode: null,
+  cachedEpisodes: {},
 };
 
 const elements = {};
+// Fetch shows from the TVMaze
+function fetchShows() {
+  return fetch("https://api.tvmaze.com/shows").then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  });
+}
 
 // Fetch episodes from the TVMaze API
 function fetchEpisodes() {
@@ -26,6 +36,22 @@ function setup() {
 
   elements.root.innerHTML = `<div class="loading">Loading episodes...</div>`;
 
+  //Shows
+  fetchShows()
+    .then((shows) => {
+      state.shows = shows;
+
+      state.shows.sort((a, b) =>
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
+      );
+
+      createShowOptions();
+      setupShowSelector();
+    })
+    .catch((error) => {
+      console.error("Failed to load shows:", error);
+    });
+
   fetchEpisodes()
     .then((episodes) => {
       state.episodes = episodes;
@@ -39,9 +65,28 @@ function setup() {
       console.error(error);
     });
 }
+// create options for the shows selector dropdown
+function createShowOptions() {
+  const showSelect = document.getElementById("show-selector");
+
+  showSelect.innerHTML = "";
+
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "Select Show";
+  showSelect.appendChild(defaultOption);
+
+  state.shows.forEach((show) => {
+    const option = document.createElement("option");
+    option.value = show.id;
+    option.textContent = show.name;
+    showSelect.appendChild(option);
+  });
+}
 
 // Create options for the episode selector dropdown
 function createEpisodeOptions() {
+  elements.episodeSelect.innerHTML = "";
   const allOption = document.createElement("option");
   allOption.value = "";
   allOption.textContent = "All Episodes";
@@ -64,6 +109,33 @@ function setupSearch() {
     state.searchTerm = elements.searchInput.value.toLowerCase();
     state.selectedEpisode = null;
     elements.episodeSelect.value = "";
+    render();
+  });
+}
+
+// Setup Event listener for Shows
+function setupShowSelector() {
+  const showSelect = document.getElementById("show-selector");
+  showSelect.addEventListener("change", async (event) => {
+    const showId = event.target.value;
+
+    if (state.cachedEpisodes[showId]) {
+      state.episodes = state.cachedEpisodes[showId];
+    } else {
+      const response = await fetch(
+        `https://api.tvmaze.com/shows/${showId}/episodes`,
+      );
+      const episodes = await response.json();
+      state.cachedEpisodes[showId] = episodes;
+      state.episodes = episodes;
+    }
+
+    state.searchTerm = "";
+    state.selectedEpisode = null;
+    elements.searchInput.value = "";
+    elements.episodeSelect.value = "";
+
+    createEpisodeOptions();
     render();
   });
 }
