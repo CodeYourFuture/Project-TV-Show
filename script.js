@@ -3,6 +3,7 @@ const state = {
   episodes: [],
   searchTerm: "",
   selectedEpisode: null,
+  cachedEpisodes: {},
 };
 
 const elements = {};
@@ -117,12 +118,17 @@ function setupShowSelector() {
   const showSelect = document.getElementById("show-selector");
   showSelect.addEventListener("change", async (event) => {
     const showId = event.target.value;
-    const response = await fetch(
-      `https://api.tvmaze.com/shows/${showId}/episodes`,
-    );
-    const episodes = await response.json();
 
-    state.episodes = episodes;
+    if (state.cachedEpisodes[showId]) {
+      state.episodes = state.cachedEpisodes[showId];
+    } else {
+      const response = await fetch(
+        `https://api.tvmaze.com/shows/${showId}/episodes`,
+      );
+      const episodes = await response.json();
+      state.cachedEpisodes[showId] = episodes;
+      state.episodes = episodes;
+    }
 
     state.searchTerm = "";
     state.selectedEpisode = null;
