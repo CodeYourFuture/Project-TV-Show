@@ -1,34 +1,34 @@
 // You can edit ALL of the code here
 
-const filmGrid = document.getElementById('film-grid');
-const singleFilmContainer = document.querySelector('.single-film-grid');
-const filterDisplay = document.querySelector('.filter-display');
-const searchArea = document.querySelector('.search-area');
-const filmSelect = document.getElementById('film-select');
-const showSelect = document.getElementById('show-select');
-const searchInput = document.getElementById('film-search');
-const exitButton = document.querySelector('.exit');
-const API_SHOW_URL = 'https://api.tvmaze.com/shows';
+const episodeGrid = document.getElementById("film-grid");
+const singleEpisodeContainer = document.querySelector(".single-film-grid");
+const filterDisplay = document.querySelector(".filter-display");
+const searchArea = document.querySelector(".search-area");
+const episodeSelect = document.getElementById("film-select");
+const showSelect = document.getElementById("show-select");
+const searchInput = document.getElementById("film-search");
+const exitButton = document.querySelector(".exit");
+const API_SHOW_URL = "https://api.tvmaze.com/shows";
 
 let showsCache = null;
 let showsPromise = null;
-const filmsCache = new Map();
-const filmsPromises = new Map();
+const episodesCache = new Map();
+const episodesPromises = new Map();
 
 const state = {
-  query: '',
-  films: [],
+  query: "",
+  episodes: [],
   shows: [],
-  episodeId: 124,
-  selectedFilm: {},
+  selectedShowId: 124,
+  selectedEpisode: {},
 };
 
 function showMessage(message, duration = 3000) {
-  const existingMessage = document.querySelector('.app-message');
+  const existingMessage = document.querySelector(".app-message");
   if (existingMessage) existingMessage.remove();
 
-  const messageBox = document.createElement('div');
-  messageBox.className = 'app-message';
+  const messageBox = document.createElement("div");
+  messageBox.className = "app-message";
   messageBox.textContent = message;
   document.body.appendChild(messageBox);
 
@@ -38,7 +38,7 @@ function showMessage(message, duration = 3000) {
 }
 
 function clearMessage() {
-  document.querySelector('.app-message')?.remove();
+  document.querySelector(".app-message")?.remove();
 }
 
 async function fetchJson(url) {
@@ -62,58 +62,58 @@ async function fetchShows() {
   return showsPromise;
 }
 
-async function fetchFilms(showId = state.episodeId) {
-  if (filmsCache.has(showId)) {
-    return filmsCache.get(showId);
+async function fetchEpisodes(showId = state.selectedShowId) {
+  if (episodesCache.has(showId)) {
+    return episodesCache.get(showId);
   }
 
-  if (!filmsPromises.has(showId)) {
+  if (!episodesPromises.has(showId)) {
     const promise = fetchJson(
       `https://api.tvmaze.com/shows/${showId}/episodes`
     ).then((data) => {
-      filmsCache.set(showId, data);
+      episodesCache.set(showId, data);
       return data;
     });
 
-    filmsPromises.set(showId, promise);
+    episodesPromises.set(showId, promise);
   }
 
-  return filmsPromises.get(showId);
+  return episodesPromises.get(showId);
 }
 
 async function setup() {
-  showMessage('Loading shows...', 1000);
+  showMessage("Loading shows...", 1000);
 
   try {
     const fetchedShows = await fetchShows();
     state.shows = fetchedShows;
-    renderFilms();
+    renderEpisodes();
     populateShowSelect();
     clearMessage();
-    showMessage('Shows loaded', 1500);
+    showMessage("Shows loaded", 1500);
   } catch (error) {
-    console.error('Failed to load shows:', error);
-    showMessage('Sorry, we could not load the shows right now.');
+    console.error("Failed to load shows:", error);
+    showMessage("Sorry, we could not load the shows right now.");
   }
 }
 
-async function getFilms(showId = state.episodeId) {
-  showMessage('Loading films...', 1000);
+async function loadEpisodes(showId = state.selectedShowId) {
+  showMessage("Loading episodes...", 1000);
   try {
-    const fetchedFilms = await fetchFilms(showId);
-    state.films = fetchedFilms;
-    renderFilms();
-    populateFilmSelect();
+    const fetchedEpisodes = await fetchEpisodes(showId);
+    state.episodes = fetchedEpisodes;
+    renderEpisodes();
+    populateEpisodeSelect();
     clearMessage();
-    showMessage('Films loaded', 1500);
+    showMessage("Episodes loaded", 1500);
   } catch (error) {
-    console.error('Failed to load films:', error);
-    showMessage('Sorry, we could not load the films right now.');
+    console.error("Failed to load episodes:", error);
+    showMessage("Sorry, we could not load the episodes right now.");
   }
 }
 
 function populateShowOption(show) {
-  const option = document.createElement('option');
+  const option = document.createElement("option");
   const { id, name } = show;
   option.value = String(id);
   option.textContent = name;
@@ -124,116 +124,123 @@ function populateShowSelect() {
   const sortedShows = state.shows
     .map(({ id, name }) => ({ id, name }))
     .sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
     );
 
   showSelect.innerHTML = '<option value="">Select a show</option>';
   showSelect.append(...sortedShows.map(populateShowOption));
 
-  // set select to id of first show
   if (sortedShows.length > 0) {
     const firstShowId = sortedShows[0].id;
-    state.episodeId = firstShowId;
-    showSelect.value = state.episodeId;
-    getFilms(state.episodeId);
+    state.selectedShowId = firstShowId;
+    showSelect.value = state.selectedShowId;
+    loadEpisodes(state.selectedShowId);
   }
 }
 
 function formatEpisodeCode(prefix, value) {
-  return `${prefix}${String(value).padStart(2, '0')}`;
+  return `${prefix}${String(value).padStart(2, "0")}`;
 }
 
-function createFilmCard(film) {
-  const filmCard = document
-    .getElementById('film-card-template')
+function createEpisodeCard(episode) {
+  const episodeCard = document
+    .getElementById("film-card-template")
     .content.cloneNode(true);
-  const title = filmCard.querySelector('h3');
-  const filmImage = filmCard.querySelector('img');
-  const filmSummary = filmCard.querySelector('p');
 
-  title.innerText = `${film.name} - ${formatEpisodeCode('S', film.season)}${formatEpisodeCode('E', film.number)}`;
-  filmImage.src = film.image?.medium || '';
-  filmImage.alt = film.name || 'image from film';
-  filmSummary.innerHTML = film.summary || '';
+  const title = episodeCard.querySelector("h3");
+  const episodeImage = episodeCard.querySelector("img");
+  const episodeSummary = episodeCard.querySelector("p");
 
-  return filmCard;
+  title.innerText = `${episode.name} - ${formatEpisodeCode(
+    "S",
+    episode.season
+  )}${formatEpisodeCode("E", episode.number)}`;
+  episodeImage.src = episode.image?.medium || "";
+  episodeImage.alt = episode.name || "episode image";
+  episodeSummary.innerHTML = episode.summary || "";
+
+  return episodeCard;
 }
 
-function renderFilms() {
-  const rootElem = filmGrid;
-  rootElem.innerHTML = '';
+function renderEpisodes() {
+  const rootElem = episodeGrid;
+  rootElem.innerHTML = "";
 
-  const { query, films } = state;
+  const { query, episodes } = state;
   const normalisedQuery = query.trim().toLowerCase();
 
-  const filteredFilms = films.filter((film) => {
-    const name = film.name?.toLowerCase() || '';
-    const summary = film.summary?.toLowerCase() || '';
+  const filteredEpisodes = episodes.filter((episode) => {
+    const name = episode.name?.toLowerCase() || "";
+    const summary = episode.summary?.toLowerCase() || "";
     return name.includes(normalisedQuery) || summary.includes(normalisedQuery);
   });
 
-  const episodeList = normalisedQuery === '' ? films : filteredFilms;
+  const episodeList = normalisedQuery === "" ? episodes : filteredEpisodes;
 
-  filterDisplay.innerText = `Displaying ${episodeList.length}/${films.length}`;
+  filterDisplay.innerText = `Displaying ${episodeList.length}/${episodes.length}`;
 
-  rootElem.append(...episodeList.map(createFilmCard));
+  rootElem.append(...episodeList.map(createEpisodeCard));
 }
 
-function populateOption(film) {
-  const option = document.createElement('option');
-  const { id, season, number, name } = film;
-  const seasonEpisodeDetails = `${formatEpisodeCode('S', season)}${formatEpisodeCode('E', number)}`;
+function populateEpisodeOption(episode) {
+  const option = document.createElement("option");
+  const { id, season, number, name } = episode;
+  const seasonEpisodeDetails = `${formatEpisodeCode(
+    "S",
+    season
+  )}${formatEpisodeCode("E", number)}`;
   option.value = String(id);
   option.textContent = `${seasonEpisodeDetails} - ${name}`;
   return option;
 }
 
-function populateFilmSelect() {
-  filmSelect.innerHTML = '<option value="">Select a film</option>';
-  filmSelect.append(...state.films.map(populateOption));
+function populateEpisodeSelect() {
+  episodeSelect.innerHTML = '<option value="">Select an episode</option>';
+  episodeSelect.append(...state.episodes.map(populateEpisodeOption));
 }
 
-function displaySelectedFilm() {
-  const singleFilmContent = document.querySelector('.show-single-film');
-  const chosenFilm = createFilmCard(state.selectedFilm);
+function displaySelectedEpisode() {
+  const singleEpisodeContent = document.querySelector(".show-single-film");
+  const chosenEpisode = createEpisodeCard(state.selectedEpisode);
 
-  singleFilmContent.innerHTML = '';
-  state.selectedFilm = {};
-  singleFilmContent.append(chosenFilm);
+  singleEpisodeContent.innerHTML = "";
+  state.selectedEpisode = {};
+  singleEpisodeContent.append(chosenEpisode);
 
-  singleFilmContainer.classList.remove('hidden');
-  searchArea.classList.add('hidden');
-  filmGrid.classList.add('hidden');
+  singleEpisodeContainer.classList.remove("hidden");
+  searchArea.classList.add("hidden");
+  episodeGrid.classList.add("hidden");
 }
 
 // EVENT HANDLERS
-searchInput.addEventListener('input', (event) => {
+searchInput.addEventListener("input", (event) => {
   state.query = event.target.value;
-  renderFilms();
+  renderEpisodes();
 });
 
-filmSelect.addEventListener('change', (event) => {
+episodeSelect.addEventListener("change", (event) => {
   const selectedValue = event.target.value.trim();
   if (!selectedValue) return;
 
-  state.selectedFilm =
-    state.films.find((film) => film.id === Number(selectedValue)) || {};
-  event.target.value = '';
-  displaySelectedFilm();
+  state.selectedEpisode =
+    state.episodes.find((episode) => episode.id === Number(selectedValue)) ||
+    {};
+  event.target.value = "";
+  displaySelectedEpisode();
 });
 
-showSelect.addEventListener('change', async (event) => {
+showSelect.addEventListener("change", async (event) => {
   const selectedValue = event.target.value.trim();
   if (!selectedValue) return;
 
-  state.episodeId = Number(selectedValue);
-  await getFilms(state.episodeId);
+  state.selectedShowId = Number(selectedValue);
+  await loadEpisodes(state.selectedShowId);
 });
 
-exitButton.addEventListener('click', () => {
-  singleFilmContainer.classList.add('hidden');
-  searchArea.classList.remove('hidden');
-  filmGrid.classList.remove('hidden');
+exitButton.addEventListener("click", () => {
+  singleEpisodeContainer.classList.add("hidden");
+  searchArea.classList.remove("hidden");
+  episodeGrid.classList.remove("hidden");
 });
 
 window.onload = setup;
