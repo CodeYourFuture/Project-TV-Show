@@ -28,11 +28,6 @@ body {
   color: #222;
 }
 
-#loading {
-  color: red;
-  font-size: 1.5rem;
-  padding-left: 25%;
-}
 .source {
   text-align: center;
 }
