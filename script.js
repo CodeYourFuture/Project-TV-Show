@@ -68,6 +68,8 @@ function setup() {
 function createShowOptions() {
   const showSelect = document.getElementById("show-selector");
 
+  showSelect.innerHTML = "";
+
   const defaultOption = document.createElement("option");
   defaultOption.value = "";
   defaultOption.textContent = "Select Show";
@@ -83,6 +85,7 @@ function createShowOptions() {
 
 // Create options for the episode selector dropdown
 function createEpisodeOptions() {
+  elements.episodeSelect.innerHTML = "";
   const allOption = document.createElement("option");
   allOption.value = "";
   allOption.textContent = "All Episodes";
@@ -105,6 +108,28 @@ function setupSearch() {
     state.searchTerm = elements.searchInput.value.toLowerCase();
     state.selectedEpisode = null;
     elements.episodeSelect.value = "";
+    render();
+  });
+}
+
+// Setup Event listener for Shows
+function setupShowSelector() {
+  const showSelect = document.getElementById("show-selector");
+  showSelect.addEventListener("change", async (event) => {
+    const showId = event.target.value;
+    const response = await fetch(
+      `https://api.tvmaze.com/shows/${showId}/episodes`,
+    );
+    const episodes = await response.json();
+
+    state.episodes = episodes;
+
+    state.searchTerm = "";
+    state.selectedEpisode = null;
+    elements.searchInput.value = "";
+    elements.episodeSelect.value = "";
+
+    createEpisodeOptions();
     render();
   });
 }
