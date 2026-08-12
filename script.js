@@ -1,32 +1,78 @@
 //You can edit ALL of the code here
 // GLOBAL EPISODE STORAGE (replaces getAllEpisodes)
 let allEpisodes = [];
+let allShows = [];
+const episodeCache = {};
+
+//fetch series;
+async function fetchShow() {
+  try {
+    const response = await fetch("https://api.tvmaze.com/shows");
+    if (!response.ok) throw new Error("Failed to fetch shows");
+    const data = await response.json();
+    return data.sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
+    );
+  } catch (error) {
+    console.error("Show fetch error:", error);
+    return [];
+  }
+}
 
 // Fetch episodes from TVMaze API
-async function fetchEpisodes() {
+async function fetchEpisodes(showId) {
+  if (!showId) {
+    console.error("fetchEpisodes was called without a showId");
+    return [];
+  }
+
+  if (episodeCache[showId]) {
+    return episodeCache[showId];
+  }
+
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "<p>Loading episodes...</p>";
 
   try {
-    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+    const response = await fetch(
+      `https://api.tvmaze.com/shows/${showId}/episodes`,
+    );
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
 
     const data = await response.json();
+    episodeCache[showId] = data;
     return data;
   } catch (error) {
     rootElem.innerHTML = "<p>Something went wrong. Please try again.</p>";
     console.error("Fetch error:", error);
     return [];
   }
-}
+} //commit trying//
 
 // Format SxxExx
 function formatEpisodeCode(season, episode) {
   const formattedSeason = String(season).padStart(2, "0");
   const formattedNumber = String(episode).padStart(2, "0");
   return `S${formattedSeason}E${formattedNumber}`;
+}
+
+// Create show dropdown
+function createShowSelectElement() {
+  const showSelect = document.createElement("select");
+  showSelect.id = "show-select";
+
+  allShows.forEach((show) => {
+    const option = document.createElement("option");
+    option.value = show.id;
+    option.textContent = show.name;
+    showSelect.appendChild(option);
+  });
+
+  const rootElem = document.getElementById("root");
+  document.body.insertBefore(showSelect, rootElem);
+  return showSelect;
 }
 
 // Create dropdown
@@ -66,7 +112,21 @@ function EventChange() {
       makePageForEpisodes(allEpisodes);
     } else {
       const result = allEpisodes.filter(
-        (episode) => episode.id === Number(selectedValue)
+        (episode) => episode.id === Number(selectedValue),
+      );
+      makePageForEpisodes(result);
+    }
+  });
+
+  //Episode dropdown event listener
+  createSelect.addEventListener("change", (event) => {
+    const selectedValue = event.target.value;
+
+    if (selectedValue === "ALL") {
+      makePageForEpisodes(allEpisodes);
+    } else {
+      const result = allEpisodes.filter(
+        (episode) => episode.id === Number(selectedValue),
       );
       makePageForEpisodes(result);
     }
@@ -156,17 +216,24 @@ function createDramaCard(episode) {
 
 // MAIN SETUP
 async function setup() {
-  allEpisodes = await fetchEpisodes(); // FETCH API DATA
+  // Fetch shows first
+  allShows = await fetchShow();
+  if (allShows.length === 0) return;
+
+  createShowSelectElement();
+
+  // Fetch episodes for the first show automatically
+  const initialShowId = allShows[0].id;
+  allEpisodes = await fetchEpisodes(initialShowId);
 
   if (allEpisodes.length === 0) return; // Stop if fetch failed
-
   createSelectElement();
   createOptionElements();
-  EventChange();
 
   SetupSearchBar();
-  handleSearchInput();
 
+  EventChange();
+  handleSearchInput();
   makePageForEpisodes(allEpisodes);
 }
 
