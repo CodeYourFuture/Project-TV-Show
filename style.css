@@ -51,16 +51,16 @@ body {
 
 #root {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 320px));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  justify-content: left;
+  width: 100%;
+  justify-content: start;
 }
 
 /* ---------- Episode Card ---------- */
 
 article {
+  max-width: 400px;
   display: flex;
   flex-direction: column;
 
@@ -205,6 +205,7 @@ footer a:hover {
   font-weight: bold;
 }
 /*------*/
+
 .control-group {
   display: flex;
   flex-direction: column;
