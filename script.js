@@ -101,10 +101,30 @@ function displayShows(shows) {
       );
     });
 
-    results.textContent =
-      `Displaying ${filteredShows.length}/${allShows.length} shows`;
+    results.textContent = `Displaying ${filteredShows.length}/${allShows.length} shows`;
 
     makePageForShows(filteredShows);
+  });
+
+  // LEVEL 400: Show selected episode
+  episodeSelect.addEventListener("change", function () {
+    if (episodeSelect.value === "") {
+      makePageForEpisodes(allEpisodes);
+
+      results.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
+
+      return;
+    }
+
+    const selectedEpisode = allEpisodes.filter(function (episode) {
+      return episode.id === Number(episodeSelect.value);
+    });
+
+    makePageForEpisodes(selectedEpisode);
+
+    results.textContent = `Displaying ${selectedEpisode.length}/${allEpisodes.length} episodes`;
+
+    searchInput.value = "";
   });
 
   // LEVEL 500: Allow user to return to the shows listing
