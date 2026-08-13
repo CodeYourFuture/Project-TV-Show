@@ -173,6 +173,34 @@ function displayShows(shows) {
   });
 }  
   
+function displayEpisodePage(show) {
+  const rootElem = document.getElementById("root");
+
+  rootElem.innerHTML = "";
+
+  const backLink = document.createElement("a");
+  backLink.href = "#";
+  backLink.textContent = "← Back to all shows";
+
+  const heading = document.createElement("h1");
+  heading.textContent = `Episodes: ${show.name}`;
+
+  rootElem.appendChild(backLink);
+  rootElem.appendChild(heading);
+
+  // LEVEL 500: Return to shows listing
+  backLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    displayShows(allShows);
+  });
+
+  // LEVEL 400: Fetch episodes for selected show
+  fetchEpisodes(show.id);
+}
+
+
+
 // LEVEL 400: Fetch episodes for the selected TV show
 function fetchEpisodes(showId) {
   const rootElem = document.getElementById("root");
