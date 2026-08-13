@@ -151,8 +151,9 @@ function displayShows(shows) {
     status.textContent = `Status: ${show.status}`;
 
     const rating = document.createElement("p");
-    rating.textContent = `Rating: ${(show.rating && show.rating.average) || "N/A"}`;
-
+    const ratingValue = show.rating?.average ?? "N/A";
+    rating.textContent = "Rating: " + ratingValue;
+    
     const runtime = document.createElement("p");
     const runtimeValue = show.runtime ?? show.averageRuntime ?? "N/A";
     runtime.textContent = `Runtime: ${runtimeValue} minutes`;
