@@ -218,13 +218,12 @@ function fetchEpisodes(showId) {
 
     return;
   }
+  // Show loading message
+  const loadingMessage = document.createElement("p");
+  loadingMessage.className = "Loading-message";
+  loadingMessage.textContent = "Loading episodes, please wait...";
 
-  // LEVEL 400: Remove the previous show's controls
-  removeEpisodeControls();
-
-  // Show a loading message while episodes are loading
-  rootElem.innerHTML =
-    "<p class='Loading-message'>Loading episodes, please wait...</p>";
+  rootElem.appendChild(loadingMessage);
 
   // LEVEL 400: Store the fetch promise immediately so this URL is only fetched once
   episodeCache[episodesUrl] = fetch(episodesUrl).then(function (response) {
