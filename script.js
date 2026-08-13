@@ -168,38 +168,11 @@ function displayShows(shows) {
     titleLink.addEventListener("click", function (event) {
       event.preventDefault();
 
-      displayEpisodePage(show);
+      displayEpisodePage(show.id);
     });
   });
 }  
   
-function displayEpisodePage(show) {
-  const rootElem = document.getElementById("root");
-
-  rootElem.innerHTML = "";
-
-  const backLink = document.createElement("a");
-  backLink.href = "#";
-  backLink.textContent = "← Back to all shows";
-
-  const heading = document.createElement("h1");
-  heading.textContent = `Episodes: ${show.name}`;
-
-  rootElem.appendChild(backLink);
-  rootElem.appendChild(heading);
-
-  // LEVEL 500: Return to shows listing
-  backLink.addEventListener("click", function (event) {
-    event.preventDefault();
-
-    displayShows(allShows);
-  });
-
-  // LEVEL 400: Fetch episodes for selected show
-  fetchEpisodes(show.id);
-}
-
-
 
 // LEVEL 400: Fetch episodes for the selected TV show
 function fetchEpisodes(showId) {
@@ -247,10 +220,19 @@ function fetchEpisodes(showId) {
 function displayEpisodes(allEpisodes) {
   const rootElem = document.getElementById("root");
 
-  removeEpisodeControls();
-
-  // Clear the loading message before rendering the application layout
   rootElem.innerHTML = "";
+
+  // LEVEL 500: Navigation back to shows
+  const backLink = document.createElement("a");
+  backLink.href = "#";
+  backLink.textContent = " Back to all shows";
+
+  rootElem.appendChild(backLink);
+
+  const heading = document.createElement("h1");
+  heading.textContent = "Episodes";
+
+  rootElem.appendChild(heading);
 
   // Create the search and filter controls
   const controls = document.createElement("div");
@@ -283,14 +265,18 @@ function displayEpisodes(allEpisodes) {
     const number = String(episode.number).padStart(2, "0");
 
     const option = document.createElement("option");
+
     option.value = episode.id;
-    option.textContent = `S${season}E${number} - ${episode.name}`;
+    option.textContent =
+      `S${season}E${number} - ${episode.name}`;
 
     episodeSelect.appendChild(option);
   });
 
   const results = document.createElement("p");
-  results.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
+
+  results.textContent =
+    `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
   controls.appendChild(searchLabel);
   controls.appendChild(searchInput);
@@ -298,11 +284,11 @@ function displayEpisodes(allEpisodes) {
   controls.appendChild(episodeSelect);
   controls.appendChild(results);
 
-  document.body.insertBefore(controls, rootElem);
+  rootElem.appendChild(controls);
 
   makePageForEpisodes(allEpisodes);
 
-  // Filter episodes while typing
+  // LEVEL 400: Search episodes while typing
   searchInput.addEventListener("input", function () {
     const searchTerm = searchInput.value.toLowerCase();
 
@@ -315,17 +301,19 @@ function displayEpisodes(allEpisodes) {
 
     makePageForEpisodes(filteredEpisodes);
 
-    results.textContent = `Displaying ${filteredEpisodes.length}/${allEpisodes.length} episodes`;
+    results.textContent =
+      `Displaying ${filteredEpisodes.length}/${allEpisodes.length} episodes`;
 
     episodeSelect.value = "";
   });
 
-  // Show the selected episode
+  // LEVEL 400: Show selected episode
   episodeSelect.addEventListener("change", function () {
     if (episodeSelect.value === "") {
       makePageForEpisodes(allEpisodes);
 
-      results.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
+      results.textContent =
+        `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
       return;
     }
@@ -336,20 +324,21 @@ function displayEpisodes(allEpisodes) {
 
     makePageForEpisodes(selectedEpisode);
 
-    results.textContent = `Displaying ${selectedEpisode.length}/${allEpisodes.length} episodes`;
+    results.textContent =
+      `Displaying ${selectedEpisode.length}/${allEpisodes.length} episodes`;
 
     searchInput.value = "";
   });
+
+  // LEVEL 500: Return to shows
+  backLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    displayShows(allShows);
+  });
 }
 
-// LEVEL 400: Remove the previous episode controls when changing shows
-function removeEpisodeControls() {
-  const oldControls = document.getElementById("episode-controls");
 
-  if (oldControls) {
-    oldControls.remove();
-  }
-}
 
 // Show an error message that the user can see
 function showError(error) {
