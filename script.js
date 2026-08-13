@@ -90,7 +90,9 @@ function displayShows(shows) {
     const searchTerm = searchInput.value.toLowerCase();
 
     const filteredShows = allShows.filter(function (show) {
-      const showGenres = show.genres.join(" ").toLowerCase();
+    const showGenres = (show.genres || []).join(" ").toLowerCase();
+      
+      
       const showSummary = (show.summary || "").toLowerCase();
       const showName = show.name.toLowerCase();
 
@@ -143,7 +145,7 @@ function displayShows(shows) {
     summary.innerHTML = show.summary || "";
 
     const genres = document.createElement("p");
-    genres.textContent = `Genres: ${show.genres.join(", ")}`;
+    genres.textContent = `Genres: ${(show.genres || []).join(", ")}`;
 
     const status = document.createElement("p");
     status.textContent = `Status: ${show.status}`;
@@ -152,7 +154,8 @@ function displayShows(shows) {
     rating.textContent = `Rating: ${(show.rating && show.rating.average) || "N/A"}`;
 
     const runtime = document.createElement("p");
-    runtime.textContent = `Runtime: ${show.runtime || "N/A"} minutes`;
+    const runtimeValue = show.runtime ?? show.averageRuntime ?? "N/A";
+    runtime.textContent = `Runtime: ${runtimeValue} minutes`;
 
     card.appendChild(title);
     card.appendChild(image);
