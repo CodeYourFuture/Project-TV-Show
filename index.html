@@ -8,35 +8,55 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TV Show Project | Sandani Kannangara (SandzSoft)</title>
+    <link rel="preconnect" href="https://api.tvmaze.com" crossorigin />
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div class="controls">
-      <div class="control-group">
-        <label for="show-selector">Choose Show</label>
-        <select id="show-selector"></select>
+    <main id="root">
+      <!-- Shows View -->
+      <div id="shows-view">
+        <div class="controls">
+          <div class="control-group">
+            <label for="show-search">Search Shows</label>
+            <input id="show-search" type="text" placeholder="Search shows..." />
+          </div>
+          <div class="control-group">
+            <label for="show-selector"></label>
+            <select id="show-selector"></select>
+          </div>
+        </div>
+
+        <div id="show-list"></div>
       </div>
 
-      <div class="control-group">
-        <label for="episode-selector">Jump to Episode</label>
-        <select id="episode-selector"></select>
+      <!-- Episodes View -->
+      <div id="episodes-view">
+        <div class="controls">
+          <span id="selected-show" aria-live="polite"></span>
+          <button id="back-to-shows">← All Shows</button>
+
+          <div class="control-group">
+            <label for="episode-selector">Jump to Episode</label>
+            <select id="episode-selector"></select>
+          </div>
+
+          <div class="control-group">
+            <label for="episode-search">Search Episodes</label>
+            <input
+              id="episode-search"
+              type="text"
+              placeholder="Enter episode name..."
+            />
+          </div>
+
+          <p id="episode-count"></p>
+        </div>
+
+        <div id="episode-list"></div>
       </div>
-
-      <div class="control-group">
-        <label for="episode-search">Search Episodes</label>
-        <input
-          id="episode-search"
-          type="text"
-          placeholder="Enter episode name..."
-        />
-      </div>
-
-      <p id="episode-count"></p>
-    </div>
-
-    <main id="root"></main>
+    </main>
     <footer>
       <a
         href="https://www.tvmaze.com/"
