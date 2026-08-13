@@ -13,9 +13,15 @@
       <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>
     </h3>
 
-    <select id="show-select"></select>
-    <select id="episode-select"></select>
-    <input id="search-input" type="search" placeholder="Search episodes..." />
+    <button id="back-button" style="display:none;">Back to Shows</button>
+
+    <input id="show-search" type="search" placeholder="Search shows..." />
+
+    <div id="show-list"></div>
+
+    <select id="show-select" style="display:none;"></select>
+    <select id="episode-select" style="display:none;"></select>
+    <input id="search-input" type="search" placeholder="Search episodes..." style="display:none;" />
     <span id="search-count"></span>
 
     <div id="root"></div>
@@ -23,6 +29,7 @@
     <script src="script.js"></script>
   </body>
 </html>
+
 
 
 
