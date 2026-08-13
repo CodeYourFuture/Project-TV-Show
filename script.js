@@ -31,39 +31,8 @@ function setup() {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       });
 
-      // LEVEL 400: Create a TV show selector
-      const showSelector = document.createElement("select");
-      showSelector.id = "showSelector";
-
-      const showLabel = document.createElement("label");
-      showLabel.htmlFor = "showSelector";
-      showLabel.textContent = "Choose a TV show:";
-
-      // LEVEL 400: Add each TV show to the selector
-      shows.forEach(function (show) {
-        const option = document.createElement("option");
-
-        option.value = show.id;
-        option.textContent = show.name;
-
-        showSelector.appendChild(option);
-      });
-
-      // LEVEL 400: Add the show selector to the page
-      const showControls = document.createElement("div");
-      showControls.id = "show-controls";
-
-      showControls.appendChild(showLabel);
-      showControls.appendChild(showSelector);
-
-      document.body.insertBefore(showControls, rootElem);
-
-      // LEVEL 400: Select the first show automatically
-      if (shows.length > 0) {
-        showSelector.value = shows[0].id;
-        fetchEpisodes(shows[0].id);
-      }
-
+     
+     
       // LEVEL 400: Fetch episodes when the user selects another show
       showSelector.addEventListener("change", function () {
         const showId = showSelector.value;
