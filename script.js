@@ -6,14 +6,16 @@ const showsUrl = "https://api.tvmaze.com/shows";
 // LEVEL 400: Cache episode requests so the same URL is never fetched twice
 const episodeCache = {};
 
+// LEVEL 500: Store all TV shows after the first fetch
+let allShows = [];
+
 function setup() {
   const rootElem = document.getElementById("root");
 
-  // Show a loading message as we are now loading data async.
   rootElem.innerHTML =
-    "<p class='Loading-message'>Loading episodes, please wait...</p>";
+    "<p class='Loading-message'>Loading TV shows, please wait...</p>";
 
-  // LEVEL 400: Fetch all TV shows from TVMaze
+  // LEVEL 500: Fetch all TV shows
   fetch(showsUrl)
     .then(function (response) {
       if (!response.ok) {
@@ -23,56 +25,158 @@ function setup() {
       return response.json();
     })
     .then(function (shows) {
+      // LEVEL 500: Store all shows for searching and navigation
+      allShows = shows;
+
       // LEVEL 400: Sort TV shows alphabetically, ignoring capital letters
-      shows.sort(function (a, b) {
+      allShows.sort(function (a, b) {
         return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
       });
 
-      // LEVEL 400: Create a TV show selector
-      const showSelector = document.createElement("select");
-      showSelector.id = "showSelector";
-
-      const showLabel = document.createElement("label");
-      showLabel.htmlFor = "showSelector";
-      showLabel.textContent = "Choose a TV show:";
-
-      // LEVEL 400: Add each TV show to the selector
-      shows.forEach(function (show) {
-        const option = document.createElement("option");
-
-        option.value = show.id;
-        option.textContent = show.name;
-
-        showSelector.appendChild(option);
-      });
-
-      // LEVEL 400: Add the show selector to the page
-      const showControls = document.createElement("div");
-      showControls.id = "show-controls";
-
-      showControls.appendChild(showLabel);
-      showControls.appendChild(showSelector);
-
-      document.body.insertBefore(showControls, rootElem);
-
-      // LEVEL 400: Select the first show automatically
-      if (shows.length > 0) {
-        showSelector.value = shows[0].id;
-        fetchEpisodes(shows[0].id);
-      }
-
-      // LEVEL 400: Fetch episodes when the user selects another show
-      showSelector.addEventListener("change", function () {
-        const showId = showSelector.value;
-
-        fetchEpisodes(showId);
-      });
+      // LEVEL 500: Display the shows listing
+      displayShows(allShows);
     })
     .catch(function (error) {
-      //  Show an error if the TV shows cannot be loaded
-      showError(error);
+      showError(error,"shows");
     });
 }
+function displayShows(shows) {
+  const rootElem = document.getElementById("root");
+
+  rootElem.innerHTML = "";
+
+  // Create navigation
+  const navigation = document.createElement("nav");
+
+  const showsLink = document.createElement("a");
+  showsLink.href = "#";
+  showsLink.textContent = "Shows";
+
+  navigation.appendChild(showsLink);
+
+  // Create heading
+  const heading = document.createElement("h1");
+  heading.textContent = "All TV Shows";
+
+  // Create search input
+  const searchLabel = document.createElement("label");
+  searchLabel.htmlFor = "showSearch";
+  searchLabel.textContent = "Search shows:";
+
+  const searchInput = document.createElement("input");
+  searchInput.type = "text";
+  searchInput.id = "showSearch";
+  searchInput.placeholder = "Search by name, genre or summary...";
+
+  // Create results count
+  const results = document.createElement("p");
+  results.textContent = `Displaying ${shows.length}/${allShows.length} shows`;
+
+  // Create show container
+  const showContainer = document.createElement("div");
+  showContainer.id = "shows-list";
+
+  rootElem.appendChild(navigation);
+  rootElem.appendChild(heading);
+  rootElem.appendChild(searchLabel);
+  rootElem.appendChild(searchInput);
+  rootElem.appendChild(results);
+  rootElem.appendChild(showContainer);
+
+  makePageForShows(shows);
+
+  // LEVEL 500: Search shows while typing
+  searchInput.addEventListener("input", function () {
+    const searchTerm = searchInput.value.toLowerCase();
+
+    const filteredShows = allShows.filter(function (show) {
+    const showGenres = (show.genres || []).join(" ").toLowerCase();
+      
+      
+      const showSummary = (show.summary || "").toLowerCase();
+      const showName = show.name.toLowerCase();
+
+      return (
+        showName.includes(searchTerm) ||
+        showGenres.includes(searchTerm) ||
+        showSummary.includes(searchTerm)
+      );
+    });
+
+    results.textContent = `Displaying ${filteredShows.length}/${allShows.length} shows`;
+
+    makePageForShows(filteredShows);
+  });
+
+  
+  // LEVEL 500: Allow user to return to the shows listing
+  showsLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    displayShows(allShows);
+  });
+}
+   function makePageForShows(showList) {
+  const showContainer = document.getElementById("shows-list");
+
+  showContainer.innerHTML = "";
+
+  showList.forEach(function (show) {
+    const card = document.createElement("article");
+
+    const title = document.createElement("h2");
+
+    // LEVEL 500: Make the show name clickable
+    const titleLink = document.createElement("a");
+    titleLink.href = "#";
+    titleLink.textContent = show.name;
+
+    title.appendChild(titleLink);
+
+    const image = document.createElement("img");
+
+    if (show.image) {
+      image.src = show.image.medium;
+    }
+
+    image.alt = show.name;
+
+    const summary = document.createElement("div");
+    summary.innerHTML = show.summary || "";
+
+    const genres = document.createElement("p");
+    genres.textContent = `Genres: ${(show.genres || []).join(", ")}`;
+
+    const status = document.createElement("p");
+    status.textContent = `Status: ${show.status}`;
+
+    const rating = document.createElement("p");
+    const ratingValue = show.rating?.average ?? "N/A";
+    rating.textContent = "Rating: " + ratingValue;
+
+    const runtime = document.createElement("p");
+    const runtimeValue = show.runtime ?? show.averageRuntime ?? "N/A";
+    runtime.textContent = `Runtime: ${runtimeValue} minutes`;
+
+    card.appendChild(title);
+    card.appendChild(image);
+    card.appendChild(summary);
+    card.appendChild(genres);
+    card.appendChild(status);
+    card.appendChild(rating);
+    card.appendChild(runtime);
+
+    showContainer.appendChild(card);
+
+    // LEVEL 500: Fetch episodes when the show name is clicked
+    titleLink.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      fetchEpisodes(show.id);
+    });
+  });
+}  
+  
 
 // LEVEL 400: Fetch episodes for the selected TV show
 function fetchEpisodes(showId) {
@@ -91,13 +195,12 @@ function fetchEpisodes(showId) {
 
     return;
   }
-
-  // LEVEL 400: Remove the previous show's controls
-  removeEpisodeControls();
-
-  // Show a loading message while episodes are loading
-  rootElem.innerHTML =
-    "<p class='Loading-message'>Loading episodes, please wait...</p>";
+  // Show loading message
+  const loadingMessage = document.createElement("p");
+  loadingMessage.className = "Loading-message";
+  loadingMessage.textContent = "Loading episodes, please wait...";  
+  rootElem.innerHTML = "";
+  rootElem.appendChild(loadingMessage);
 
   // LEVEL 400: Store the fetch promise immediately so this URL is only fetched once
   episodeCache[episodesUrl] = fetch(episodesUrl).then(function (response) {
@@ -113,7 +216,7 @@ function fetchEpisodes(showId) {
       displayEpisodes(episodes);
     })
     .catch(function (error) {
-      showError(error);
+      showError(error,"episodes");
     });
 }
 
@@ -121,10 +224,19 @@ function fetchEpisodes(showId) {
 function displayEpisodes(allEpisodes) {
   const rootElem = document.getElementById("root");
 
-  removeEpisodeControls();
-
-  // Clear the loading message before rendering the application layout
   rootElem.innerHTML = "";
+
+  // LEVEL 500: Navigation back to shows
+  const backLink = document.createElement("a");
+  backLink.href = "#";
+  backLink.textContent = " Back to all shows";
+
+  rootElem.appendChild(backLink);
+
+  const heading = document.createElement("h1");
+  heading.textContent = "Episodes";
+
+  rootElem.appendChild(heading);
 
   // Create the search and filter controls
   const controls = document.createElement("div");
@@ -157,6 +269,7 @@ function displayEpisodes(allEpisodes) {
     const number = String(episode.number).padStart(2, "0");
 
     const option = document.createElement("option");
+
     option.value = episode.id;
     option.textContent = `S${season}E${number} - ${episode.name}`;
 
@@ -164,6 +277,7 @@ function displayEpisodes(allEpisodes) {
   });
 
   const results = document.createElement("p");
+
   results.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
   controls.appendChild(searchLabel);
@@ -172,11 +286,15 @@ function displayEpisodes(allEpisodes) {
   controls.appendChild(episodeSelect);
   controls.appendChild(results);
 
-  document.body.insertBefore(controls, rootElem);
+  rootElem.appendChild(controls);
+
+  const episodeContainer = document.createElement("div");
+  episodeContainer.id = "episodes-list";
+
+  rootElem.appendChild(episodeContainer);
 
   makePageForEpisodes(allEpisodes);
-
-  // Filter episodes while typing
+  // LEVEL 400: Search episodes while typing
   searchInput.addEventListener("input", function () {
     const searchTerm = searchInput.value.toLowerCase();
 
@@ -194,7 +312,7 @@ function displayEpisodes(allEpisodes) {
     episodeSelect.value = "";
   });
 
-  // Show the selected episode
+  // LEVEL 400: Show selected episode
   episodeSelect.addEventListener("change", function () {
     if (episodeSelect.value === "") {
       makePageForEpisodes(allEpisodes);
@@ -214,42 +332,39 @@ function displayEpisodes(allEpisodes) {
 
     searchInput.value = "";
   });
+
+  // LEVEL 500: Return to shows
+  backLink.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    displayShows(allShows);
+  });
 }
 
-// LEVEL 400: Remove the previous episode controls when changing shows
-function removeEpisodeControls() {
-  const oldControls = document.getElementById("episode-controls");
 
-  if (oldControls) {
-    oldControls.remove();
-  }
-}
 
 // Show an error message that the user can see
-function showError(error) {
+function showError(error, itemType = "content") {
   const rootElem = document.getElementById("root");
 
   rootElem.innerHTML = `
     <div class="error-container">
       <h3>Oops! Something went wrong.</h3>
-
       <p>
-        We couldn't load the episodes right now.
+        We couldn't load the ${itemType} right now.
         Please try refreshing the page.
       </p>
-
       <p class="error-details">
         Error details: ${error.message}
       </p>
     </div>
   `;
 }
-
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
+  const episodeContainer = document.getElementById("episodes-list");
 
   // Clear previous episodes before displaying new ones
-  rootElem.innerHTML = "";
+  episodeContainer.innerHTML = "";
 
   episodeList.forEach(function (episode) {
     const season = String(episode.season).padStart(2, "0");
@@ -260,7 +375,7 @@ function makePageForEpisodes(episodeList) {
     const title = document.createElement("h2");
     const image = document.createElement("img");
 
-    //  Some episodes may not have an image
+    // Some episodes may not have an image
     if (episode.image) {
       image.src = episode.image.medium;
     }
@@ -283,8 +398,10 @@ function makePageForEpisodes(episodeList) {
     card.appendChild(summary);
     card.appendChild(link);
 
-    rootElem.appendChild(card);
+    episodeContainer.appendChild(card);
   });
 }
+
+  
 
 window.onload = setup;
