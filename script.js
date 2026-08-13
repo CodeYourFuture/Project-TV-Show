@@ -306,8 +306,12 @@ function displayEpisodes(allEpisodes) {
 
   rootElem.appendChild(controls);
 
-  makePageForEpisodes(allEpisodes);
+  const episodeContainer = document.createElement("div");
+  episodeContainer.id = "episodes-list";
 
+  rootElem.appendChild(episodeContainer);
+
+  makePageForEpisodes(allEpisodes);
   // LEVEL 400: Search episodes while typing
   searchInput.addEventListener("input", function () {
     const searchTerm = searchInput.value.toLowerCase();
