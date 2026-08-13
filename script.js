@@ -149,7 +149,7 @@ function displayShows(shows) {
     status.textContent = `Status: ${show.status}`;
 
     const rating = document.createElement("p");
-    rating.textContent = `Rating: ${show.rating.average || "N/A"}`;
+    rating.textContent = `Rating: ${(show.rating && show.rating.average) || "N/A"}`;
 
     const runtime = document.createElement("p");
     runtime.textContent = `Runtime: ${show.runtime || "N/A"} minutes`;
@@ -168,7 +168,7 @@ function displayShows(shows) {
     titleLink.addEventListener("click", function (event) {
       event.preventDefault();
 
-      displayEpisodePage(show.id);
+      fetchEpisodes(show.id);
     });
   });
 }  
