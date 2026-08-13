@@ -6,6 +6,9 @@ const showsUrl = "https://api.tvmaze.com/shows";
 // LEVEL 400: Cache episode requests so the same URL is never fetched twice
 const episodeCache = {};
 
+// LEVEL 500: Store all TV shows after the first fetch
+let allShows = [];
+
 function setup() {
   const rootElem = document.getElementById("root");
 
