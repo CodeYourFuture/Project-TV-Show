@@ -243,7 +243,7 @@ function formatFilmEpisodeCode(prefix, value) {
 }
 
 function populateFilmSelect() {
-  filmSelect.innerHTML = '<option value="">Select a film</option>';
+  filmSelect.innerHTML = '<option value="">Episodes</option>';
   filmSelect.append(...state.films.map(populateFilmOption));
 }
 
