@@ -106,27 +106,7 @@ function displayShows(shows) {
     makePageForShows(filteredShows);
   });
 
-  // LEVEL 400: Show selected episode
-  episodeSelect.addEventListener("change", function () {
-    if (episodeSelect.value === "") {
-      makePageForEpisodes(allEpisodes);
-
-      results.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
-
-      return;
-    }
-
-    const selectedEpisode = allEpisodes.filter(function (episode) {
-      return episode.id === Number(episodeSelect.value);
-    });
-
-    makePageForEpisodes(selectedEpisode);
-
-    results.textContent = `Displaying ${selectedEpisode.length}/${allEpisodes.length} episodes`;
-
-    searchInput.value = "";
-  });
-
+  
   // LEVEL 500: Allow user to return to the shows listing
   showsLink.addEventListener("click", function (event) {
     event.preventDefault();
@@ -214,8 +194,8 @@ function fetchEpisodes(showId) {
   // Show loading message
   const loadingMessage = document.createElement("p");
   loadingMessage.className = "Loading-message";
-  loadingMessage.textContent = "Loading episodes, please wait...";
-
+  loadingMessage.textContent = "Loading episodes, please wait...";  
+  rootElem.innerHTML = "";
   rootElem.appendChild(loadingMessage);
 
   // LEVEL 400: Store the fetch promise immediately so this URL is only fetched once
@@ -287,16 +267,14 @@ function displayEpisodes(allEpisodes) {
     const option = document.createElement("option");
 
     option.value = episode.id;
-    option.textContent =
-      `S${season}E${number} - ${episode.name}`;
+    option.textContent = `S${season}E${number} - ${episode.name}`;
 
     episodeSelect.appendChild(option);
   });
 
   const results = document.createElement("p");
 
-  results.textContent =
-    `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
+  results.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
 
   controls.appendChild(searchLabel);
   controls.appendChild(searchInput);
@@ -325,13 +303,31 @@ function displayEpisodes(allEpisodes) {
 
     makePageForEpisodes(filteredEpisodes);
 
-    results.textContent =
-      `Displaying ${filteredEpisodes.length}/${allEpisodes.length} episodes`;
+    results.textContent = `Displaying ${filteredEpisodes.length}/${allEpisodes.length} episodes`;
 
     episodeSelect.value = "";
   });
 
-  
+  // LEVEL 400: Show selected episode
+  episodeSelect.addEventListener("change", function () {
+    if (episodeSelect.value === "") {
+      makePageForEpisodes(allEpisodes);
+
+      results.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes`;
+
+      return;
+    }
+
+    const selectedEpisode = allEpisodes.filter(function (episode) {
+      return episode.id === Number(episodeSelect.value);
+    });
+
+    makePageForEpisodes(selectedEpisode);
+
+    results.textContent = `Displaying ${selectedEpisode.length}/${allEpisodes.length} episodes`;
+
+    searchInput.value = "";
+  });
 
   // LEVEL 500: Return to shows
   backLink.addEventListener("click", function (event) {
