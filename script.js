@@ -1,17 +1,17 @@
 //You can edit ALL of the code here
-// GLOBAL EPISODE STORAGE (replaces getAllEpisodes)
+// GLOBAL EPISODE STORAGE
 let allEpisodes = [];
 let allShows = [];
 const episodeCache = {};
 
-//fetch series;
+// Fetch all shows
 async function fetchShow() {
   try {
     const response = await fetch("https://api.tvmaze.com/shows");
     if (!response.ok) throw new Error("Failed to fetch shows");
     const data = await response.json();
     return data.sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
     );
   } catch (error) {
     console.error("Show fetch error:", error);
@@ -19,27 +19,25 @@ async function fetchShow() {
   }
 }
 
-// Fetch episodes from TVMaze API
+// Fetch episodes for a show
 async function fetchEpisodes(showId) {
   if (!showId) {
     console.error("fetchEpisodes was called without a showId");
     return [];
   }
 
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = "<p>Loading episodes...</p>";
+
   if (episodeCache[showId]) {
     return episodeCache[showId];
   }
 
-  const rootElem = document.getElementById("root");
-  rootElem.innerHTML = "<p>Loading episodes...</p>";
-
   try {
     const response = await fetch(
-      `https://api.tvmaze.com/shows/${showId}/episodes`,
+      `https://api.tvmaze.com/shows/${showId}/episodes`
     );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
+    if (!response.ok) throw new Error("Network response was not ok");
 
     const data = await response.json();
     episodeCache[showId] = data;
@@ -49,19 +47,19 @@ async function fetchEpisodes(showId) {
     console.error("Fetch error:", error);
     return [];
   }
-} //commit trying//
+}
 
 // Format SxxExx
 function formatEpisodeCode(season, episode) {
-  const formattedSeason = String(season).padStart(2, "0");
-  const formattedNumber = String(episode).padStart(2, "0");
-  return `S${formattedSeason}E${formattedNumber}`;
+  return `S${String(season).padStart(2, "0")}E${String(episode).padStart(
+    2,
+    "0"
+  )}`;
 }
 
 // Create show dropdown
 function createShowSelectElement() {
-  const showSelect = document.createElement("select");
-  showSelect.id = "show-select";
+  const showSelect = document.getElementById("show-select");
 
   allShows.forEach((show) => {
     const option = document.createElement("option");
@@ -70,23 +68,13 @@ function createShowSelectElement() {
     showSelect.appendChild(option);
   });
 
-  const rootElem = document.getElementById("root");
-  document.body.insertBefore(showSelect, rootElem);
   return showSelect;
 }
 
-// Create dropdown
-function createSelectElement() {
-  const createSelect = document.createElement("select");
-  createSelect.id = "episode-select";
-  const rootElem = document.getElementById("root");
-  document.body.insertBefore(createSelect, rootElem);
-  return createSelect;
-}
-
-// Create dropdown options
+// Create episode dropdown options
 function createOptionElements() {
   const createSelect = document.getElementById("episode-select");
+  createSelect.innerHTML = "";
 
   const defaultOption = document.createElement("option");
   defaultOption.value = "ALL";
@@ -96,12 +84,15 @@ function createOptionElements() {
   allEpisodes.forEach((episode) => {
     let option = document.createElement("option");
     option.value = episode.id;
-    option.textContent = `${formatEpisodeCode(episode.season, episode.number)} - ${episode.name}`;
+    option.textContent = `${formatEpisodeCode(
+      episode.season,
+      episode.number
+    )} - ${episode.name}`;
     createSelect.appendChild(option);
   });
 }
 
-// Dropdown change event
+// Episode dropdown change event (FIXED: only one listener)
 function EventChange() {
   const createSelect = document.getElementById("episode-select");
 
@@ -112,40 +103,11 @@ function EventChange() {
       makePageForEpisodes(allEpisodes);
     } else {
       const result = allEpisodes.filter(
-        (episode) => episode.id === Number(selectedValue),
+        (episode) => episode.id === Number(selectedValue)
       );
       makePageForEpisodes(result);
     }
   });
-
-  //Episode dropdown event listener
-  createSelect.addEventListener("change", (event) => {
-    const selectedValue = event.target.value;
-
-    if (selectedValue === "ALL") {
-      makePageForEpisodes(allEpisodes);
-    } else {
-      const result = allEpisodes.filter(
-        (episode) => episode.id === Number(selectedValue),
-      );
-      makePageForEpisodes(result);
-    }
-  });
-}
-
-// Build search bar
-function SetupSearchBar() {
-  const searchInput = document.createElement("input");
-  searchInput.type = "search";
-  searchInput.id = "search-input";
-  searchInput.placeholder = "Search the episodes...";
-
-  const searchCount = document.createElement("span");
-  searchCount.id = "search-count";
-
-  const rootElem = document.getElementById("root");
-  document.body.insertBefore(searchInput, rootElem);
-  document.body.insertBefore(searchCount, rootElem);
 }
 
 // Search input handler
@@ -158,9 +120,10 @@ function handleSearchInput() {
     const filtered = allEpisodes.filter((episode) => {
       const matchName = episode.name.toLowerCase().includes(searchTerm);
       const matchSummary = episode.summary.toLowerCase().includes(searchTerm);
-      const matchCode = formatEpisodeCode(episode.season, episode.number)
-        .toLowerCase()
-        .includes(searchTerm);
+      const matchCode = formatEpisodeCode(
+        episode.season,
+        episode.number
+      ).toLowerCase().includes(searchTerm);
 
       return matchName || matchSummary || matchCode;
     });
@@ -183,14 +146,6 @@ function makePageForEpisodes(episodeList) {
   rootElem.append(...cards);
 }
 
-// Helper to create child element
-function createChildElement(parentElement, tagName, textContent) {
-  const element = document.createElement(tagName);
-  element.textContent = textContent;
-  parentElement.append(element);
-  return element;
-}
-
 // Build episode card
 function createDramaCard(episode) {
   const card = document.createElement("section");
@@ -200,7 +155,7 @@ function createDramaCard(episode) {
 
   const smallcard = document.createElement("div");
   smallcard.classList.add("small-card");
-  createChildElement(smallcard, "h3", `${episode.name} - ${episodeCode}`);
+  smallcard.textContent = `${episode.name} - ${episodeCode}`;
   card.append(smallcard);
 
   const img = document.createElement("img");
@@ -220,21 +175,29 @@ async function setup() {
   allShows = await fetchShow();
   if (allShows.length === 0) return;
 
-  createShowSelectElement();
+  const showSelect = createShowSelectElement();
 
-  // Fetch episodes for the first show automatically
+  // When user selects a show (LEVEL 400 FIX)
+  showSelect.addEventListener("change", async (event) => {
+    const showId = event.target.value;
+
+    allEpisodes = await fetchEpisodes(showId);
+
+    createOptionElements(); // rebuild episode selector
+    EventChange(); // reattach selector listener
+    document.getElementById("search-input").value = ""; // reset search
+    makePageForEpisodes(allEpisodes);
+  });
+
+  // Load first show automatically
   const initialShowId = allShows[0].id;
   allEpisodes = await fetchEpisodes(initialShowId);
 
-  if (allEpisodes.length === 0) return; // Stop if fetch failed
-  createSelectElement();
   createOptionElements();
-
-  SetupSearchBar();
-
   EventChange();
   handleSearchInput();
   makePageForEpisodes(allEpisodes);
 }
 
 window.onload = setup;
+
