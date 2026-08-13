@@ -1,3 +1,265 @@
+/* ============================
+   CSS Variables (Design Tokens)
+   ============================ */
+:root {
+  /* Colors */
+  --color-bg: #0f1115;
+  --color-surface: #1a1d24;
+  --color-surface-hover: #22262f;
+  --color-border: #2c303a;
+
+  --color-text: #e8e9ec;
+  --color-text-muted: #9aa0ab;
+  --color-text-faint: #8b93a0;
+
+  --color-accent: #6c8cff;
+  --color-accent-hover: #8aa4ff;
+
+  --color-error-bg: #2a1414;
+  --color-error-border: #7a2c2c;
+  --color-error-text: #ff9b9b;
+
+  /* Typography */
+  --font-base: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.75rem;
+  --line-height-base: 1.5;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+
+  /* Layout */
+  --max-width: 1100px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --card-min-width: 260px;
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+}
+
+/* ============================
+   Base
+   ============================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: var(--space-lg);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
+
 #root {
-  color: red;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: var(--font-size-xl);
+  margin: var(--space-md) 0;
+}
+
+h2 {
+  font-size: var(--font-size-lg);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+/* ============================
+   Loading / status message
+   ============================ */
+.Loading-message {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-xl) 0;
+  font-size: var(--font-size-lg);
+}
+
+/* ============================
+   Navigation (shows link)
+   ============================ */
+nav {
+  margin-bottom: var(--space-md);
+}
+
+nav a {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+nav a:hover {
+  background-color: var(--color-surface-hover);
+  text-decoration: none;
+}
+
+/* ============================
+   Search controls (shows + episodes)
+   ============================ */
+label {
+  display: inline-block;
+  margin-right: var(--space-sm);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+input[type="text"],
+select {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-sm);
+}
+
+input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+}
+
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+#episode-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* results count text ("Displaying X/Y ...") */
+#root > p,
+#episode-controls p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ============================
+   Shows listing grid
+   ============================ */
+#shows-list,
+#episodes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+/* ============================
+   Cards (shared by shows + episodes)
+   ============================ */
+#shows-list article,
+#episodes-list article {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+#shows-list article:hover,
+#episodes-list article:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+#shows-list article img,
+#episodes-list article img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-sm);
+  background-color: var(--color-border);
+}
+
+#shows-list article h2 a,
+#episodes-list article h2 {
+  font-size: var(--font-size-lg);
+}
+
+/* the clickable show name button/link inside h2 */
+#shows-list article h2 a {
+  font-weight: 700;
+}
+
+.summary {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.summary p {
+  margin: 0 0 var(--space-xs) 0;
+}
+
+#shows-list article p {
+  margin: var(--space-xs) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-faint);
+}
+
+/* episode "View on TVMaze" link, pinned to the bottom of the card */
+#episodes-list article a {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+/* ============================
+   Error state
+   ============================ */
+.error-container {
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.error-container h3 {
+  color: var(--color-error-text);
+  margin-top: 0;
+}
+
+.error-container p {
+  color: var(--color-text-muted);
+}
+
+.error-details {
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  color: var(--color-error-text);
 }
