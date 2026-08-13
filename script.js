@@ -362,12 +362,11 @@ function showError(error) {
     </div>
   `;
 }
-
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
+  const episodeContainer = document.getElementById("episodes-list");
 
   // Clear previous episodes before displaying new ones
-  rootElem.innerHTML = "";
+  episodeContainer.innerHTML = "";
 
   episodeList.forEach(function (episode) {
     const season = String(episode.season).padStart(2, "0");
@@ -378,7 +377,7 @@ function makePageForEpisodes(episodeList) {
     const title = document.createElement("h2");
     const image = document.createElement("img");
 
-    //  Some episodes may not have an image
+    // Some episodes may not have an image
     if (episode.image) {
       image.src = episode.image.medium;
     }
@@ -401,8 +400,10 @@ function makePageForEpisodes(episodeList) {
     card.appendChild(summary);
     card.appendChild(link);
 
-    rootElem.appendChild(card);
+    episodeContainer.appendChild(card);
   });
 }
+
+  
 
 window.onload = setup;
