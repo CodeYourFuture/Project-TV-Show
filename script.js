@@ -37,7 +37,7 @@ function setup() {
       displayShows(allShows);
     })
     .catch(function (error) {
-      showError(error);
+      showError(error,"shows");
     });
 }
 function displayShows(shows) {
@@ -153,7 +153,7 @@ function displayShows(shows) {
     const rating = document.createElement("p");
     const ratingValue = show.rating?.average ?? "N/A";
     rating.textContent = "Rating: " + ratingValue;
-    
+
     const runtime = document.createElement("p");
     const runtimeValue = show.runtime ?? show.averageRuntime ?? "N/A";
     runtime.textContent = `Runtime: ${runtimeValue} minutes`;
@@ -216,7 +216,7 @@ function fetchEpisodes(showId) {
       displayEpisodes(episodes);
     })
     .catch(function (error) {
-      showError(error);
+      showError(error,"episodes");
     });
 }
 
@@ -344,18 +344,16 @@ function displayEpisodes(allEpisodes) {
 
 
 // Show an error message that the user can see
-function showError(error) {
+function showError(error, itemType = "content") {
   const rootElem = document.getElementById("root");
 
   rootElem.innerHTML = `
     <div class="error-container">
       <h3>Oops! Something went wrong.</h3>
-
       <p>
-        We couldn't load the episodes right now.
+        We couldn't load the ${itemType} right now.
         Please try refreshing the page.
       </p>
-
       <p class="error-details">
         Error details: ${error.message}
       </p>
