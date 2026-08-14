@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <!DOCTYPE html>
-  <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,84 +8,56 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
-<body>
-  <form class="search-area">
-    <label for="show-select">Choose a show:</label>
-    <select id="show-select">
-      <option value="">Select a show</option>
-    </select>
-    <label for="film-select">Choose a film:</label>
-    <select id="film-select">
-      <option value="">Select a film</option>
-    </select>
-    <label for="film-search">Search films:</label>
-    <input type="search" id="film-search">
-    <p class="filter-display"></p>
-  </form>
-  <template id="film-card-template">
-    <section class="card">
-      <h3 class="title"></h3>
-      <img src="" alt="" />
-      <p class="summary"></p>
-    </section>
-  </template>
-  <main>
-    <div class="film-grid" id="film-grid"></div>
-    <div class="single-film-grid hidden">
-      <button class="exit">Return to film listings</button>
-      <div class="show-single-film"></div>
+  <body>
+    <!-- Back to shows button -->
+    <button class="back-to-shows hidden">Back to Shows</button>
+
+    <!--  SHOWS CONTROLS (search + dropdown) -->
+    <div class="shows-controls">
+      <input type="search" id="show-search" placeholder="Search shows" />
+
+      <label for="show-select" id="show-select-label">Choose a show:</label>
+      <select id="show-select">
+        <option value="">Select a show</option>
+      </select>
     </div>
-  </main>
-  <h3 class="source">
-    Film data source:
-    <a href="https://www.tvmaze.com/" target="_blank">tvmaze.com</a>
-  </h3>
-  <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-  <script src="episodes.js"></script>
 
-  <!-- Loads YOUR javascript code -->
-  <script src="script.js"></script>
-</body>
+    <!-- SHOWS LISTING -->
+    <div class="shows-listing"></div>
 
-</html>
+    <!-- EPISODES VIEW -->
+    <form class="search-area">
+      <label for="film-select">Choose an episode:</label>
+      <select id="film-select">
+        <option value="">Select an episode</option>
+      </select>
+      <label for="film-search">Search films:</label>
+      <input type="search" id="film-search" />
+      <p class="filter-display"></p>
+    </form>
+    <!-- EPISODE CARD TEMPLATE -->
+    <template id="film-card-template">
+      <section class="card">
+        <h3 class="title"></h3>
+        <img src="" alt="" />
+        <p class="summary"></p>
+      </section>
+    </template>
+    <!-- MAIN CONTENT -->
+    <main>
+      <div class="film-grid" id="film-grid"></div>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TV Show Project | Liridona Shehu (shehu-dona)</title>
-<link href="style.css" rel="stylesheet" />
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />
-</head>
+      <div class="single-film-grid hidden">
+        <button class="exit">Return to film listings</button>
+        <div class="show-single-film"></div>
+      </div>
+    </main>
 
-<body>
-  <form class="search-area">
-    <label for="film-select">Choose a film:</label>
-    <select id="film-select">
-      <option value="">Select a film</option>
-    </select>
-    <label for="film-search">Search films:</label>
-    <input type="search" id="film-search" />
-    <p class="filter-display"></p>
-  </form>
-  <template id="film-card-template">
-    <section class="card">
-      <h3 class="title"></h3>
-      <img src="" alt="" />
-      <p class="summary"></p>
-    </section>
-  </template>
-  <main>
-    <div class="film-grid" id="film-grid"></div>
-    <div class="single-film-grid hidden">
-      <button class="exit">Return to film listings</button>
-      <div class="show-single-film"></div>
-    </div>
-  </main>
-  <h3 class="source">
-    Film data source:
-    <a href="https://www.tvmaze.com/" target="_blank">tvmaze.com</a>
-  </h3>
-  <p id="loading"></p>
-  <!-- Loads YOUR javascript code -->
-  <script src="script.js"></script>
-</body>
+    <h3 class="source">
+      Film data source:
+      <a href="https://www.tvmaze.com/" target="_blank">tvmaze.com</a>
+    </h3>
 
+    <script src="script.js"></script>
+  </body>
 </html>
