@@ -1,5 +1,5 @@
 // You can edit ALL of the code here
-
+const showsControls = document.querySelector(".shows-controls");
 const episodeGrid = document.getElementById("film-grid");
 const singleEpisodeContainer = document.querySelector(".single-film-grid");
 const filterDisplay = document.querySelector(".filter-display");
@@ -61,6 +61,52 @@ async function fetchShows() {
 
   return showsPromise;
 }
+function createShowCard(show) {
+  const card = document.createElement("section");
+  card.className = "show-card";
+  card.innerHTML = `
+    <h3>${show.name}</h3>
+    <img src="${show.image?.medium || ""}" alt=" ${show.name}">
+    <p>${show.summary || ""}</p>
+    <p><strong>Genres:</strong> ${show.genres.join(", ")}</p>
+    <p><strong>Status:</strong> ${show.status}</p>
+    <p><strong>Rating:</strong> ${show.rating?.average || "N/A"}</p>
+    <p><strong>Runtime:</strong> ${show.runtime} minutes</p>
+  `;
+  card.addEventListener("click", () => {
+    document.querySelector(".shows-listing").classList.add("hidden");
+    showsControls.classList.add("hidden");
+
+    searchArea.classList.remove("hidden");
+    episodeGrid.classList.remove("hidden");
+    singleEpisodeContainer.classList.add("hidden");
+
+    document.querySelector(".back-to-shows").classList.remove("hidden");
+
+    state.selectedShowId = show.id;
+    loadEpisodes(show.id);
+  });
+  return card;
+}
+
+function renderShowsListing() {
+  const showsContainer = document.querySelector(".shows-listing");
+  showsContainer.innerHTML = "";
+  state.shows.forEach((show) => {
+    const card = createShowCard(show);
+    showsContainer.append(card);
+  });
+}
+
+function renderFilteredShows(filteredShows) {
+  const showsContainer = document.querySelector(".shows-listing");
+  showsContainer.innerHTML = "";
+
+  filteredShows.forEach((show) => {
+    const card = createShowCard(show);
+    showsContainer.append(card);
+  });
+}
 
 async function fetchEpisodes(showId = state.selectedShowId) {
   if (episodesCache.has(showId)) {
@@ -87,7 +133,15 @@ async function setup() {
   try {
     const fetchedShows = await fetchShows();
     state.shows = fetchedShows;
-    renderEpisodes();
+    showsControls.classList.remove("hidden");
+    document.getElementById("show-select-label").classList.add("hidden");
+    showSelect.classList.add("hidden");
+
+    renderShowsListing();
+    searchArea.classList.add("hidden");
+    episodeGrid.classList.add("hidden");
+    singleEpisodeContainer.classList.add("hidden");
+
     populateShowSelect();
     clearMessage();
     showMessage("Shows loaded", 1500);
@@ -134,7 +188,6 @@ function populateShowSelect() {
     const firstShowId = sortedShows[0].id;
     state.selectedShowId = firstShowId;
     showSelect.value = state.selectedShowId;
-    loadEpisodes(state.selectedShowId);
   }
 }
 
@@ -228,6 +281,19 @@ episodeSelect.addEventListener("change", (event) => {
   event.target.value = "";
   displaySelectedEpisode();
 });
+const showSearchInput = document.getElementById("show-search");
+
+showSearchInput.addEventListener("input", (event) => {
+  const query = event.target.value.toLowerCase().trim();
+
+  const filteredShows = state.shows.filter((show) => {
+    const name = show.name.toLowerCase();
+    const summary = show.summary?.toLowerCase() || "";
+    return name.includes(query) || summary.includes(query);
+  });
+
+  renderFilteredShows(filteredShows);
+});
 
 showSelect.addEventListener("change", async (event) => {
   const selectedValue = event.target.value.trim();
@@ -237,10 +303,18 @@ showSelect.addEventListener("change", async (event) => {
   await loadEpisodes(state.selectedShowId);
 });
 
-exitButton.addEventListener("click", () => {
+document.querySelector(".back-to-shows").addEventListener("click", () => {
+  // show shows page
+  document.querySelector(".shows-listing").classList.remove("hidden");
+  showsControls.classList.remove("hidden");
+
+  // hide episodes page
+  searchArea.classList.add("hidden");
+  episodeGrid.classList.add("hidden");
   singleEpisodeContainer.classList.add("hidden");
-  searchArea.classList.remove("hidden");
-  episodeGrid.classList.remove("hidden");
+
+  // hide back button
+  document.querySelector(".back-to-shows").classList.add("hidden");
 });
 
 window.onload = setup;
