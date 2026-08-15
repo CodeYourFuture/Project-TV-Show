@@ -202,13 +202,8 @@ function getDisplayedShows() {
         show.summary?.toLowerCase().includes(state.searchTermShow) ||
         show.genres.includes(state.searchTermShow),
     );
-    if (state.searchTermShow === "") {
-      createShowOptions([]);
-      elements.showSelectorLabel.textContent = `Found 0 shows`;
-    } else {
-      createShowOptions(displayedShows);
-      elements.showSelectorLabel.textContent = `Found ${displayedShows.length} shows`;
-    }
+    createShowOptions(displayedShows);
+    elements.showSelectorLabel.textContent = `Found ${displayedShows.length} shows`;
   }
   return displayedShows;
 }
@@ -343,6 +338,11 @@ function switchToShowsView() {
 
   elements.episodesView.style.display = "none";
   elements.showsView.style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 }
 
 function switchToEpisodesView() {
