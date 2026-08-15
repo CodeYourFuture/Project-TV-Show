@@ -203,8 +203,8 @@ function getDisplayedShows() {
         show.genres.includes(state.searchTermShow),
     );
     createShowOptions(displayedShows);
-    elements.showSelectorLabel.textContent = `Found ${displayedShows.length} shows`;
   }
+  elements.showSelectorLabel.textContent = `Found ${displayedShows.length} shows`;
   return displayedShows;
 }
 
