@@ -1,3 +1,20 @@
 #root {
-  color: red;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.episode {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.episode img {
+  width: 100%;
+  border-radius: 8px;
 }
