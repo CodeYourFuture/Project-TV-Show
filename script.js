@@ -116,7 +116,7 @@ function handleEpisodeSearch(event) {
 }
 
 function handleShowSearch(event) {
-  state.searchTermShow = event.target.value.toLowerCase();
+  state.searchTermShow = event.target.value.toLowerCase().trim();
   state.selectedShow = null;
   elements.showSelect.value = "";
   renderShows();
@@ -200,8 +200,9 @@ function getDisplayedShows() {
       (show) =>
         show.name.toLowerCase().includes(state.searchTermShow) ||
         show.summary?.toLowerCase().includes(state.searchTermShow) ||
-        show.genres.includes(state.searchTermShow),
+        show.genres.join(" ").toLowerCase().includes(state.searchTermShow),
     );
+
     createShowOptions(displayedShows);
   }
   elements.showSelectorLabel.textContent = `Found ${displayedShows.length} shows`;
