@@ -338,11 +338,6 @@ function switchToShowsView() {
 
   elements.episodesView.style.display = "none";
   elements.showsView.style.display = "block";
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
 }
 
 function switchToEpisodesView() {
@@ -353,6 +348,11 @@ function switchToEpisodesView() {
 
   elements.showsView.style.display = "none";
   elements.episodesView.style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 }
 
 function findSelectedShowName() {
