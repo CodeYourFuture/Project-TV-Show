@@ -9,8 +9,8 @@ body {
     sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7fafc;
-  color: #2d3748;
+  background-color: #000000; /* True black background */
+  color: #f8fafc; /* High contrast white/slate for maximum legibility */
 }
 
 .hidden {
@@ -23,26 +23,35 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  background-color: #2b6cb0;
+  background-color: #121214; /* Deep dark surface */
+  border-bottom: 1px solid #27272a;
   padding: 16px 24px;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .controls-container select,
 .controls-container input[type="text"] {
-  padding: 8px 12px;
-  border: 1px solid #cbd5e0;
+  padding: 10px 14px;
+  background-color: #18181b;
+  color: #ffffff;
+  border: 1px solid #3f3f46;
   border-radius: 6px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   outline: none;
+}
+
+.controls-container select:focus,
+.controls-container input[type="text"]:focus {
+  border-color: #38bdf8;
+  outline: 3px solid #38bdf8;
+  outline-offset: 1px;
 }
 
 .controls-container select {
   max-width: 220px;
-  background-color: #ffffff;
 }
 
 .controls-container input[type="text"] {
@@ -51,24 +60,30 @@ body {
 }
 
 .nav-btn {
-  padding: 8px 16px;
-  background-color: #3182ce;
-  color: #ffffff;
-  border: 1px solid #63b3ed;
+  padding: 10px 18px;
+  background-color: #1e293b;
+  color: #f8fafc;
+  border: 2px solid #38bdf8;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 600;
-  transition: background-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease;
 }
 
-.nav-btn:hover {
-  background-color: #2b6cb0;
+.nav-btn:hover,
+.nav-btn:focus {
+  background-color: #2563eb;
+  color: #ffffff;
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
 }
 
 #search-count {
-  color: #ffffff;
+  color: #cbd5e1;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin-left: auto;
 }
 
@@ -77,14 +92,15 @@ body {
 .error-container {
   text-align: center;
   padding: 60px 20px;
+  color: #f8fafc;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
   margin: 0 auto 16px;
-  border: 4px solid #e2e8f0;
-  border-top: 4px solid #3182ce;
+  border: 4px solid #27272a;
+  border-top: 4px solid #38bdf8;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -106,48 +122,66 @@ body {
 }
 
 /* Shows Listing Layout - 2 Side by Side */
+/* Shows Listing Layout - 3 Side by Side */
 .shows-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Updated Responsive Breakpoints for 3-Column Layout */
+@media (max-width: 1024px) {
+  .shows-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .shows-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .show-card {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  background-color: #121214; /* Deep dark container card */
+  border: 2px solid #27272a;
+  border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   transition:
     transform 0.15s ease,
+    border-color 0.15s ease,
     box-shadow 0.15s ease;
 }
 
-.show-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+/* Enhanced focus state for TV remote D-pad navigation */
+.show-card:hover,
+.show-card:focus-within {
+  transform: scale(1.02);
+  border-color: #38bdf8;
+  box-shadow:
+    0 0 0 4px rgba(56, 189, 248, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.8);
 }
 
 .show-card-body {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
+  flex-direction: column; /* Stacks image on top of text inside narrow cards */
+  align-items: center;
 }
 
 .show-card-media {
-  flex-shrink: 0;
-  width: 120px;
-  cursor: pointer;
+  width: 100%;
+  max-width: 180px; /* Centers the poster neatly */
 }
 
 .show-card-media img {
   width: 100%;
   border-radius: 6px;
   object-fit: cover;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .show-card-content {
@@ -156,36 +190,44 @@ body {
 
 .show-card-content h2 {
   margin: 0 0 8px 0;
-  font-size: 1.2rem;
-  color: #2b6cb0;
+  font-size: 1.3rem;
+  color: #38bdf8; /* Vibrant accessible accent color on black */
   cursor: pointer;
 }
 
-.show-card-content h2:hover {
+.show-card-content h2:hover,
+.show-card-content h2:focus {
   text-decoration: underline;
 }
 
 .show-card-summary {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   line-height: 1.4;
-  color: #4a5568;
+  color: #d4d4d8; /* High contrast muted text */
+
+  /* CSS Line Clamp */
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limits description to 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .show-card-meta {
-  background-color: #f7fafc;
-  border-top: 1px solid #e2e8f0;
-  padding: 10px 12px;
+  background-color: #18181b;
+  border-top: 1px solid #27272a;
+  padding: 12px 14px;
   border-radius: 6px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px 20px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   margin-top: auto;
 }
 
 .show-card-meta p {
   margin: 0;
-  color: #4a5568;
+  color: #a1a1aa;
 }
 
 /* Episodes Grid Layout */
@@ -196,63 +238,73 @@ body {
 }
 
 .episode-card {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  background-color: #121214;
+  border: 2px solid #27272a;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.episode-card:focus-within,
+.episode-card:hover {
+  border-color: #38bdf8;
+  transform: translateY(-3px);
 }
 
 .episode-header {
-  background-color: #edf2f7;
-  padding: 12px 16px;
+  background-color: #18181b;
+  padding: 14px 16px;
   text-align: center;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #27272a;
 }
 
 .episode-header h3 {
   margin: 0;
-  font-size: 1.05rem;
-  color: #2b6cb0;
+  font-size: 1.1rem;
+  color: #38bdf8;
 }
 
 .episode-card img {
   width: 100%;
   height: 160px;
   object-fit: cover;
-  background-color: #e2e8f0;
+  background-color: #27272a;
 }
 
 .episode-summary {
   padding: 16px;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.5;
-  color: #4a5568;
+  color: #d4d4d8;
   flex: 1;
 }
 
-/* High Contrast TVMaze Footer */
+/* TVMaze Footer */
 #tvmaze-attribution {
   text-align: center;
   padding: 24px 16px;
-  color: #2d3748;
+  color: #a1a1aa;
   font-size: 0.9rem;
-  border-top: 1px solid #cbd5e0;
+  border-top: 1px solid #27272a;
   margin-top: 40px;
 }
 
 #tvmaze-attribution a {
-  color: #1a202c;
+  color: #38bdf8;
   font-weight: 600;
   text-decoration: underline;
 }
 
 #tvmaze-attribution a:hover,
 #tvmaze-attribution a:focus {
-  color: #2b6cb0;
-  outline: 2px solid #2b6cb0;
+  color: #ffffff;
+  outline: 3px solid #38bdf8;
+  outline-offset: 2px;
 }
 
 /* Responsive adjustment */
