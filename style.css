@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   color: rgb(33, 31, 31);
+  gap: 20px;
 }
 section {
   
