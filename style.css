@@ -18,3 +18,31 @@
   width: 100%;
   border-radius: 8px;
 }
+
+#shows-root {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.show {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 25px;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+
+  box-sizing: border-box;
+}
+
+.show img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
