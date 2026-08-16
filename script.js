@@ -27,7 +27,7 @@ function makePageForEpisodes(episodeList) {
     const clone = template.content.cloneNode(true);
     clone.querySelector("h3").textContent = `${episode.name} - S${paddedSeason(episode.season)}E${paddedEpisode(episode.number)}`;
     clone.querySelector("img").src = episode.image.medium;
-    clone.querySelector("#synopsis").textContent = episodeSynopsis(episode.summary);
+    clone.querySelector(".synopsis").textContent = episodeSynopsis(episode.summary);
     rootElem.appendChild(clone);
   });
 }
