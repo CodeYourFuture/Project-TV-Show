@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Vito Moratti (vmoratti)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
@@ -11,11 +11,25 @@
   <body>
     <div id="root">
     </div>
+    
+    <!--Template is going to be cloned in the JS file-->
+    <template id="episode-template">
+      <section>
+        <h3 id="title" >Film title</h3>
+        <img alt="Film poster" />
+        <p class="synopsis">Synopsis</p>
+      </section>
+      
+    </template>
+    <footer>
+        <p>&copy; TV. All rights reserved.</p>
+      </footer>
+    
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
 
     <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
   </body>
 </html>
