@@ -43,7 +43,7 @@ async function fetchShows() {
     makePageForShows(allShows);
 
     document.getElementById("show-count").textContent =
-      `Showing ${allShows.length} shows`;
+      `Showing ${allShows.length} show${allShows.length !== 1 ? "s" : ""}`;
   } catch (error) {
     showsRoot.textContent =
       "Sorry, we could not load the shows. Please try again later.";
@@ -130,7 +130,7 @@ function setupShowSearch() {
       );
     });
 
-    showCount.textContent = `Showing ${filteredShows.length} shows`;
+    showCount.textContent = `Showing ${filteredShows.length} show${filteredShows.length !== 1 ? "s" : ""}`;
 
     makePageForShows(filteredShows);
   });
