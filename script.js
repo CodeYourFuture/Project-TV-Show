@@ -15,23 +15,39 @@ const episodeSynopsis = (summary) => summary.replace(/<[^>]*>/g, "");
 
 function setup() {
   const allEpisodes = getAllEpisodes();
+
+  setupFooter();
   makePageForEpisodes(allEpisodes);
+}
+
+function setupFooter() {
+  const footer = document.querySelector("footer");
+
+  footer.innerHTML = `&copy; TV. All rights reserved. <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>`;
+}
+
+function createEpisodeElement(episode) {
+  const template = document.getElementById("episode-template");
+  const clone = template.content.cloneNode(true);
+
+  clone.querySelector(".title").textContent =
+    `${episode.name} - S${paddedSeason(episode.season)}E${paddedEpisode(episode.number)}`;
+
+  clone.querySelector("img").src = episode.image.medium;
+
+  clone.querySelector(".synopsis").textContent = episodeSynopsis(
+    episode.summary,
+  );
+
+  return clone;
 }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  const template = document.getElementById("episode-template");
-  const footer = document.querySelector("footer");
-  footer.innerHTML = `&copy; TV. All rights reserved. <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>`; // Add copyright notice with link to TVMaze.com
+
   episodeList.forEach((episode) => {
-    const clone = template.content.cloneNode(true);
-    clone.querySelector("h3").textContent =
-      `${episode.name} - S${paddedSeason(episode.season)}E${paddedEpisode(episode.number)}`;
-    clone.querySelector("img").src = episode.image.medium;
-    clone.querySelector(".synopsis").textContent = episodeSynopsis(
-      episode.summary,
-    );
-    rootElem.appendChild(clone);
+    const episodeElement = createEpisodeElement(episode);
+    rootElem.appendChild(episodeElement);
   });
 }
 
