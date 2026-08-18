@@ -152,4 +152,4 @@ function scrollToEpisode(episode) {
   }
 }
 
-window.onload = setup;
+window.onload = setup; // refactored
