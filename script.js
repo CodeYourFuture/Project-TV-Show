@@ -74,17 +74,7 @@ function createShowCard(show) {
     <p><strong>Runtime:</strong> ${show.runtime} minutes</p>
   `;
   card.addEventListener("click", () => {
-    document.querySelector(".shows-listing").classList.add("hidden");
-    showsControls.classList.add("hidden");
-
-    searchArea.classList.remove("hidden");
-    episodeGrid.classList.remove("hidden");
-    singleEpisodeContainer.classList.add("hidden");
-
-    document.querySelector(".back-to-shows").classList.remove("hidden");
-
-    state.selectedShowId = show.id;
-    loadEpisodes(show.id);
+    showEpisodesView(show.id);
   });
   return card;
 }
@@ -98,6 +88,19 @@ function renderShowsListing() {
   });
 }
 
+function showEpisodesView(showId) {
+  document.querySelector(".shows-listing").classList.add("hidden");
+  showsControls.classList.add("hidden");
+
+  searchArea.classList.remove("hidden");
+  episodeGrid.classList.remove("hidden");
+  singleEpisodeContainer.classList.add("hidden");
+
+  document.querySelector(".back-to-shows").classList.remove("hidden");
+
+  state.selectedShowId = showId;
+  loadEpisodes(showId);
+}
 function renderFilteredShows(filteredShows) {
   const showsContainer = document.querySelector(".shows-listing");
   showsContainer.innerHTML = "";
@@ -134,8 +137,6 @@ async function setup() {
     const fetchedShows = await fetchShows();
     state.shows = fetchedShows;
     showsControls.classList.remove("hidden");
-    document.getElementById("show-select-label").classList.add("hidden");
-    showSelect.classList.add("hidden");
 
     renderShowsListing();
     searchArea.classList.add("hidden");
@@ -281,6 +282,11 @@ episodeSelect.addEventListener("change", (event) => {
   event.target.value = "";
   displaySelectedEpisode();
 });
+exitButton.addEventListener("click", () => {
+  singleEpisodeContainer.classList.add("hidden");
+  searchArea.classList.remove("hidden");
+  episodeGrid.classList.remove("hidden");
+});
 const showSearchInput = document.getElementById("show-search");
 
 showSearchInput.addEventListener("input", (event) => {
@@ -289,7 +295,10 @@ showSearchInput.addEventListener("input", (event) => {
   const filteredShows = state.shows.filter((show) => {
     const name = show.name.toLowerCase();
     const summary = show.summary?.toLowerCase() || "";
-    return name.includes(query) || summary.includes(query);
+    const genres = show.genres.join(" ").toLowerCase();
+    return (
+      name.includes(query) || summary.includes(query) || genres.includes(query)
+    );
   });
 
   renderFilteredShows(filteredShows);
@@ -299,8 +308,7 @@ showSelect.addEventListener("change", async (event) => {
   const selectedValue = event.target.value.trim();
   if (!selectedValue) return;
 
-  state.selectedShowId = Number(selectedValue);
-  await loadEpisodes(state.selectedShowId);
+  showEpisodesView(Number(selectedValue));
 });
 
 document.querySelector(".back-to-shows").addEventListener("click", () => {
