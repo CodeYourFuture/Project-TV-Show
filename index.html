@@ -9,21 +9,36 @@
   </head>
 
   <body>
-    <div id="root">
-    </div>
-    
-    <!--Template is going to be cloned in the JS file-->
+    <section class="search-panel">
+      <label for="search-input">Search episodes</label>
+
+      <div class="search-box">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search by episode name or summary..."
+        />
+      </div>
+
+      <p id="episode-count"></p>
+    </section>
+
+    <div id="root"></div>
+
+    <!-- Template is going to be cloned in the JS file -->
     <template id="episode-template">
-  <section>
-    <h3 class="title">Film title</h3>
-    <img alt="Film poster" />
-    <p class="synopsis">Synopsis</p>
-  </section>
-</template>
+      <article class="episode">
+        <h3 class="title">Film title</h3>
+        <img alt="Film poster" />
+        <p class="synopsis">Synopsis</p>
+      </article>
+    </template>
+
     <footer>
-        <p>&copy; TV. All rights reserved.</p>
-      </footer>
-    
+      <p>&copy; TV. All rights reserved.</p>
+    </footer>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
