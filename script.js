@@ -1,13 +1,18 @@
-/* 
+/*
 For each episode, at least following must be displayed:
 The name of the episode
 The season number
 The episode number
 The medium-sized image for the episode
 The summary text of the episode
- */
+*/
 
-//You can edit ALL of the code here
+const paddedSeason = (season) => season.toString().padStart(2, "0");
+
+const paddedEpisode = (episode) => episode.toString().padStart(2, "0");
+
+const episodeSynopsis = (summary) => summary.replace(/<[^>]*>/g, "");
+
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
@@ -16,9 +21,6 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   const template = document.getElementById("episode-template");
-  const paddedSeason = (season) => season.toString().padStart(2, "0");
-  const paddedEpisode = (episode) => episode.toString().padStart(2, "0");
-  const episodeSynopsis = (summary) => summary.replace(/<[^>]*>/g, ""); // Remove HTML tags from summary
   const footer = document.querySelector("footer");
   footer.innerHTML = `&copy; TV. All rights reserved. <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>`; // Add copyright notice with link to TVMaze.com
   episodeList.forEach((episode) => {
