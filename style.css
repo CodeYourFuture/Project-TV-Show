@@ -1,38 +1,147 @@
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: rgb(33, 31, 31);
+}
+
+/* Search, selector and counter */
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+#episode-select {
+  width: 230px;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: white;
+  font-size: 0.9rem;
+}
+
+#search-input {
+  width: 220px;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+#episode-count {
+  margin: 0;
+  color: #777;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* Episode grid */
+
 #root {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  color: rgb(33, 31, 31);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
-section {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
+
+/* Episode cards */
+
+.episode {
   margin: 0;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
-h3 {
-  font-size: 1em;
-  margin: -16px -16px 16px;
-  padding: 12px;
-  text-align: center;
+
+/* Episode title */
+
+.title {
+  margin: -16px -16px 20px;
+  padding: 14px;
+  background: #ffffff;
   border: 1px solid #999;
-  border-radius: 8px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
+/* Episode image */
 
-#title {
-  border-style: solid;
-  border-width: 2px;
-}
 img {
-  width: 100%;
+  display: block;
+  width: 70%;
   height: 150px;
+  margin: 0 auto 18px;
   object-fit: cover;
 }
+
+/* Episode summary */
+
 .synopsis {
+  margin-bottom: 0;
   font-size: 1rem;
-  line-height: 1.4;
+  line-height: 1.5;
+  color: #666;
 }
+
+/* Footer */
+
 footer {
+  max-width: 1400px;
+  margin: 30px auto 0;
+  color: #666;
   text-align: right;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  #root {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .controls {
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  .controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #episode-select,
+  #search-input {
+    width: 100%;
+  }
+
+  #episode-count {
+    white-space: normal;
+  }
+
+  #root {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  footer {
+    text-align: center;
+  }
 }
