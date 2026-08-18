@@ -28,7 +28,13 @@ function cleanSummary(summary) {
 }
 function setup() {
   fetch("https://api.tvmaze.com/shows/82/episodes")
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load episodes");
+      }
+
+      return response.json();
+    })
     .then((allEpisodes) => {
       setupFooter();
       makePageForEpisodes(allEpisodes);
