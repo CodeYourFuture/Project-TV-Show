@@ -68,6 +68,27 @@ function displayShows(shows) {
   searchInput.id = "showSearch";
   searchInput.placeholder = "Search by name, genre or summary...";
 
+  // LEVEL 400: Create show selector dropdown
+  const showLabel = document.createElement("label");
+  showLabel.htmlFor = "showSelector";
+  showLabel.textContent = "Choose a show:";
+
+  const showSelect = document.createElement("select");
+  showSelect.id = "showSelector";
+
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "All Shows";
+
+  showSelect.appendChild(defaultOption);
+
+  allShows.forEach(function (show) {
+    const option = document.createElement("option");
+    option.value = show.id;
+    option.textContent = show.name;
+    showSelect.appendChild(option);
+  });
+
   // Create results count
   const results = document.createElement("p");
   results.textContent = `Displaying ${shows.length}/${allShows.length} shows`;
@@ -80,6 +101,8 @@ function displayShows(shows) {
   rootElem.appendChild(heading);
   rootElem.appendChild(searchLabel);
   rootElem.appendChild(searchInput);
+  rootElem.appendChild(showLabel);
+  rootElem.appendChild(showSelect);
   rootElem.appendChild(results);
   rootElem.appendChild(showContainer);
 
@@ -90,9 +113,7 @@ function displayShows(shows) {
     const searchTerm = searchInput.value.toLowerCase();
 
     const filteredShows = allShows.filter(function (show) {
-    const showGenres = (show.genres || []).join(" ").toLowerCase();
-      
-      
+      const showGenres = (show.genres || []).join(" ").toLowerCase();
       const showSummary = (show.summary || "").toLowerCase();
       const showName = show.name.toLowerCase();
 
@@ -106,9 +127,28 @@ function displayShows(shows) {
     results.textContent = `Displaying ${filteredShows.length}/${allShows.length} shows`;
 
     makePageForShows(filteredShows);
+
+    showSelect.value = "";
   });
 
-  
+  // LEVEL 400: Show selected show from dropdown
+  showSelect.addEventListener("change", function () {
+    if (showSelect.value === "") {
+      makePageForShows(allShows);
+      results.textContent = `Displaying ${allShows.length}/${allShows.length} shows`;
+      return;
+    }
+
+    const selectedShow = allShows.filter(function (show) {
+      return show.id === Number(showSelect.value);
+    });
+
+    makePageForShows(selectedShow);
+    results.textContent = `Displaying ${selectedShow.length}/${allShows.length} shows`;
+
+    searchInput.value = "";
+  });
+
   // LEVEL 500: Allow user to return to the shows listing
   showsLink.addEventListener("click", function (event) {
     event.preventDefault();
@@ -116,6 +156,8 @@ function displayShows(shows) {
     displayShows(allShows);
   });
 }
+  
+
    function makePageForShows(showList) {
   const showContainer = document.getElementById("shows-list");
 
