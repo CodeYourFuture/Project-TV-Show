@@ -9,30 +9,27 @@
   </head>
 
   <body>
-    <section class="search-panel">
-      <label for="search-input">Search episodes</label>
+    <section class="controls">
+      <select id="episode-select">
+        <option value="">Select an episode</option>
+      </select>
 
-      <div class="search-box">
-        <span class="search-icon" aria-hidden="true">⌕</span>
-
-        <input
-          type="search"
-          id="search-input"
-          placeholder="Search by episode name or summary..."
-        />
-      </div>
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Search episodes..."
+      />
 
       <p id="episode-count"></p>
     </section>
 
-    <div id="root"></div>
+    <main id="root"></main>
 
-    <!-- Template is going to be cloned in the JS file -->
     <template id="episode-template">
       <article class="episode">
-        <h3 class="title">Film title</h3>
-        <img alt="Film poster" />
-        <p class="synopsis">Synopsis</p>
+        <h3 class="title">Episode title</h3>
+        <img alt="Episode poster" />
+        <p class="synopsis">Episode summary</p>
       </article>
     </template>
 
@@ -40,10 +37,7 @@
       <p>&copy; TV. All rights reserved.</p>
     </footer>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
     <script defer src="script.js"></script>
   </body>
 </html>

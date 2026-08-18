@@ -15,7 +15,11 @@ function getEpisodeCode(episode) {
   return `S${paddedSeason(episode.season)}E${paddedEpisode(episode.number)}`;
 }
 
-function getEpisodeTitle(episode) {
+function getEpisodeCardTitle(episode) {
+  return `${episode.name} - ${getEpisodeCode(episode)}`;
+}
+
+function getEpisodeSelectorTitle(episode) {
   return `${getEpisodeCode(episode)} - ${episode.name}`;
 }
 
@@ -29,6 +33,7 @@ function setup() {
   setupFooter();
   makePageForEpisodes(allEpisodes);
   setupSearch(allEpisodes);
+  setupEpisodeSelector(allEpisodes);
 }
 
 function setupFooter() {
@@ -42,11 +47,15 @@ function createEpisodeElement(episode) {
   const template = document.getElementById("episode-template");
   const episodeElement = template.content.cloneNode(true);
 
-  episodeElement.querySelector(".title").textContent =
-    getEpisodeTitle(episode);
+  episodeElement.querySelector(".episode").id = `episode-${episode.id}`;
 
-  episodeElement.querySelector("img").src = episode.image.medium;
-  episodeElement.querySelector("img").alt = `${episode.name} poster`;
+  episodeElement.querySelector(".title").textContent =
+    getEpisodeCardTitle(episode);
+
+  const image = episodeElement.querySelector("img");
+
+  image.src = episode.image.medium;
+  image.alt = `${episode.name} poster`;
 
   episodeElement.querySelector(".synopsis").textContent = cleanSummary(
     episode.summary,
@@ -89,7 +98,7 @@ function setupSearch(allEpisodes) {
 
     makePageForEpisodes(filteredEpisodes);
 
-    episodeCount.textContent = `${filteredEpisodes.length} episodes found`;
+    episodeCount.textContent = `Displaying ${filteredEpisodes.length}/${allEpisodes.length} episodes.`;
   }
 
   updateSearchResults("");
@@ -97,6 +106,50 @@ function setupSearch(allEpisodes) {
   searchInput.addEventListener("input", (event) => {
     updateSearchResults(event.target.value);
   });
+}
+
+function setupEpisodeSelector(allEpisodes) {
+  const episodeSelect = document.getElementById("episode-select");
+
+  allEpisodes.forEach((episode) => {
+    const option = document.createElement("option");
+
+    option.value = episode.id;
+    option.textContent = getEpisodeSelectorTitle(episode);
+
+    episodeSelect.appendChild(option);
+  });
+
+  episodeSelect.addEventListener("change", (event) => {
+    const selectedEpisodeId = Number(event.target.value);
+
+    if (!selectedEpisodeId) {
+      return;
+    }
+
+    const selectedEpisode = allEpisodes.find(
+      (episode) => episode.id === selectedEpisodeId,
+    );
+
+    const searchInput = document.getElementById("search-input");
+
+    searchInput.value = "";
+
+    makePageForEpisodes(allEpisodes);
+
+    scrollToEpisode(selectedEpisode);
+  });
+}
+
+function scrollToEpisode(episode) {
+  const episodeElement = document.getElementById(`episode-${episode.id}`);
+
+  if (episodeElement) {
+    episodeElement.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
 }
 
 window.onload = setup;
