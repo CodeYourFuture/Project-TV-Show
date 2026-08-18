@@ -101,6 +101,38 @@ function setupShowSearch() {
   });
 }
 
+// SHOW SELECTOR (LEVEL 400)
+function populateShowSelect() {
+  const showSelect = document.getElementById("show-select");
+
+  showSelect.innerHTML = "";
+
+  allShows.forEach((show) => {
+    const option = document.createElement("option");
+
+    option.value = show.id;
+    option.textContent = show.name;
+
+    showSelect.appendChild(option);
+  });
+}
+
+function setupShowSelector() {
+  const showSelect = document.getElementById("show-select");
+
+  showSelect.addEventListener("change", async (event) => {
+    const showId = Number(event.target.value);
+
+    allEpisodes = await fetchEpisodes(showId);
+
+    document.getElementById("search-input").value = "";
+
+    createOptionElements();
+
+    makePageForEpisodes(allEpisodes);
+  });
+}
+
 // EPISODE SELECTOR
 function createOptionElements() {
   const createSelect = document.getElementById("episode-select");
@@ -207,11 +239,13 @@ async function loadEpisodesView(showId) {
   document.getElementById("search-input").style.display = "block";
   document.getElementById("back-button").style.display = "block";
 
-  allEpisodes = await fetchEpisodes(showId);
+  document.getElementById("show-select").value = showId;
 
-  createOptionElements();
-  EventChange();
-  makePageForEpisodes(allEpisodes);
+allEpisodes = await fetchEpisodes(showId);
+
+createOptionElements();
+
+makePageForEpisodes(allEpisodes);
 }
 
 // SWITCH BACK TO SHOWS VIEW (Level 500)
@@ -235,9 +269,16 @@ function setupBackButton() {
 async function setup() {
   allShows = await fetchShow();
 
+  populateShowSelect();
+
   renderShowList(allShows);
+
   setupShowSearch();
   setupBackButton();
+  setupShowSelector();
+
+  EventChange();
+  handleSearchInput();
 }
 
 window.onload = setup;

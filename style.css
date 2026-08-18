@@ -134,3 +134,17 @@ a {
   margin-top: 10px;
   font-weight: bold;
 }
+
+#show-select,
+#episode-select,
+#search-input {
+  min-width: 250px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+}
