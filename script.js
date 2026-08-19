@@ -15,7 +15,7 @@ async function fetchShow() {
     const data = await response.json();
 
     showCache = data.sort((a, b) =>
-      a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+      a.name.localeCompare(b.name, undefined, { sensitivity: "base" }),
     );
 
     return showCache;
@@ -36,7 +36,7 @@ async function fetchEpisodes(showId) {
 
   try {
     const response = await fetch(
-      `https://api.tvmaze.com/shows/${showId}/episodes`
+      `https://api.tvmaze.com/shows/${showId}/episodes`,
     );
     if (!response.ok) throw new Error("Network response was not ok");
 
@@ -54,7 +54,7 @@ async function fetchEpisodes(showId) {
 function formatEpisodeCode(season, episode) {
   return `S${String(season).padStart(2, "0")}E${String(episode).padStart(
     2,
-    "0"
+    "0",
   )}`;
 }
 
@@ -70,7 +70,7 @@ function renderShowList(shows) {
     card.innerHTML = `
       <h2>${show.name}</h2>
       <img src="${show.image?.medium || ""}">
-      <p>${show.summary}</p>
+      <div class="show-summary">${show.summary}</div>
       <p><strong>Genres:</strong> ${show.genres.join(", ")}</p>
       <p><strong>Status:</strong> ${show.status}</p>
       <p><strong>Rating:</strong> ${show.rating?.average || "N/A"}</p>
@@ -148,7 +148,7 @@ function createOptionElements() {
     option.value = episode.id;
     option.textContent = `${formatEpisodeCode(
       episode.season,
-      episode.number
+      episode.number,
     )} - ${episode.name}`;
     createSelect.appendChild(option);
   });
@@ -165,7 +165,7 @@ function EventChange() {
       makePageForEpisodes(allEpisodes);
     } else {
       const result = allEpisodes.filter(
-        (episode) => episode.id === Number(selectedValue)
+        (episode) => episode.id === Number(selectedValue),
       );
       makePageForEpisodes(result);
     }
@@ -182,10 +182,9 @@ function handleSearchInput() {
     const filtered = allEpisodes.filter((episode) => {
       const matchName = episode.name.toLowerCase().includes(searchTerm);
       const matchSummary = episode.summary.toLowerCase().includes(searchTerm);
-      const matchCode = formatEpisodeCode(
-        episode.season,
-        episode.number
-      ).toLowerCase().includes(searchTerm);
+      const matchCode = formatEpisodeCode(episode.season, episode.number)
+        .toLowerCase()
+        .includes(searchTerm);
 
       return matchName || matchSummary || matchCode;
     });
@@ -241,11 +240,11 @@ async function loadEpisodesView(showId) {
 
   document.getElementById("show-select").value = showId;
 
-allEpisodes = await fetchEpisodes(showId);
+  allEpisodes = await fetchEpisodes(showId);
 
-createOptionElements();
+  createOptionElements();
 
-makePageForEpisodes(allEpisodes);
+  makePageForEpisodes(allEpisodes);
 }
 
 // SWITCH BACK TO SHOWS VIEW (Level 500)
@@ -253,7 +252,7 @@ function setupBackButton() {
   const btn = document.getElementById("back-button");
 
   btn.addEventListener("click", () => {
-    document.getElementById("show-list").style.display = "block";
+    document.getElementById("show-list").style.display = "grid";
     document.getElementById("show-search").style.display = "block";
 
     document.getElementById("show-select").style.display = "none";
@@ -262,6 +261,10 @@ function setupBackButton() {
     document.getElementById("back-button").style.display = "none";
 
     document.getElementById("root").innerHTML = "";
+
+    document.getElementById("show-search").value = "";
+
+    renderShowList(allShows);
   });
 }
 
@@ -282,5 +285,3 @@ async function setup() {
 }
 
 window.onload = setup;
-
-
