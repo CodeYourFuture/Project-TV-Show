@@ -9,6 +9,11 @@ const state = {
 
 const fetchEpisode = async() => {
   const response = await fetch(episodeArr);
+
+if (!response.ok) {
+  throw new Error(`HTTP error: ${response.status}`);
+}
+
   return await response.json();
 };
 
@@ -19,8 +24,6 @@ fetchEpisode().then((episodes) => {
 .catch((error) => {
   document.getElementById("status").textContent = 
   "Sorry, we couldn't load the episodes.";
-
-  console.error(error);
 });
 
 function createTvShowCard(tvShow) {
