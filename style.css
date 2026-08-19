@@ -30,8 +30,18 @@ a {
   background: #005fa3;
 }
 
-/* SHOW SEARCH BAR */
+/* SHOW SEARCH BAR AND TV-SHOW DROP LIST*/
 #show-search {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+#show-select-home {
   width: 100%;
   max-width: 400px;
   padding: 10px;

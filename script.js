@@ -102,6 +102,26 @@ function setupShowSearch() {
 }
 
 // SHOW SELECTOR (LEVEL 400)
+function populateHomeShowSelect() {
+  const showSelectHome = document.getElementById("show-select-home");
+
+  showSelectHome.innerHTML = "";
+
+  const defaultOption = document.createElement("option");
+  defaultOption.textContent = "Select a TV Show";
+  defaultOption.value = "";
+  showSelectHome.appendChild(defaultOption);
+
+  allShows.forEach((show) => {
+    const option = document.createElement("option");
+
+    option.value = show.id;
+    option.textContent = show.name;
+
+    showSelectHome.appendChild(option);
+  });
+}
+
 function populateShowSelect() {
   const showSelect = document.getElementById("show-select");
 
@@ -130,6 +150,18 @@ function setupShowSelector() {
     createOptionElements();
 
     makePageForEpisodes(allEpisodes);
+  });
+}
+
+function setupHomeShowSelector() {
+  const showSelectHome = document.getElementById("show-select-home");
+
+  showSelectHome.addEventListener("change", (event) => {
+    const showId = Number(event.target.value);
+
+    if (showId) {
+      loadEpisodesView(showId);
+    }
   });
 }
 
@@ -232,7 +264,7 @@ function createDramaCard(episode) {
 async function loadEpisodesView(showId) {
   document.getElementById("show-list").style.display = "none";
   document.getElementById("show-search").style.display = "none";
-
+  document.getElementById("show-select-home").style.display = "none";
   document.getElementById("show-select").style.display = "block";
   document.getElementById("episode-select").style.display = "block";
   document.getElementById("search-input").style.display = "block";
@@ -254,7 +286,7 @@ function setupBackButton() {
   btn.addEventListener("click", () => {
     document.getElementById("show-list").style.display = "grid";
     document.getElementById("show-search").style.display = "block";
-
+    document.getElementById("show-select-home").style.display = "block";
     document.getElementById("show-select").style.display = "none";
     document.getElementById("episode-select").style.display = "none";
     document.getElementById("search-input").style.display = "none";
@@ -273,15 +305,16 @@ async function setup() {
   allShows = await fetchShow();
 
   populateShowSelect();
+  populateHomeShowSelect();
 
   renderShowList(allShows);
 
   setupShowSearch();
   setupBackButton();
   setupShowSelector();
+  setupHomeShowSelector();
 
   EventChange();
   handleSearchInput();
 }
-
 window.onload = setup;
