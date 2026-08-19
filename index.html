@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<div id="shows-view">
-  <input type="search" id="show-search-input" placeholder="Search shows by name, genre, or summary" />
-  <p id="show-search-count"></p>
-  <div id="shows-list"></div>
-</div>
+<head>
+  <meta charset="UTF-8" />
+  <title>TV Show Project</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="shows-view">
+    <input type="search" id="show-search-input" placeholder="Search shows by name, genre, or summary" />
+    <p id="show-search-count"></p>
+    <div id="shows-list"></div>
+  </div>
 
-<div id="episodes-view" style="display: none;">
-  <a href="#" id="back-to-shows">← Back to shows</a>
-  <div id="root"></div>
-</div>
+  <div id="episodes-view" style="display: none;">
+    <a href="#" id="back-to-shows">← Back to shows</a>
+    <p id="episode-search-count"></p>
+    <div id="episodes-list"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
