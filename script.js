@@ -1,4 +1,9 @@
+const TVMAZE_SHOW_ID = 82;
+const TVMAZE_EPISODES_URL = `https://api.tvmaze.com/shows/${TVMAZE_SHOW_ID}/episodes`;
+const TVMAZE_SITE_URL = "https://www.tvmaze.com/";
+
 let allEpisodes = [];
+
 
 function getEpisodeCode(episode) {
   const seasonNumber = String(episode.season).padStart(2, "0");
