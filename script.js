@@ -84,10 +84,8 @@ function handleSearch() {
     return name.indexOf(state.searchTerm.toLowerCase()) !== -1;
   });
 
-  //renderEpisodes(filteredEpisodes);
+  renderEpisodes(filteredEpisodes);
 }
-
-renderEpisodes(state.episodes);
 
 searchInput.addEventListener("keyup", function () {
   handleSearch();
