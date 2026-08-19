@@ -10,6 +10,10 @@
 
   <body>
     <section class="controls">
+      <select id="show-select">
+        <option value="">Select a show</option>
+      </select>
+
       <select id="episode-select">
         <option value="">Select an episode</option>
       </select>
@@ -23,8 +27,9 @@
       <p id="episode-count"></p>
     </section>
 
+    <p id="status">Loading shows, please wait...</p>
+
     <main id="root"></main>
-    <p>Loading episodes, please wait...</p>
 
     <template id="episode-template">
       <article class="episode">

@@ -1,53 +1,89 @@
 body {
   margin: 0;
+
   padding: 20px;
+
   font-family: Arial, sans-serif;
+
   background: #f5f5f5;
+
   color: rgb(33, 31, 31);
 }
 
-/* Search, selector and counter */
+/* Search, selectors and counter */
 
 .controls {
   display: flex;
+
   align-items: center;
+
   gap: 12px;
-  margin-bottom: 20px;
+
+  margin-bottom: 10px;
+
   width: 100%;
 }
 
+#show-select,
 #episode-select {
   width: 230px;
+
   padding: 8px;
+
   border: 1px solid #aaa;
+
   border-radius: 4px;
+
   background: white;
+
   font-size: 0.9rem;
 }
 
 #search-input {
   width: 220px;
+
   padding: 8px;
+
   border: 1px solid #aaa;
+
   border-radius: 0;
+
   font-size: 0.9rem;
+
   box-sizing: border-box;
 }
 
 #episode-count {
   margin: 0;
+
   color: #777;
+
   font-size: 0.9rem;
+
   white-space: nowrap;
+}
+
+/* Loading and error message */
+
+#status {
+  margin: 0 0 20px;
+
+  color: #777;
+
+  font-size: 0.9rem;
 }
 
 /* Episode grid */
 
 #root {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 24px;
+
   max-width: 1400px;
+
   margin: 0 auto;
 }
 
@@ -55,10 +91,15 @@ body {
 
 .episode {
   margin: 0;
+
   padding: 16px;
+
   background: #ffffff;
+
   border: 1px solid #ccc;
+
   border-radius: 10px;
+
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
@@ -66,12 +107,19 @@ body {
 
 .title {
   margin: -16px -16px 20px;
+
   padding: 14px;
+
   background: #ffffff;
+
   border: 1px solid #999;
+
   border-radius: 10px;
+
   text-align: center;
+
   font-size: 1rem;
+
   line-height: 1.5;
 }
 
@@ -79,9 +127,13 @@ body {
 
 img {
   display: block;
+
   width: 70%;
+
   height: 150px;
+
   margin: 0 auto 18px;
+
   object-fit: cover;
 }
 
@@ -89,8 +141,11 @@ img {
 
 .synopsis {
   margin-bottom: 0;
+
   font-size: 1rem;
+
   line-height: 1.5;
+
   color: #666;
 }
 
@@ -98,8 +153,11 @@ img {
 
 footer {
   max-width: 1400px;
+
   margin: 30px auto 0;
+
   color: #666;
+
   text-align: right;
 }
 
@@ -124,9 +182,11 @@ footer {
 
   .controls {
     align-items: stretch;
+
     flex-direction: column;
   }
 
+  #show-select,
   #episode-select,
   #search-input {
     width: 100%;
@@ -138,6 +198,7 @@ footer {
 
   #root {
     grid-template-columns: 1fr;
+
     gap: 18px;
   }
 
