@@ -123,8 +123,8 @@ function populateShowOption(show) {
 }
 
 function populateShowSelect() {
-  // clear showSelect before populating it
-  showSelect.innerHTML = '';
+  // placeholder ensures a change event fires even when only one show is filtered
+  showSelect.innerHTML = '<option value="">Shows</option>';
   const showsToDisplay = state.showQuery.trim()
     ? state.filteredShows
     : state.shows;
@@ -164,7 +164,16 @@ function setShowControlsEnabled(isEnabled) {
   showControls.classList.toggle('hidden', !isEnabled);
 }
 
+function clearSearchInputs() {
+  state.filmQuery = '';
+  state.showQuery = '';
+  searchInput.value = '';
+  showSearchInput.value = '';
+}
+
 function showShowsView() {
+  clearSearchInputs();
+  renderShows();
   showGrid.classList.remove('hidden');
   filmGrid.classList.add('hidden');
   singleFilmContainer.classList.add('hidden');
@@ -220,7 +229,7 @@ function populateFilmOption(film) {
 }
 
 async function getFilms(showId = state.episodeId) {
-  showMessage('Loading films...', 1000);
+  showMessage('Loading episodes...', 1000);
   try {
     const fetchedFilms = await fetchFilms(showId);
     state.films = Array.isArray(fetchedFilms) ? fetchedFilms : [];
@@ -230,11 +239,11 @@ async function getFilms(showId = state.episodeId) {
     if (state.films.length === 0) {
       showMessage('No episodes available for this show.', 2000);
     } else {
-      showMessage('Films loaded', 1500);
+      showMessage('Episodes loaded', 1500);
     }
   } catch (error) {
-    console.error('Failed to load films:', error);
-    showMessage('Sorry, we could not load the films right now.');
+    console.error('Failed to load episodes:', error);
+    showMessage('Sorry, we could not load the episodes right now.');
   }
 }
 
@@ -290,6 +299,8 @@ function showSingleFilmView() {
 }
 
 function showFilmsView() {
+  clearSearchInputs();
+  renderFilms();
   showGrid.classList.add('hidden');
   filmGrid.classList.remove('hidden');
   singleFilmContainer.classList.add('hidden');
@@ -343,6 +354,8 @@ showSelect.addEventListener('change', async (event) => {
   if (!selectedValue) return;
 
   state.episodeId = Number(selectedValue);
+  showFilmsView();
+  getFilms(state.episodeId);
 });
 
 returnToFilmsButton.addEventListener('click', showFilmsView);
