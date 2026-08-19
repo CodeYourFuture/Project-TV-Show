@@ -17,7 +17,12 @@ if (!response.ok) {
   return await response.json();
 };
 
+const status = document.getElementById("status");
+status.textContent = "Loading episodes...";
+
 fetchEpisode().then((episodes) => {
+  state.episodes = episodes;
+  status.textContent = "";
   state.episodes = episodes;
   renderEpisodes(episodes);
 })
