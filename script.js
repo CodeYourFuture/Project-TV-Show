@@ -1,10 +1,22 @@
 const root = document.getElementById("root");
 const searchInput = document.getElementById("q");
-const episodeArr = getAllEpisodes();
+
+const episodeArr = "https://api.tvmaze.com/shows/82/episodes";
 const state = {
-  episodes: episodeArr,
+  episodes: [],
   searchTerm: "",
 };
+
+const fetchEpisode = async() => {
+  const response = await fetch(episodeArr);
+  return await response.json();
+};
+
+fetchEpisode().then((episodes) => {
+  state.episodes = episodes;
+  renderEpisodes(episodes);
+});
+
 
 function createTvShowCard(tvShow) {
   const tvShowCard = document
@@ -72,7 +84,7 @@ function handleSearch() {
     return name.indexOf(state.searchTerm.toLowerCase()) !== -1;
   });
 
-  renderEpisodes(filteredEpisodes);
+  //renderEpisodes(filteredEpisodes);
 }
 
 renderEpisodes(state.episodes);
