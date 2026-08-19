@@ -1,20 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Enice Mutanda(Enice-Codes)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
+<div id="shows-view">
+  <input type="search" id="show-search-input" placeholder="Search shows by name, genre, or summary" />
+  <p id="show-search-count"></p>
+  <div id="shows-list"></div>
+</div>
 
-  <body>
-    <div id="root">
-    </div>
-
-    
-
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
-</html>
+<div id="episodes-view" style="display: none;">
+  <a href="#" id="back-to-shows">← Back to shows</a>
+  <div id="root"></div>
+</div>
