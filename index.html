@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>TV Show Project</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="shows-view">
@@ -14,6 +14,21 @@
 
   <div id="episodes-view" style="display: none;">
     <a href="#" id="back-to-shows">← Back to shows</a>
+
+    <div id="episodes-controls">
+      <label>Select show:
+        <select id="show-selector"></select>
+      </label>
+
+      <label>Search episodes:
+        <input type="search" id="search-input" placeholder="Search by name or summary" />
+      </label>
+
+      <label>Select episode:
+        <select id="episode-selector"></select>
+      </label>
+    </div>
+
     <p id="episode-search-count"></p>
     <div id="episodes-list"></div>
   </div>

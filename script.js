@@ -1,6 +1,7 @@
 const TVMAZE_SHOWS_URL = "https://api.tvmaze.com/shows";
 let allShows = [];
 let allEpisodes = [];
+let currentShow = null;
 
 function createShowCard(show) {
   const card = document.createElement("div");
@@ -82,7 +83,7 @@ function createEpisodeCard(episode) {
   card.className = "episode-card";
 
   const heading = document.createElement("h3");
-  heading.textContent = `${episode.name} - ${getEpisodeCode(episode)}`;
+  heading.textContent = `${getEpisodeCode(episode)} - ${episode.name}`;
   card.appendChild(heading);
 
   const image = document.createElement("img");
@@ -102,9 +103,7 @@ function makePageForEpisodes(episodeList) {
   episodesListElem.textContent = "";
 
   const count = document.getElementById("episode-search-count");
-  if (count) {
-    count.textContent = `Displaying ${episodeList.length} / ${allEpisodes.length} episodes`;
-  }
+  count.textContent = `Displaying ${episodeList.length} / ${allEpisodes.length} episodes`;
 
   episodeList.forEach((episode) => {
     episodesListElem.appendChild(createEpisodeCard(episode));
@@ -121,33 +120,23 @@ function filterEpisodes(searchTerm) {
 }
 
 function setupSearch() {
-  const wrapper = document.createElement("div");
-
-  const input = document.createElement("input");
-  input.type = "search";
-  input.id = "search-input";
-  input.placeholder = "Search episodes by name or summary";
-  wrapper.appendChild(input);
-
-  document.getElementById("episodes-view").insertBefore(
-    wrapper,
-    document.getElementById("episode-search-count")
-  );
-
-  input.addEventListener("input", () => {
-    makePageForEpisodes(filterEpisodes(input.value));
+  const input = document.getElementById("search-input");
+  input.value = "";
+  // Clone+replace to strip any old listener before adding a fresh one
+  const freshInput = input.cloneNode(true);
+  input.replaceWith(freshInput);
+  freshInput.addEventListener("input", () => {
+    makePageForEpisodes(filterEpisodes(freshInput.value));
   });
 }
 
 function setupEpisodeSelector() {
-  const wrapper = document.createElement("div");
-
-  const select = document.createElement("select");
-  select.id = "episode-selector";
+  const select = document.getElementById("episode-selector");
+  select.textContent = "";
 
   const allOption = document.createElement("option");
   allOption.value = "";
-  allOption.textContent = "All episodes";
+  allOption.textContent = "Choose an episode";
   select.appendChild(allOption);
 
   allEpisodes.forEach((episode) => {
@@ -157,31 +146,46 @@ function setupEpisodeSelector() {
     select.appendChild(option);
   });
 
-  wrapper.appendChild(select);
-  document.getElementById("episodes-view").insertBefore(
-    wrapper,
-    document.getElementById("episode-search-count")
-  );
-
-  select.addEventListener("change", () => {
-    if (!select.value) {
+  const freshSelect = select.cloneNode(true);
+  select.replaceWith(freshSelect);
+  freshSelect.addEventListener("change", () => {
+    if (!freshSelect.value) {
       makePageForEpisodes(allEpisodes);
     } else {
-      const chosen = allEpisodes.filter((ep) => String(ep.id) === select.value);
+      const chosen = allEpisodes.filter((ep) => String(ep.id) === freshSelect.value);
       makePageForEpisodes(chosen);
     }
   });
 }
 
+function setupShowSelector() {
+  const select = document.getElementById("show-selector");
+
+  if (select.dataset.populated !== "true") {
+    allShows.forEach((show) => {
+      const option = document.createElement("option");
+      option.value = show.id;
+      option.textContent = show.name;
+      select.appendChild(option);
+    });
+    select.dataset.populated = "true";
+
+    select.addEventListener("change", () => {
+      const chosen = allShows.find((s) => String(s.id) === select.value);
+      if (chosen) showEpisodesView(chosen);
+    });
+  }
+
+  if (currentShow) {
+    select.value = currentShow.id;
+  }
+}
+
 async function showEpisodesView(show) {
+  currentShow = show;
+
   document.getElementById("shows-view").style.display = "none";
   document.getElementById("episodes-view").style.display = "block";
-
-  const oldSearch = document.getElementById("search-input");
-  if (oldSearch) oldSearch.closest("div").remove();
-
-  const oldSelector = document.getElementById("episode-selector");
-  if (oldSelector) oldSelector.closest("div").remove();
 
   if (!episodeCache[show.id]) {
     const episodesUrl = `https://api.tvmaze.com/shows/${show.id}/episodes`;
@@ -190,6 +194,7 @@ async function showEpisodesView(show) {
 
   allEpisodes = episodeCache[show.id];
   makePageForEpisodes(allEpisodes);
+  setupShowSelector();
   setupSearch();
   setupEpisodeSelector();
 }
