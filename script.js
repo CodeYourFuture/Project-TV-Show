@@ -15,8 +15,13 @@ const fetchEpisode = async() => {
 fetchEpisode().then((episodes) => {
   state.episodes = episodes;
   renderEpisodes(episodes);
-});
+})
+.catch((error) => {
+  document.getElementById("status").textContent = 
+  "Sorry, we couldn't load the episodes.";
 
+  console.error(error);
+});
 
 function createTvShowCard(tvShow) {
   const tvShowCard = document
