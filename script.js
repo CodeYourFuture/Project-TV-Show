@@ -354,6 +354,7 @@ showSelect.addEventListener('change', async (event) => {
   if (!selectedValue) return;
 
   state.episodeId = Number(selectedValue);
+  console.log(state.episodeId);
   showFilmsView();
   getFilms(state.episodeId);
 });
