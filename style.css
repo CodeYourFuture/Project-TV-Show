@@ -206,3 +206,102 @@ footer {
     text-align: center;
   }
 }
+/* Shows page */
+
+#shows-page h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#show-search {
+  display: block;
+  width: 300px;
+  padding: 10px;
+  margin: 0 auto 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#show-count {
+  text-align: center;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+#shows-root {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.show-card {
+  padding: 16px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.show-card h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.show-card img {
+  width: 70%;
+  height: 180px;
+  object-fit: cover;
+  margin: 0 auto 15px;
+}
+
+.show-card p {
+  line-height: 1.4;
+  color: #555;
+}
+
+.show-button {
+  padding: 9px 14px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.show-button:hover {
+  background: #ddd;
+}
+
+#back-to-shows {
+  margin-bottom: 15px;
+  padding: 8px 12px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+#back-to-shows:hover {
+  background: #eee;
+}
+
+
+/* Smaller screens */
+
+@media (max-width: 900px) {
+  #shows-root {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  #shows-root {
+    grid-template-columns: 1fr;
+  }
+
+  #show-search {
+    width: 100%;
+  }
+}
