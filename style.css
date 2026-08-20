@@ -1,3 +1,4 @@
+/* Basic styling for the whole page */
 body {
   margin: 0;
 
@@ -15,10 +16,12 @@ body {
    NAVIGATION
 ========================= */
 
+/* Space below the navigation */
 nav {
   margin-bottom: 20px;
 }
 
+/* Styling for the link used to return to the shows page */
 nav a {
   color: #333;
 
@@ -27,6 +30,7 @@ nav a {
   font-weight: bold;
 }
 
+/* Underline the link when the mouse is over it */
 nav a:hover {
   text-decoration: underline;
 }
@@ -40,6 +44,7 @@ nav a:hover {
   margin-bottom: 15px;
 }
 
+/* Search box for finding shows */
 #show-search {
   width: 300px;
 
@@ -56,6 +61,7 @@ nav a:hover {
   box-sizing: border-box;
 }
 
+/* Text showing how many shows are displayed */
 #show-count {
   color: #777;
 
@@ -65,6 +71,7 @@ nav a:hover {
 
 /* Show cards */
 
+/* Use a grid so the shows are displayed in columns */
 #shows-root {
   display: grid;
 
@@ -77,6 +84,7 @@ nav a:hover {
   margin: 0 auto;
 }
 
+/* Main styling for each show card */
 .show-card {
   background: white;
 
@@ -89,6 +97,7 @@ nav a:hover {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
+/* Keep all show images the same size */
 .show-card img {
   width: 100%;
 
@@ -97,6 +106,7 @@ nav a:hover {
   object-fit: cover;
 }
 
+/* Padding around the information inside a show card */
 .show-info {
   padding: 15px;
 }
@@ -105,6 +115,7 @@ nav a:hover {
   margin-top: 0;
 }
 
+/* Show names are also links to the episode page */
 .show-info h2 a {
   color: #333;
 
@@ -115,6 +126,7 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* Make the show summaries a little easier to read */
 .show-summary {
   color: #666;
 
@@ -128,6 +140,7 @@ nav a:hover {
 
 /* Search, selectors and counter */
 
+/* Put all the episode controls next to each other */
 .controls {
   display: flex;
 
@@ -169,6 +182,7 @@ nav a:hover {
   box-sizing: border-box;
 }
 
+/* Keep the episode counter on one line when there is enough space */
 #episode-count {
   margin: 0;
 
@@ -182,6 +196,7 @@ nav a:hover {
 
 /* Loading and error message */
 
+/* Used for messages such as loading and failed requests */
 #status {
   margin: 0 0 20px;
 
@@ -193,6 +208,7 @@ nav a:hover {
 
 /* Episode grid */
 
+/* Display the episodes in three columns on larger screens */
 #root {
   display: grid;
 
@@ -208,6 +224,7 @@ nav a:hover {
 
 /* Episode cards */
 
+/* Basic styling for each episode */
 .episode {
   margin: 0;
 
@@ -225,6 +242,7 @@ nav a:hover {
 
 /* Episode title */
 
+/* The negative margin makes the title look like a header for the card */
 .title {
   margin: -16px -16px 20px;
 
@@ -246,6 +264,7 @@ nav a:hover {
 
 /* Episode image */
 
+/* Make episode images smaller and keep them centred */
 img {
   display: block;
 
@@ -276,6 +295,7 @@ img {
    FOOTER
 ========================= */
 
+/* Keep the footer aligned with the main content */
 footer {
   max-width: 1400px;
 
@@ -291,6 +311,7 @@ footer {
    HIDE EPISODE PAGE AT START
 ========================= */
 
+/* The shows page is shown first, so the episode page starts hidden */
 #episodes-page {
   display: none;
 }
@@ -300,6 +321,7 @@ footer {
    TABLET
 ========================= */
 
+/* Change to two columns on smaller screens */
 @media (max-width: 900px) {
   #root {
     grid-template-columns: repeat(2, 1fr);
@@ -309,6 +331,7 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Allow the controls to move onto another line */
   .controls {
     flex-wrap: wrap;
   }
@@ -319,11 +342,13 @@ footer {
    MOBILE
 ========================= */
 
+/* Change the layout to make the site easier to use on phones */
 @media (max-width: 600px) {
   body {
     padding: 12px;
   }
 
+  /* Stack the controls vertically on mobile */
   .controls {
     align-items: stretch;
 
@@ -340,6 +365,7 @@ footer {
     white-space: normal;
   }
 
+  /* Show one episode per row on small screens */
   #root {
     grid-template-columns: 1fr;
 
@@ -357,4 +383,3 @@ footer {
   footer {
     text-align: center;
   }
-}
