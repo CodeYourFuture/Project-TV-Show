@@ -8,64 +8,65 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
- <body>
-  <!-- Shows page -->
-  <section id="shows-page">
-    <h1>TV Shows</h1>
+  <body>
+    <!-- This link lets us go back to the list of shows -->
+    <nav>
+      <a href="#" id="home-link">All Shows</a>
+    </nav>
 
-    <input
-      type="search"
-      id="show-search"
-      placeholder="Search shows..."
-    />
-
-    <p id="show-count"></p>
-
-    <main id="shows-root"></main>
-  </section>
-
-  <!-- Episodes page -->
-  <section id="episodes-page" hidden>
-    <button id="back-to-shows">← Back to shows</button>
-
-    <section class="controls">
-      <select id="show-select">
-        <option value="">Select a show</option>
-      </select>
-
-      <select id="episode-select">
-        <option value="">Select an episode</option>
-      </select>
+    <!-- Shows page -->
+    <section id="shows-page">
+      <h1>TV Shows</h1>
 
       <input
         type="search"
-        id="search-input"
-        placeholder="Search episodes..."
+        id="show-search"
+        placeholder="Search shows..."
       />
 
-      <p id="episode-count"></p>
+      <p id="show-count"></p>
+
+      <main id="shows-root"></main>
     </section>
 
-    <p id="status">Loading episodes, please wait...</p>
+    <!-- Episodes page -->
+    <section id="episodes-page">
+      <section class="controls">
+        <select id="show-select">
+          <option value="">Select a show</option>
+        </select>
 
-    <main id="root"></main>
-  </section>
+        <select id="episode-select">
+          <option value="">Select an episode</option>
+        </select>
 
-  <!-- Template for episodes -->
-  <template id="episode-template">
-    <article class="episode">
-      <h3 class="title">Episode title</h3>
-      <img alt="Episode poster" />
-      <p class="synopsis">Episode summary</p>
-    </article>
-  </template>
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search episodes..."
+        />
 
-  <footer>
-    <p>
-      &copy; TV. All rights reserved.
-    </p>
-  </footer>
+        <p id="episode-count"></p>
+      </section>
 
-  <script defer src="script.js"></script>
-</body>
+      <p id="status"></p>
+
+      <main id="root"></main>
+    </section>
+
+    <!-- Template used for displaying episodes -->
+    <template id="episode-template">
+      <article class="episode">
+        <h3 class="title">Episode title</h3>
+        <img alt="Episode poster" />
+        <p class="synopsis">Episode summary</p>
+      </article>
+    </template>
+
+    <footer>
+      <p>&copy; TV. All rights reserved.</p>
+    </footer>
+
+    <script defer src="script.js"></script>
+  </body>
 </html>
