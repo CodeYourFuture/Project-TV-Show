@@ -18,28 +18,34 @@
     <section id="shows-page">
       <h1>TV Shows</h1>
 
+      <!-- Used to search through the shows -->
       <input
         type="search"
         id="show-search"
         placeholder="Search shows..."
       />
 
+      <!-- Shows how many shows are currently being displayed -->
       <p id="show-count"></p>
 
+      <!-- The show cards are added here by JavaScript -->
       <main id="shows-root"></main>
     </section>
 
     <!-- Episodes page -->
     <section id="episodes-page">
       <section class="controls">
+        <!-- Select a different show without going back to the shows page -->
         <select id="show-select">
           <option value="">Select a show</option>
         </select>
 
+        <!-- Allows the user to jump to a particular episode -->
         <select id="episode-select">
           <option value="">Select an episode</option>
         </select>
 
+        <!-- Search for an episode by its name or summary -->
         <input
           type="search"
           id="search-input"
@@ -49,12 +55,15 @@
         <p id="episode-count"></p>
       </section>
 
+      <!-- Loading and error messages are displayed here -->
       <p id="status"></p>
 
+      <!-- Episodes are added to this element by JavaScript -->
       <main id="root"></main>
     </section>
 
     <!-- Template used for displaying episodes -->
+    <!-- JavaScript copies this template when creating each episode card -->
     <template id="episode-template">
       <article class="episode">
         <h3 class="title">Episode title</h3>
