@@ -42,6 +42,8 @@ async function fetchShows() {
 
     makePageForShows(allShows);
 
+    setupShowSelector();
+
     document.getElementById("show-count").textContent =
       `Showing ${allShows.length} show${allShows.length !== 1 ? "s" : ""}`;
   } catch (error) {
@@ -65,41 +67,41 @@ function makePageForShows(showList) {
     showBox.className = "show";
 
     showBox.innerHTML = `
-     <img 
-    src="${show.image ? show.image.medium : ""}" 
-    alt="${show.name}"
-  >
+      <img 
+        src="${show.image ? show.image.medium : ""}" 
+        alt="${show.name}"
+      >
 
-  <div class="show-info">
-    <h2>
-      <a href="#" class="show-name" data-show-id="${show.id}">
-        ${show.name}
-      </a>
-    </h2>
+      <div class="show-info">
+        <h2>
+          <a href="#" class="show-name" data-show-id="${show.id}">
+            ${show.name}
+          </a>
+        </h2>
 
-    <p>${show.summary || "No summary available."}</p>
+        <p>${show.summary || "No summary available."}</p>
 
-    <p>
-      <strong>Genres:</strong>
-      ${show.genres.length > 0 ? show.genres.join(", ") : "N/A"}
-    </p>
+        <p>
+          <strong>Genres:</strong>
+          ${show.genres.length > 0 ? show.genres.join(", ") : "N/A"}
+        </p>
 
-    <p>
-      <strong>Status:</strong>
-      ${show.status || "N/A"}
-    </p>
+        <p>
+          <strong>Status:</strong>
+          ${show.status || "N/A"}
+        </p>
 
-    <p>
-      <strong>Rating:</strong>
-      ${show.rating.average || "N/A"}
-    </p>
+        <p>
+          <strong>Rating:</strong>
+          ${show.rating.average || "N/A"}
+        </p>
 
-    <p>
-      <strong>Runtime:</strong>
-      ${show.runtime || "N/A"} minutes
-    </p>
-  </div>
-`;
+        <p>
+          <strong>Runtime:</strong>
+          ${show.runtime || "N/A"} minutes
+        </p>
+      </div>
+    `;
 
     showsRoot.appendChild(showBox);
   });
@@ -130,10 +132,48 @@ function setupShowSearch() {
       );
     });
 
-    showCount.textContent = `Showing ${filteredShows.length} show${filteredShows.length !== 1 ? "s" : ""}`;
+    showCount.textContent = `Showing ${filteredShows.length} show${
+      filteredShows.length !== 1 ? "s" : ""
+    }`;
 
     makePageForShows(filteredShows);
   });
+}
+
+// SHOW SELECTOR
+
+function setupShowSelector() {
+  const showSelector = document.getElementById("show-selector");
+
+  showSelector.innerHTML = "";
+
+  const defaultOption = document.createElement("option");
+
+  defaultOption.value = "";
+  defaultOption.textContent = "Jump to show";
+
+  showSelector.appendChild(defaultOption);
+
+  allShows.forEach(function (show) {
+    const option = document.createElement("option");
+
+    option.value = show.id;
+    option.textContent = show.name;
+
+    showSelector.appendChild(option);
+  });
+
+  showSelector.onchange = function (event) {
+    if (!event.target.value) {
+      return;
+    }
+
+    const selectedShow = allShows.find(function (show) {
+      return show.id == event.target.value;
+    });
+
+    showEpisodes(selectedShow);
+  };
 }
 
 // SHOW LINKS
@@ -311,31 +351,31 @@ function makePageForEpisodes(episodeList) {
     episodeBox.id = episodeCode;
 
     episodeBox.innerHTML = `
-       <img
-  src="${episode.image ? episode.image.medium : ""}"
-  alt="${episode.name}"
->
+      <img
+        src="${episode.image ? episode.image.medium : ""}"
+        alt="${episode.name}"
+      >
 
-  <div class="episode-info">
-    <h2>${episode.name}</h2>
+      <div class="episode-info">
+        <h2>${episode.name}</h2>
 
-    <p>${episodeCode}</p>
+        <p>${episodeCode}</p>
 
-    <p>
-      Season ${episode.season}, Episode ${episode.number}
-    </p>
+        <p>
+          Season ${episode.season}, Episode ${episode.number}
+        </p>
 
-    <p>${episode.summary}</p>
+        <p>${episode.summary}</p>
 
-    <p>Air date: ${episode.airdate}</p>
+        <p>Air date: ${episode.airdate}</p>
 
-    <p>Runtime: ${episode.runtime} minutes</p>
+        <p>Runtime: ${episode.runtime} minutes</p>
 
-    <a href="${episode.url}" target="_blank">
-      View episode
-    </a>
-  </div>
-`;
+        <a href="${episode.url}" target="_blank">
+          View episode
+        </a>
+      </div>
+    `;
 
     rootElem.appendChild(episodeBox);
   });
