@@ -8,7 +8,26 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
-  <body>
+ <body>
+  <!-- Shows page -->
+  <section id="shows-page">
+    <h1>TV Shows</h1>
+
+    <input
+      type="search"
+      id="show-search"
+      placeholder="Search shows..."
+    />
+
+    <p id="show-count"></p>
+
+    <main id="shows-root"></main>
+  </section>
+
+  <!-- Episodes page -->
+  <section id="episodes-page" hidden>
+    <button id="back-to-shows">← Back to shows</button>
+
     <section class="controls">
       <select id="show-select">
         <option value="">Select a show</option>
@@ -27,22 +46,26 @@
       <p id="episode-count"></p>
     </section>
 
-    <p id="status">Loading shows, please wait...</p>
+    <p id="status">Loading episodes, please wait...</p>
 
     <main id="root"></main>
+  </section>
 
-    <template id="episode-template">
-      <article class="episode">
-        <h3 class="title">Episode title</h3>
-        <img alt="Episode poster" />
-        <p class="synopsis">Episode summary</p>
-      </article>
-    </template>
+  <!-- Template for episodes -->
+  <template id="episode-template">
+    <article class="episode">
+      <h3 class="title">Episode title</h3>
+      <img alt="Episode poster" />
+      <p class="synopsis">Episode summary</p>
+    </article>
+  </template>
 
-    <footer>
-      <p>&copy; TV. All rights reserved.</p>
-    </footer>
+  <footer>
+    <p>
+      &copy; TV. All rights reserved.
+    </p>
+  </footer>
 
-    <script defer src="script.js"></script>
-  </body>
+  <script defer src="script.js"></script>
+</body>
 </html>
