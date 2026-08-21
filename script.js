@@ -101,8 +101,11 @@ async function fetchShows() {
 
   // Sort the shows alphabetically
   state.shows.sort((a, b) =>
-    a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
+  a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
   );
+
+// Fill the Level 400 show dropdown now that we have the show data
+  populateShowSelector();
 
   renderShows(state.shows);
 
@@ -300,14 +303,14 @@ async function loadShowEpisodes(showId) {
 // SHOW DROPDOWN
 // --------------------------------------------------
 
-function setupShowSelector() {
+function populateShowSelector() {
   const showSelect = document.getElementById("show-select");
 
-  /*
-    Add all shows to the dropdown.
+  // Remove any old show options
+  showSelect.innerHTML = '<option value="">Select a show</option>';
 
-    The shows are already sorted in fetchShows().
-  */
+  // Add all shows to the dropdown.
+  // state.shows is already sorted alphabetically in fetchShows().
   state.shows.forEach((show) => {
     const option = document.createElement("option");
 
@@ -316,8 +319,11 @@ function setupShowSelector() {
 
     showSelect.appendChild(option);
   });
+}
 
-  // When a different show is selected, load its episodes
+function setupShowSelector() {
+  const showSelect = document.getElementById("show-select");
+
   showSelect.addEventListener("change", (event) => {
     const showId = Number(event.target.value);
 
@@ -457,10 +463,12 @@ function setupEpisodeSelector() {
     const selectedEpisodeId = Number(event.target.value);
 
     if (!selectedEpisodeId) {
+      // If "Select an episode" is chosen again, show all episodes
+      makePageForEpisodes(state.currentEpisodes);
+      updateEpisodeCount(state.currentEpisodes, state.currentEpisodes);
       return;
     }
 
-    // Find the selected episode in the current episode list
     const selectedEpisode = state.currentEpisodes.find(
       (episode) => episode.id === selectedEpisodeId,
     );
@@ -469,32 +477,18 @@ function setupEpisodeSelector() {
       return;
     }
 
-    // Clear search so the selected episode can be seen
+    // Clear the episode search
     state.searchTerm = "";
-
     document.getElementById("search-input").value = "";
 
-    // Display all episodes again before scrolling to the selected one
-    makePageForEpisodes(state.currentEpisodes);
+    // Display only the selected episode
+    makePageForEpisodes([selectedEpisode]);
 
-    updateEpisodeCount(state.currentEpisodes, state.currentEpisodes);
-
-    scrollToEpisode(selectedEpisode);
+    updateEpisodeCount([selectedEpisode], state.currentEpisodes);
   });
 }
 
-function scrollToEpisode(episode) {
-  // Find the episode card using the ID we added when creating it
-  const episodeElement = document.getElementById(`episode-${episode.id}`);
 
-  if (episodeElement) {
-    // Smoothly scroll the selected episode into view
-    episodeElement.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
-}
 
 function resetEpisodeSelector() {
   const episodeSelect = document.getElementById("episode-select");
