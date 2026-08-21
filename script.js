@@ -1,8 +1,33 @@
 // You can edit ALL of the code here
 
+const API_URL = "https://api.tvmaze.com/shows/82/episodes";
+
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  const rootElem = document.getElementById("root");
+
+  // Show loading message while waiting for data
+  rootElem.innerHTML = "<h2>Loading episodes, please wait...</h2>";
+
+  // Fetch the episodes ONCE
+  fetch(API_URL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("Failed to load episodes");
+      }
+
+      return response.json();
+    })
+    .then(function (allEpisodes) {
+      makePageForEpisodes(allEpisodes);
+    })
+    .catch(function (error) {
+      // Show error message to the user
+      rootElem.innerHTML =
+        "<h2>Sorry, we could not load the episodes.</h2>" +
+        "<p>Please try again later.</p>";
+
+      console.error(error);
+    });
 }
 
 function makePageForEpisodes(episodeList) {
