@@ -43,6 +43,18 @@ nav a:hover {
 #shows-page h1 {
   margin-bottom: 15px;
 }
+.show-selector-control {
+  margin-bottom: 15px;
+}
+
+#show-select {
+  width: 230px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: white;
+  font-size: 0.9rem;
+}
 
 /* Search box for finding shows */
 #show-search {
@@ -153,18 +165,12 @@ nav a:hover {
   width: 100%;
 }
 
-#show-select,
 #episode-select {
   width: 230px;
-
   padding: 10px;
-
   border: 1px solid #aaa;
-
   border-radius: 4px;
-
   background: white;
-
   font-size: 0.9rem;
 }
 
