@@ -13,6 +13,12 @@
     <nav>
       <a href="#" id="home-link">All Shows</a>
     </nav>
+    <!-- Level 400: choose a show from the full list -->
+    <section class="show-selector-control">
+      <select id="show-select">
+        <option value="">Select a show</option>
+      </select>
+    </section>
 
     <!-- Shows page -->
     <section id="shows-page">
@@ -35,11 +41,7 @@
     <!-- Episodes page -->
     <section id="episodes-page">
       <section class="controls">
-        <!-- Select a different show without going back to the shows page -->
-        <select id="show-select">
-          <option value="">Select a show</option>
-        </select>
-
+        
         <!-- Allows the user to jump to a particular episode -->
         <select id="episode-select">
           <option value="">Select an episode</option>
