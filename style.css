@@ -1,93 +1,202 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 20px;
-  background: #f7f7f7;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
   color: #222;
 }
 
-#show-search-input,
-#search-input {
-  width: 100%;
-  max-width: 400px;
-  padding: 8px;
-  margin-bottom: 10px;
-  font-size: 1rem;
+.site-header {
+  background: #1f2937;
+  color: white;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#episode-selector {
-  padding: 8px;
-  margin-bottom: 10px;
-  font-size: 1rem;
+.site-header h1 {
+  margin: 0;
+  font-size: 30px;
 }
 
-#show-search-count {
+.back-button {
+  border: none;
+  background: white;
+  color: #1f2937;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
   font-weight: bold;
-  margin-bottom: 15px;
 }
 
-#shows-list,
-#root {
+.back-button:hover {
+  opacity: 0.9;
+}
+
+.controls {
+  max-width: 1200px;
+  margin: 25px auto 10px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.controls label {
+  font-weight: bold;
+}
+
+.controls input,
+.controls select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+#show-search {
+  width: 320px;
+  max-width: 100%;
+}
+
+.status-text {
+  max-width: 1200px;
+  margin: 15px auto;
+  padding: 0 20px;
+  font-weight: bold;
+}
+
+.shows-grid,
+.episodes-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
-}
-
-/* Fewer columns on narrower screens */
-@media (max-width: 1400px) {
-  #shows-list,
-  #root {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 900px) {
-  #shows-list,
-  #root {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  #shows-list,
-  #root {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .show-card,
 .episode-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.show-card {
   display: flex;
   flex-direction: column;
 }
 
-.show-card img,
+.show-card > img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.show-details {
+  padding: 18px;
+}
+
+.show-title {
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-bottom: 14px;
+  text-align: left;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #1f2937;
+}
+
+.show-title:hover {
+  text-decoration: underline;
+}
+
+.show-details p {
+  line-height: 1.5;
+  margin: 8px 0;
+}
+
+.show-summary {
+  margin-top: 16px;
+}
+
+.episode-controls {
+  width: 100%;
+}
+
+.episode-controls h2 {
+  width: 100%;
+  margin-top: 0;
+}
+
+.episode-card {
+  padding: 16px;
+}
+
+.episode-card h2 {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 0;
+}
+
 .episode-card img {
   width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 4px;
+  display: block;
+  border-radius: 8px;
 }
 
-.show-card h2,
-.episode-card h2 {
-  margin: 8px 0;
-  font-size: 1.1rem;
+.episode-card p {
+  line-height: 1.5;
 }
 
-.show-card p,
-.episode-card div {
-  font-size: 0.9rem;
-  color: #444;
+footer {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
 }
 
-#back-to-shows {
-  display: inline-block;
-  margin-bottom: 15px;
-  text-decoration: none;
-  color: #0066cc;
+footer a {
+  color: inherit;
+}
+
+@media (max-width: 900px) {
+  .shows-grid,
+  .episodes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .shows-grid,
+  .episodes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .controls input,
+  .controls select,
+  #show-search {
+    width: 100%;
+  }
 }
