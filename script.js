@@ -1,6 +1,14 @@
 const root = document.getElementById("root");
 const searchInput = document.getElementById("q");
 
+const select = document.createElement("select");
+const option = document.createElement("Chose a show");
+
+option.textContent = " Chose a show";
+option.value = "";
+
+select.append(option);
+
 const episodeArr = "https://api.tvmaze.com/shows/82/episodes";
 const state = {
   episodes: [],
