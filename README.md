@@ -86,6 +86,17 @@ You are allowed to change anything in your partner's code to make it easier to u
 
 Remember, finish each level before you move on to the next. Reach out for help when you're stuck.
 
+### If you can't find a pair
+
+The expectation is that you work with a partner on this project.
+
+If you are unable to find a partner, reach out on Slack - the whole cohort will be attempting this project. This includes people in other regions - you can work with them if you want/need!
+
+If you absolutely can't find a partner to work with, see if one of the volunteers will be your partner.
+
+If you _still_ can't find a partner, you can use the existing levels in this repo. There is a branch for each level - after you make your own level 100, make a new branch based on the `solutions/100` branch and implement level 200 on top of it. Then make a new branch based on the `solutions/200` branch and implement level 300 on top of it. And so on.
+
+You should avoid working without a partner - the expectation is you are working with a partner, because this will practise important skills. If you work without a partner, for your submission to be accepted you must justify to the reviewer how you tried to find a partner and why one couldn't be found - our bar for an explanation is high.
 
 ## Submission
 This task has 6 steps of implementation: level 0 through to level 500.
