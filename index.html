@@ -3,19 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Shafiek Walker</title>
+
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <header class="site-header">
+      <h1>TV Show Explorer</h1>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+      <button id="back-to-shows" class="back-button" hidden>
+        ← Back to Shows
+      </button>
+    </header>
 
-    <!-- Loads YOUR javascript code -->
+    <section id="controls" class="controls"></section>
+
+    <p id="status-text" class="status-text"></p>
+
+    <main id="root"></main>
+
+    <footer>
+      <p>
+        TV show and episode data provided by
+        <a href="https://www.tvmaze.com/" target="_blank">TVMaze.com</a>
+      </p>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
