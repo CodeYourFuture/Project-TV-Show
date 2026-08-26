@@ -1,21 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Tomislav Dukez (tomdu3)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <header class="controls-bar">
+
+    <div class="control-group">
+      <button type="button" id="back-to-shows-btn" class="nav-btn" style="display: none;">&larr; Back to Shows</button>
+      <label for="show-selector" class="visually-hidden">Select a show</label>
+      <select name="show-selector" id="show-selector">
+        <option value="placeholder" disabled selected hidden>Select a show</option>
+      </select>
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <div class="control-group">
+      <label for="episode-selector" class="visually-hidden">Jump to episode</label>
+      <select name="episode-selector" id="episode-selector">
+        <option value="placeholder" disabled selected hidden>All episodes or Select...</option>
+        <option value="">All episodes or Select...</option>
+      </select>
+    </div>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+    <div class="control-group">
+      <label for="search-input" class="visually-hidden">Search</label>
+      <div class="search-container">
+        <input type="text" placeholder="Search for an episode..." id="search-input">
+        <button type="button" id="clear-search-btn" class="clear-btn" aria-label="Clear search">&times;</button>
+      </div>
+    </div>
+
+    <p id="episode-count"></p>
+  </header>
+
+  <template id="episode-card">
+    <section class="episode card">
+      <h3>Episode title - code</h3>
+      <img class="episode img" src="">
+      <p class="episode summary">Episode Summary</p>
+    </section>
+  </template>
+
+  <template id="show-card">
+    <section class="show-card card">
+      <h2 class="show-title">Show Name</h2>
+      <div class="show-body">
+        <img class="show-img" src="" alt="" />
+        <div class="show-summary">Show Summary</div>
+        <div class="show-info">
+          <p><strong>Genres:</strong> <span class="show-genres"></span></p>
+          <p><strong>Status:</strong> <span class="show-status"></span></p>
+          <p><strong>Rating:</strong> <span class="show-rating"></span></p>
+          <p><strong>Runtime:</strong> <span class="show-runtime"></span> mins</p>
+        </div>
+      </div>
+    </section>
+  </template>
+  <h1 id="selected-show-title" class="current-show-title" style="display: none;">TV Shows</h1>
+  <main id="cards-container">
+
+  </main>
+  <footer>&copy; Tomislav Dukez 2026&nbsp;| Data taken from&nbsp;<a href="https://tvmaze.com/"
+      target="_blank">TVMaze.com</a>
+  </footer>
+
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+</body>
+
 </html>
