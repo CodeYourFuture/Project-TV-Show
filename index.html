@@ -1,21 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>
+      TV Show Project | Name:Abdu Hassen (GitHub username:Abduhasen)
+    </title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
-
   <body>
-    <div id="root">
-    </div>
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
+    <header id="shows-controls" class="search-container">
+      <input
+        type="text"
+        id="show-search-input"
+        placeholder="Search shows..."
+        aria-label="Search shows"
+      />
+      <select id="show-select" aria-label="Select a show">
+        <option value="">Select a show</option>
+      </select>
+      <span id="show-search-count"> Loading shows... </span>
+    </header>
+    <main id="shows-root"></main>
+    <header id="episodes-controls" class="search-container" hidden>
+      <button id="back-to-shows" type="button">Back to Shows</button>
+      <select id="episode-select" aria-label="Select an episode"></select>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search episodes..."
+        aria-label="Search episodes"
+      />
+      <span id="search-count"> Loading episodes... </span>
+    </header>
+    <main id="root"></main>
+    <template id="shows-template">
+      <article class="show-card">
+        <button class="show-button" type="button">
+          <h2 class="show-title"></h2>
+        </button>
+        <img class="show-image" src="" alt="" />
+        <div class="show-summary"></div>
+        <p class="show-genres"></p>
+        <p class="show-status"></p>
+        <p class="show-rating"></p>
+        <p class="show-runtime"></p>
+      </article>
+    </template>
+    <template id="episodes-template">
+      <article class="episode-card">
+        <h2 class="episode-title"></h2>
+        <img class="episode-image" src="" alt="" />
+        <div class="episode-summary"></div>
+        <button class="episode-link" type="button">View on TVMaze</button>
+      </article>
+    </template>
+    <footer>
+      Data sourced from
+      <a href="https://tvmaze.com" target="_blank" rel="noopener noreferrer">
+        TVMaze.com
+      </a>
+    </footer>
     <script src="script.js"></script>
   </body>
 </html>
