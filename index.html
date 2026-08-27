@@ -1,21 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+
+    <script src="script.js" defer></script>
+
+    <title>TV Show Project | Dagim Daniel</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <header id="controls">
+      <button id="back-to-shows-btn" hidden>← Back to Shows</button>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+      <select id="show-select" aria-label="Select a TV show">
+        <option value="">Select a show...</option>
+      </select>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+      <select id="episode-select" aria-label="Select an episode" hidden>
+        <option value="ALL">All Episodes</option>
+      </select>
+
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search shows..."
+        aria-label="Search"
+      />
+
+      <span id="match-count" aria-live="polite"></span>
+    </header>
+
+    <main id="main-content">
+      <div id="loading-indicator" class="status-message">
+        Loading data, please wait...
+      </div>
+      <div id="error-message" class="status-message error-state" hidden></div>
+
+      <div id="shows-root" aria-label="TV Shows Listing"></div>
+
+      <div id="episodes-root" aria-label="Episodes Listing" hidden></div>
+    </main>
+
+    <template id="show-template">
+      <article class="show-card">
+        <h2 class="show-title"></h2>
+        <div class="show-body">
+          <img class="show-image" src="" alt="" />
+          <div class="show-summary"></div>
+          <div class="show-meta">
+            <p><strong>Rating:</strong> <span class="show-rating"></span></p>
+            <p><strong>Genres:</strong> <span class="show-genres"></span></p>
+            <p><strong>Status:</strong> <span class="show-status"></span></p>
+            <p><strong>Runtime:</strong> <span class="show-runtime"></span></p>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <template id="episode-template">
+      <section class="episode-card">
+        <h2 class="episode-title"></h2>
+        <img class="episode-image" src="" alt="" />
+        <div class="episode-summary"></div>
+      </section>
+    </template>
+
+    <footer id="bottomBar">
+      <span>Original Link: </span>
+      <a id="original-link" href="https://tvmaze.com/" target="_self"
+        >TVMaze.com</a
+      >
+    </footer>
   </body>
 </html>
