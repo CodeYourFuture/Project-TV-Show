@@ -1,20 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Eyob Zeray (eyob-tech)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
-
   <body>
-    <div id="root">
+    <!-- Shows listing view -->
+    <div id="shows-view">
+      <select id="show-select">
+        <option value="">Choose a show...</option>
+      </select>
+      <input
+        type="text"
+        id="show-search"
+        placeholder="Search shows by name, genre, or summary..."
+      />
+      <p id="show-search-count"></p>
+      <div id="shows-list"></div>
     </div>
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
+    <!-- Episodes view (hidden until a show is selected) -->
+    <div id="episodes-view" style="display: none;">
+      <button id="back-to-shows">&larr; Back to shows</button>
+      <input type="text" id="search-input" placeholder="Search episodes..." />
+      <p id="search-count"></p>
+      <select id="episode-select">
+        <option value="">Jump to episode...</option>
+      </select>
+      <div id="root"></div>
+    </div>
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
