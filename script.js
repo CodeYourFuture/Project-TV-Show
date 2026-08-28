@@ -4,13 +4,22 @@ const filmBox = document.getElementById("film-box");
 const status = document.getElementById("status");
 
 const select = document.createElement("select");
+const episodeSelect = document.createElement("select");
 
 const option = document.createElement("option");
 option.textContent = " Choose a show";
 option.value = "";
 
 select.append(option);
-filmBox.append(select);
+
+const episodeOption = document.createElement("option");
+episodeOption.textContent = "Choose an episode";
+episodeOption.value = "";
+
+episodeSelect.append(episodeOption);
+
+filmBox.prepend(select);
+filmBox.insertBefore(episodeSelect, searchInput);
 
 const state = {
   episodes: [],
@@ -29,7 +38,7 @@ const fetchShows = async () => {
 
 fetchShows().then((shows) => {
   shows.sort((a, b) =>
-    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
   );
 
   for (const show of shows) {
@@ -63,9 +72,13 @@ select.addEventListener("change", function () {
   }
   state.searchTerm = "";
   searchInput.value = "";
-  
+  episodeSelect.value = "";
+
   if (state.episodeCache[showId]) {
     state.episodes = state.episodeCache[showId];
+
+    populateEpisodeSelect(state.episodes);
+
     renderEpisodes(state.episodes);
     return;
   }
@@ -77,14 +90,37 @@ select.addEventListener("change", function () {
       state.episodeCache[showId] = episodes;
       state.episodes = episodes;
 
+      populateEpisodeSelect(episodes);
+
       status.textContent = "";
       renderEpisodes(episodes);
     })
+
     .catch((error) => {
       console.log(error);
       status.textContent = "Sorry, we couldn't load the episodes.";
     });
 });
+
+function populateEpisodeSelect(episodes) {
+  episodeSelect.innerHTML = "";
+  
+  const defaultOption = document.createElement("option");
+  defaultOption.textContent = "Choose an episode";
+  defaultOption.value = "";
+
+  episodeSelect.append(defaultOption);
+
+  for (const episode of episodes) {
+    const opt = document.createElement("option");
+
+    opt.textContent = `S${String(episode.season).padStart(2, "0")}E${String(episode.number).padStart(2, "0")} - ${episode.name}`;
+  
+  opt.value = episode.id;
+
+  episodeSelect.append(opt);
+  }
+}
 
 function createEpisodeCard(episode) {
   const episodeCard = document
@@ -152,4 +188,17 @@ function handleSearch() {
 
 searchInput.addEventListener("keyup", function () {
   handleSearch();
+});
+
+episodeSelect.addEventListener("change", function () {
+  const episodeId = episodeSelect.value;
+
+  if (episodeId === "") {
+    renderEpisodes(state.episodes);
+    return;
+  }
+
+  const episode = state.episodes.find((ep) => String(ep.id) === episodeId,);
+  
+  renderEpisodes(episode ? [episode] : []);
 });
