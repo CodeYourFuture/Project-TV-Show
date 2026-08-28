@@ -1,21 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta
+            name="description"
+            content="Browse and explore TV shows and episodes."
+    />
+    <title>TV Show Project | Chinwe Chukwuma (ChinweP)</title>
+    <link href="style.css" rel="stylesheet"/>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+</head>
 
-  <body>
-    <div id="root">
+<body>
+<main id="root">
+
+    <!-- SHOWS LISTING -->
+    <section id="shows-view">
+
+        <h1>TV Shows</h1>
+
+        <div>
+            <label for="show-search">Search shows:</label>
+            <input
+                    type="search"
+                    id="show-search"
+                    placeholder="Search shows"
+            />
+        </div>
+
+         <div>
+        <label for="show-selector">Select a show:</label>
+        <select id="show-selector" name="show">
+            <option value="" disabled selected>Select a show</option>
+        </select>
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+        <p id="show-status"></p>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+        <div id="shows-container"></div>
+
+    </section>
+
+
+    <!-- EPISODES VIEW -->
+    <section id="episodes-view" hidden>
+
+        <button id="back-to-shows">← Back to shows</button>
+
+        <div id="episode-controls">
+
+            <div class="episode-control">
+
+                <label for="episode-selector">
+                    Select an episode:
+                </label>
+
+                <select id="episode-selector" name="episode">
+                    <option value="" disabled selected>
+                        Select an episode
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="episode-control" id="search-container">
+
+                <label for="episode-search">
+                    Search an episode:
+                </label>
+
+                <input
+                        type="search"
+                        id="episode-search"
+                        name="episode"
+                        placeholder="Enter episode"
+                />
+
+                <button type="button">
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <h2 id="episode-count"></h2>
+
+        <p id="status-message"></p>
+
+
+        <p id="source">
+            Episode data originally comes from
+            <a href="https://tvmaze.com/">TVMaze.com</a>
+        </p>
+
+
+        <div id="episodes-container"></div>
+
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
 </html>
