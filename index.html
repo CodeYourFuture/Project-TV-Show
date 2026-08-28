@@ -1,21 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Alina Sofragiu (sofragiualina)</title>
     <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <header>
+      <h1>TV Shows</h1>
+      <p>
+        Show and episode information provided by
+        <a href="https://www.tvmaze.com/" target="_blank" rel="noopener">
+          TVMaze.com
+        </a>
+      </p>
+    </header>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <main id="showsView">
+      <label for="showSelector">Select a show</label>
+      <select id="showSelector"></select>
 
-    <!-- Loads YOUR javascript code -->
+      <label for="showSearch">Search shows</label>
+      <input
+        id="showSearch"
+        type="text"
+        placeholder="Search by name, genre or summary"
+      />
+      <p id="showMatchCount"></p>
+
+      <p id="showsStatus" aria-live="polite">Loading shows, please wait...</p>
+
+      <div id="showsRoot"></div>
+    </main>
+
+    <main id="episodesView" hidden>
+      <button id="backToShows">Back to shows</button>
+      <h2 id="selectedShowName"></h2>
+
+      <label for="episodeSelector">Select an episode</label>
+      <select id="episodeSelector">
+        <option value="all">All episodes</option>
+      </select>
+
+      <label for="searchInput">Search episodes</label>
+      <input id="searchInput" type="text" placeholder="Search episodes" />
+      <p id="matchCount"></p>
+
+      <p id="statusMessage" aria-live="polite">
+        Loading episodes, please wait...
+      </p>
+
+      <div id="episodesRoot"></div>
+    </main>
+
     <script src="script.js"></script>
   </body>
 </html>
