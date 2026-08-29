@@ -1,3 +1,135 @@
 #root {
-  color: red;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: whitesmoke;
+}
+.episode-card {
+  width: 30%;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+  background-color: white;
+  padding: 10px;
+}
+.episode-card h2 {
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0;
+}
+.episode-card img {
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+}
+.episode-card p {
+  text-align: justify;
+  line-height: 1.5rem;
+  padding: 10px;
+  margin: 0;
+}
+
+#episode-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-container i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666666;
+}
+
+#search-input,
+.search-container select {
+  background-color: gainsboro;
+  color: #111111;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+#search-input {
+  padding-left: 40px;
+  border: 1px solid black;
+}
+
+.search-container select {
+  padding-left: 10px;
+}
+
+#search-input::placeholder {
+  color: #666666;
+}
+
+#search-input:focus,
+.search-container select:focus {
+  outline: none;
+  border-color: #333333;
+  box-shadow: 0 0 0 2px #d9d9d9;
+}
+#back-button {
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+#back-button:hover {
+  background-color: #111111;
+}
+
+.show-card {
+  display: grid;
+  grid-template-columns: 200px 1fr 220px;
+  gap: 1rem;
+  width: 100%;
+  background-color: whitesmoke;
+  border: 1px solid whitesmoke;
+  box-shadow: 2px 2px 6px grey;
+  box-sizing: border-box;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.show-card h2 {
+  grid-column: 1 / 4;
+  margin-top: 0;
+  font-size: xxx-large;
+  font-family: sans-serif;
+}
+
+.show-card img {
+  grid-column: 1;
+  width: 100%;
+}
+
+.summary {
+  grid-column: 2;
+  line-height: 150%;
+}
+
+.show-info {
+  grid-column: 3;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 3rem;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 6px grey;
+  
 }

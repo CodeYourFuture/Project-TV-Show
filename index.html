@@ -1,19 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Dipa Sarker (Dipa-Sarker)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
 
   <body>
-    <div id="root">
+    <div class="search-container">
+      <label for="search-input" id="search-label">Filtering for</label>
+      <input type="text" id="search-input" placeholder="Search episodes..." />
+      <p id="show-count"></p>
     </div>
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <p id="episode-count"></p>
+    <main id="root"></main>
+    <div id="message1"></div>
+    <div id="message2"></div>
+    Data originally provided by
+    <a href="https://www.tvmaze.com/" target="_blank"> TVMaze.com </a>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
