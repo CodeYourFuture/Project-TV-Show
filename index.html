@@ -1,21 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TV Show Project | Damilola Odumosu (d-odumosu)</title>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
 
-  <body>
-    <div id="root">
+
+
+<main id="app">
+    <!-- Shared status message -->
+    <p id="status-message"></p>
+
+    <!-- SHOW VIEW -->
+    <div id="show-view">
+
+        <!-- Show controls -->
+        <div class="show-controls" id="show-controls">
+
+            <div class="show-selector" id="show-selector">
+                <label for="show-select">Select a show:</label>
+
+                <select id="show-select" name="show">
+                    <option value="" selected>Select a show</option>
+                </select>
+            </div>
+
+            <div class="show-search" id="show-search-container">
+                <label for="show-search-input">Search shows:</label>
+
+                <input
+                        type="text"
+                        id="show-search-input"
+                        name="show"
+                        placeholder="Search shows"
+                />
+            </div>
+            <p id="show-search-count"></p>
+
+        </div>
+
+        <!-- Show template -->
+        <template id="show-template">
+            <article class="show-card">
+                <h2 class="show-title"></h2>
+
+                <div class="show-content">
+                    <img class="show-image" alt="">
+                    <p class="show-summary"></p>
+
+                    <ul class="show-details">
+                        <li class="show-rating"></li>
+                        <li class="show-genres"></li>
+                        <li class="show-status"></li>
+                        <li class="show-runtime"></li>
+                    </ul>
+                </div>
+            </article>
+        </template>
+        <!-- Shows container -->
+        <div id="show-container"></div>
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+    <!-- EPISODE VIEW -->
+    <div id="episode-view">
+
+        <div class="episode-header">
+
+            <div class="show-navigation">
+                <button type="button" id="home-button">
+                    Back to Shows
+                </button>
+            </div>
+
+            <div class="episode-info">
+                <p id="episode-search-count"></p>
+                <h2 id="total-episodes"></h2>
+            </div>
+
+        </div>
+
+        <!-- Episode controls -->
+        <div class="episode-controls" id="episode-controls">
+
+            <div class="episode-selector" id="episode-selector">
+                <label for="episode-select">Select an episode:</label>
+
+                <select id="episode-select" name="episode">
+                    <option value="" selected>Select an episode</option>
+                </select>
+            </div>
+
+            <div class="episode-search" id="episode-search-container">
+                <label for="episode-search-input">Search episodes:</label>
+
+                <input
+                        type="text"
+                        id="episode-search-input"
+                        name="episode"
+                        placeholder="Search episodes"
+                />
+            </div>
+
+        </div>
+
+
+
+        <!-- Episode template -->
+        <template id="episode-template">
+            <article class="episode-card">
+                <h3 class="episode-title"></h3>
+                <img class="episode-image" alt="">
+                <p class="episode-description"></p>
+            </article>
+        </template>
+
+        <!-- Episodes container -->
+        <div id="episode-container"></div>
+    </div>
+
+</main>
+
+<footer>
+    <div id="page-footer">
+        <p id="data-source">
+            © Damilola Odumosu 2026 | Data taken from
+            <a href="https://tvmaze.com/">TVMaze.com</a>
+        </p>
+    </div>
+</footer>
+
+<script src="appState.js"></script>
+<script src="script.js"></script>
+
+</body>
 </html>
