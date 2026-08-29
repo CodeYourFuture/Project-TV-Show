@@ -1,3 +1,147 @@
+:root {
+  --dark: #1c1d21;
+  --purple: #a288a6;
+  --mauve: #bb9bb0;
+  --grey-pink: #ccbcbc;
+  --cream-pink: #f1e3e4;
+
+  --font: 100%/1.5 system-ui;
+}
+
+body {
+  background: var(--dark);
+  color: var(--cream-pink);
+  font: var(--font);
+  margin: 0;
+  padding: 30px;
+}
+
+/* Episode cards */
 #root {
-  color: red;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  padding: 20px;
+}
+
+section {
+  background: var(--cream-pink);
+  color: var(--dark);
+  border: 3px solid var(--purple);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 5px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+h3 {
+  text-align: center;
+  color: var(--dark);
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+episodeCode {
+  display: block;
+  text-align: center;
+  color: var(--purple);
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+summary {
+  color: var(--dark);
+}
+
+img {
+  display: block;
+  width: 100%;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 2px solid var(--mauve);
+}
+
+/* Search input, show selector and episode selector */
+#search-input,
+#episode-selector,
+#show-selector {
+  background-color: var(--cream-pink);
+  color: var(--dark);
+  border: 2px solid var(--purple);
+  border-radius: 10px;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+/* Search input */
+#search-input {
+  padding: 12px 15px;
+}
+
+#search-input::placeholder {
+  color: var(--dark);
+  opacity: 0.7;
+}
+
+/* Episode and show dropdowns */
+#episode-selector,
+#show-selector {
+  height: 42px;
+  padding: 8px 12px;
+  font-size: 16px;
+}
+
+#episode-selector {
+  width: 350px;
+}
+
+#show-selector {
+  width: 300px;
+}
+
+/* Focus effect */
+#search-input:focus,
+#episode-selector:focus,
+#show-selector:focus {
+  outline: none;
+  border-color: var(--mauve);
+  box-shadow: 0 0 0 3px rgba(187, 155, 176, 0.3);
+}
+
+/* Show All Episodes button */
+#show-all-button,
+#back-to-shows {
+  background-color: var(--cream-pink);
+  color: var(--dark);
+  border: 2px solid var(--purple);
+  border-radius: 10px;
+  height: 42px;
+  padding: 8px 16px;
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#show-all-button:hover {
+  background-color: var(--mauve);
+}
+
+#show-all-button:focus {
+  outline: none;
+  border-color: var(--mauve);
+  box-shadow: 0 0 0 3px rgba(187, 155, 176, 0.3);
+}
+
+/* Footer */
+footer {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px;
+  color: var(--grey-pink);
+  border-top: 1px solid var(--purple);
+}
+
+footer a {
+  color: var(--cream-pink);
 }
