@@ -20,11 +20,6 @@ episodeSelect.append(episodeOption);
 
 filmBox.append(select, episodeSelect);
 
-const state = {
-  episodes: [],
-  searchTerm: "",
-  episodeCache: {},
-};
 
 fetchShows().then((shows) => {
   shows.sort((a, b) =>
