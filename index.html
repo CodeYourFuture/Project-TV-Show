@@ -1,21 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="root">
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Edina Kurdi (edinakurdi)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+<body>
+  <header>
+    <h1>TV Show Project</h1>
+  </header>
+  <main>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+    <section id="shows-view">
+
+      <div class="controls-bar">
+
+        <label for="show-select">Choose a show</label>
+        <select id="show-select">
+          <option value="all">Show all shows</option>
+        </select>
+
+        <label for="show-search">Search shows</label>
+        <input type="text" id="show-search" placeholder="Search shows">
+
+        <p id="show-count">Displaying <span id="show-count-result">0</span> shows</p>
+
+      </div>
+
+      <div id="shows-container"></div>
+
+    </section>
+
+    <section id="episodes-view">
+      <button type="button" id="back-to-shows-btn">Back to shows</button>
+
+      <div class="controls-bar">
+
+        <label for="episode-select">Choose an episode</label>
+        <select id="episode-select">
+          <option value="all">Show all episodes</option>
+        </select>
+
+        <label for="episode-search">Search</label>
+        <input type="text" id="episode-search" placeholder="Search episodes...">
+
+        <p id="episode-count">Displaying <span id="episode-count-result">0</span> episodes</p>
+      </div>
+
+
+      <div id="episodes-container"> Loading episodes...</div>
+
+    </section>
+
+  </main>
+
+  <template id="show-card">
+    <section class="show-card">
+      <h2>
+        <button type="button" data-show-name>Show title</button>
+      </h2>
+      <img data-show-img src="" alt="">
+      <p data-show-genres>Genres</p>
+      <p data-show-status>Status</p>
+      <p data-show-rating>Rating</p>
+      <p data-show-runtime>Runtime</p>
+      <div data-show-summary>Summary</div>
+    </section>
+
+  </template>
+
+  <template id="episode-card">
+    <section class="episode-card">
+      <h2>Episode title</h2>
+      <p data-episode-number>episode number</p>
+      <img src="" alt="">
+      <p data-summary>summary</p>
+    </section>
+  </template>
+
+  <footer>
+    <p> &copy; Edina Kurdi 2026 | Episode data originally from&nbsp;
+
+      <a href="https://www.tvmaze.com/" target="_blank" rel="noopener noreferrer">
+        TVMaze.com
+      </a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
