@@ -1,21 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+
+    <title>TV Show Project | Gideon Defar (gideondefar)</title>
+
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <section id="shows-view">
+      <header class="shows-header">
+        <h1>TV Shows</h1>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+        <div class="shows-controls">
+          <input
+            type="search"
+            id="show-search"
+            placeholder="Search shows..."
+            aria-label="Search shows"
+            autocomplete="off"
+          />
 
-    <!-- Loads YOUR javascript code -->
+          <select
+            id="show-select"
+            aria-label="Select a show"
+          >
+            <option value="">All Shows</option>
+          </select>
+        </div>
+      </header>
+
+      <p id="show-status" aria-live="polite">
+        Loading shows, please wait...
+      </p>
+
+      <main id="shows-root"></main>
+    </section>
+
+    <section id="episodes-view" hidden>
+      <div id="search">
+        <button id="back-to-shows" type="button">
+          ← Back to shows
+        </button>
+
+        <select
+          id="episode-select"
+          aria-label="Select an episode"
+        >
+          <option value="">Select an episode</option>
+        </select>
+
+        <input
+          type="search"
+          id="site-search"
+          name="q"
+          placeholder="Search episodes..."
+          aria-label="Search episodes"
+          autocomplete="off"
+        />
+
+        <div id="search-count" aria-live="polite">
+          Select a show
+        </div>
+      </div>
+
+      <main id="root"></main>
+    </section>
+
+    <template id="episode-template">
+      <article class="card">
+        <h2 class="title"></h2>
+
+        <img
+          src=""
+          alt=""
+          loading="lazy"
+        />
+
+        <div class="content"></div>
+      </article>
+    </template>
+
+    <footer class="footer">
+      Data provided by
+      <a
+        href="https://www.tvmaze.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        TVMaze.com
+      </a>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
