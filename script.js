@@ -18,22 +18,12 @@ episodeOption.value = "";
 
 episodeSelect.append(episodeOption);
 
-filmBox.prepend(select);
-filmBox.insertBefore(episodeSelect, searchInput);
+filmBox.append(select, episodeSelect);
 
 const state = {
   episodes: [],
   searchTerm: "",
   episodeCache: {},
-};
-
-const fetchShows = async () => {
-  const response = await fetch("https://api.tvmaze.com/shows");
-
-  if (!response.ok) {
-    throw new Error(`HTTP error: ${response.status}`);
-  }
-  return await response.json();
 };
 
 fetchShows().then((shows) => {
@@ -51,17 +41,6 @@ fetchShows().then((shows) => {
   }
 });
 
-const fetchEpisode = async (showId) => {
-  const response = await fetch(
-    `https://api.tvmaze.com/shows/${showId}/episodes`,
-  );
-
-  if (!response.ok) {
-    throw new Error(`HTTP error: ${response.status}`);
-  }
-
-  return await response.json();
-};
 
 select.addEventListener("change", function () {
   const showId = select.value;
