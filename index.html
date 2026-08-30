@@ -1,19 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="TV Show Project by Sandani Kannangara displaying Game of Thrones episodes using data from TVMaze."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Sandani Kannangara (SandzSoft)</title>
+    <link rel="preconnect" href="https://api.tvmaze.com" crossorigin />
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <main id="root">
+      <!-- Shows View -->
+      <div id="shows-view">
+        <div class="controls">
+          <div class="control-group">
+            <label for="show-search">Search Shows</label>
+            <input id="show-search" type="text" placeholder="Search shows..." />
+          </div>
+          <div class="control-group">
+            <label for="show-selector"></label>
+            <select id="show-selector"></select>
+          </div>
+        </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+        <div id="show-list"></div>
+      </div>
+
+      <!-- Episodes View -->
+      <div id="episodes-view">
+        <div class="controls">
+          <span id="selected-show" aria-live="polite"></span>
+          <button id="back-to-shows">← All Shows</button>
+
+          <div class="control-group">
+            <label for="episode-selector">Jump to Episode</label>
+            <select id="episode-selector"></select>
+          </div>
+
+          <div class="control-group">
+            <label for="episode-search">Search Episodes</label>
+            <input
+              id="episode-search"
+              type="text"
+              placeholder="Enter episode name..."
+            />
+          </div>
+
+          <p id="episode-count"></p>
+        </div>
+
+        <div id="episode-list"></div>
+      </div>
+    </main>
+    <footer>
+      <a
+        href="https://www.tvmaze.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Data provided by TVMaze
+      </a>
+    </footer>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
