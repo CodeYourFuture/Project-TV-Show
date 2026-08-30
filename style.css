@@ -1,3 +1,392 @@
+/* Basic styling for the whole page */
+body {
+  margin: 0;
+
+  padding: 20px;
+
+  font-family: Arial, sans-serif;
+
+  background: #f5f5f5;
+
+  color: rgb(33, 31, 31);
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+/* Space below the navigation */
+nav {
+  margin-bottom: 20px;
+}
+
+/* Styling for the link used to return to the shows page */
+nav a {
+  color: #333;
+
+  text-decoration: none;
+
+  font-weight: bold;
+}
+
+/* Underline the link when the mouse is over it */
+nav a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   SHOWS PAGE
+========================= */
+
+#shows-page h1 {
+  margin-bottom: 15px;
+}
+.show-selector-control {
+  margin-bottom: 15px;
+}
+
+#show-select {
+  width: 230px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: white;
+  font-size: 0.9rem;
+}
+
+/* Search box for finding shows */
+#show-search {
+  width: 300px;
+
+  padding: 10px;
+
+  margin-bottom: 10px;
+
+  border: 1px solid #aaa;
+
+  border-radius: 4px;
+
+  font-size: 1rem;
+
+  box-sizing: border-box;
+}
+
+/* Text showing how many shows are displayed */
+#show-count {
+  color: #777;
+
+  margin-bottom: 20px;
+}
+
+
+/* Show cards */
+
+/* Use a grid so the shows are displayed in columns */
+#shows-root {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 24px;
+
+  max-width: 1400px;
+
+  margin: 0 auto;
+}
+
+/* Main styling for each show card */
+.show-card {
+  background: white;
+
+  border: 1px solid #ccc;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Keep all show images the same size */
+.show-card img {
+  width: 100%;
+
+  height: 250px;
+
+  object-fit: cover;
+}
+
+/* Padding around the information inside a show card */
+.show-info {
+  padding: 15px;
+}
+
+.show-info h2 {
+  margin-top: 0;
+}
+
+/* Show names are also links to the episode page */
+.show-info h2 a {
+  color: #333;
+
+  text-decoration: none;
+}
+
+.show-info h2 a:hover {
+  text-decoration: underline;
+}
+
+/* Make the show summaries a little easier to read */
+.show-summary {
+  color: #666;
+
+  line-height: 1.5;
+}
+
+
+/* =========================
+   EPISODE PAGE
+========================= */
+
+/* Search, selectors and counter */
+
+/* Put all the episode controls next to each other */
+.controls {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 10px;
+
+  width: 100%;
+}
+
+#episode-select {
+  width: 230px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: white;
+  font-size: 0.9rem;
+}
+
+#search-input {
+  width: 220px;
+
+  padding: 10px;
+
+  border: 1px solid #aaa;
+
+  border-radius: 4px;
+
+  font-size: 0.9rem;
+
+  box-sizing: border-box;
+}
+
+/* Keep the episode counter on one line when there is enough space */
+#episode-count {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 0.9rem;
+
+  white-space: nowrap;
+}
+
+
+/* Loading and error message */
+
+/* Used for messages such as loading and failed requests */
+#status {
+  margin: 0 0 20px;
+
+  color: #777;
+
+  font-size: 0.9rem;
+}
+
+
+/* Episode grid */
+
+/* Display the episodes in three columns on larger screens */
 #root {
-  color: red;
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 24px;
+
+  max-width: 1400px;
+
+  margin: 0 auto;
+}
+
+
+/* Episode cards */
+
+/* Basic styling for each episode */
+.episode {
+  margin: 0;
+
+  padding: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #ccc;
+
+  border-radius: 10px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+
+/* Episode title */
+
+/* The negative margin makes the title look like a header for the card */
+.title {
+  margin: -16px -16px 20px;
+
+  padding: 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #999;
+
+  border-radius: 10px;
+
+  text-align: center;
+
+  font-size: 1rem;
+
+  line-height: 1.5;
+}
+
+
+/* Episode image */
+
+/* Make episode images smaller and keep them centred */
+img {
+  display: block;
+
+  width: 70%;
+
+  height: 150px;
+
+  margin: 0 auto 18px;
+
+  object-fit: cover;
+}
+
+
+/* Episode summary */
+
+.synopsis {
+  margin-bottom: 0;
+
+  font-size: 1rem;
+
+  line-height: 1.5;
+
+  color: #666;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+/* Keep the footer aligned with the main content */
+footer {
+  max-width: 1400px;
+
+  margin: 30px auto 0;
+
+  color: #666;
+
+  text-align: right;
+}
+
+
+/* =========================
+   HIDE EPISODE PAGE AT START
+========================= */
+
+/* The shows page is shown first, so the episode page starts hidden */
+#episodes-page {
+  display: none;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+/* Change to two columns on smaller screens */
+@media (max-width: 900px) {
+  #root {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #shows-root {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Allow the controls to move onto another line */
+  .controls {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+/* Change the layout to make the site easier to use on phones */
+@media (max-width: 600px) {
+  body {
+    padding: 12px;
+  }
+
+  /* Stack the controls vertically on mobile */
+  .controls {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  #show-select,
+  #episode-select,
+  #search-input {
+    width: 100%;
+  }
+
+  #episode-count {
+    white-space: normal;
+  }
+
+  /* Show one episode per row on small screens */
+  #root {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  #shows-root {
+    grid-template-columns: 1fr;
+  }
+
+  #show-search {
+    width: 100%;
+  }
+
+  footer {
+    text-align: center;
+  }
 }

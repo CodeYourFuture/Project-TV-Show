@@ -3,19 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Vito Moratti (vmoratti)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <!-- This link lets us go back to the list of shows -->
+    <nav>
+      <a href="#" id="home-link">All Shows</a>
+    </nav>
+    <!-- Level 400: choose a show from the full list -->
+    <section class="show-selector-control">
+      <select id="show-select">
+        <option value="">Select a show</option>
+      </select>
+    </section>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <!-- Shows page -->
+    <section id="shows-page">
+      <h1>TV Shows</h1>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+      <!-- Used to search through the shows -->
+      <input
+        type="search"
+        id="show-search"
+        placeholder="Search shows..."
+      />
+
+      <!-- Shows how many shows are currently being displayed -->
+      <p id="show-count"></p>
+
+      <!-- The show cards are added here by JavaScript -->
+      <main id="shows-root"></main>
+    </section>
+
+    <!-- Episodes page -->
+    <section id="episodes-page">
+      <section class="controls">
+        
+        <!-- Allows the user to jump to a particular episode -->
+        <select id="episode-select">
+          <option value="">Select an episode</option>
+        </select>
+
+        <!-- Search for an episode by its name or summary -->
+        <input
+          type="search"
+          id="search-input"
+          placeholder="Search episodes..."
+        />
+
+        <p id="episode-count"></p>
+      </section>
+
+      <!-- Loading and error messages are displayed here -->
+      <p id="status"></p>
+
+      <!-- Episodes are added to this element by JavaScript -->
+      <main id="root"></main>
+    </section>
+
+    <!-- Template used for displaying episodes -->
+    <!-- JavaScript copies this template when creating each episode card -->
+    <template id="episode-template">
+      <article class="episode">
+        <h3 class="title">Episode title</h3>
+        <img alt="Episode poster" />
+        <p class="synopsis">Episode summary</p>
+      </article>
+    </template>
+
+    <footer>
+      <p>&copy; TV. All rights reserved.</p>
+    </footer>
+
+    <script defer src="script.js"></script>
   </body>
 </html>
