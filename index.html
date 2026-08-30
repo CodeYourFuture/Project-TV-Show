@@ -1,19 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <meta
+      name="description"
+      content="TV Show Project by Niangh Ciang (Niangh-Ciang) displaying TV show episodes using data from TVMaze."
+    />
+    <title>TV Show Project | Niangh Ciang (Niangh-Ciang)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
+    <!-- FRONT PAGE CONTROLS -->
+    <div id="show-controls" class="controls">
+      <div class="control-group filter-row">
+        <label for="genre-search">Filtering for:</label>
+        <input
+          id="genre-search"
+          type="text"
+          placeholder="Enter genre or keyword..."
+        />
+        <label id="genre-count">Found 0 shows</label>
+        <select id="genre-show-select"></select>
+      </div>
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <!-- EPISODE PAGE CONTROLS -->
+    <div id="episode-controls" class="controls">
+      <div class="control-group">
+        <label for="show-display">Show:</label>
+        <input id="show-display" type="text" readonly />
+      </div>
+
+      <div class="control-group">
+        <label for="episode-select">Jump to episode:</label>
+        <select id="episode-select"></select>
+      </div>
+
+      <div class="control-group">
+        <label for="search-input">Search Episodes:</label>
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Enter episode name..."
+        />
+      </div>
+
+      <p id="episode-count"></p>
+      <div class="button-container">
+        <button id="back-to-shows">Back to Shows</button>
+      </div>
+    </div>
+
+    <!-- Lists -->
+    <main id="shows-list"></main>
+    <button
+      id="back-to-episodes"
+      style="display: none"
+      class="episode-back-btn"
+    >
+      ← Back to all episodes
+    </button>
+
+    <main id="episodes-list"></main>
+
+    <footer class="page-credit">
+      Data from <a href="https://www.tvmaze.com/">TVMaze.com</a>
+    </footer>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
