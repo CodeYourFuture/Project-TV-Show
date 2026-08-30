@@ -1,3 +1,144 @@
 #root {
   color: red;
 }
+
+body {
+  background-color: #f6f6f6;
+}
+
+.episodes-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin: 10px;
+}
+
+.shows-grid {
+  display: grid;
+  gap: 20px;
+  margin: 10px;
+}
+
+#controls {
+  gap: 20px;
+  margin: 10px;
+}
+
+#footer {
+  text-align: center;
+}
+
+.info-panel {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+article {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+
+article button {
+  justify-items: center;
+}
+
+.article-horizontal div {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  align-items: start;
+}
+
+h1 {
+  text-align: center;
+  border-style: solid;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+p {
+  margin-left: 15px;
+  margin-right: 15px;
+  color: #a2a2a2;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Show card */
+.show-card .thumb {
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+.show-card .title {
+  font-size: 1.4rem;
+  border-color: #333;
+}
+
+/* Episode card */
+.episode-card .thumb {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+.episode-card .title {
+  font-size: 1.05rem;
+  border-color: #a2a2a2;
+  color: #555;
+}
+
+.error-card {
+  grid-column: 1 / -1;
+  border: 2px solid #d32f2f;
+}
+.error-card h1 {
+  color: #d32f2f;
+  border-color: #d32f2f;
+}
+.error-message {
+  text-align: center;
+  color: #a2a2a2;
+}
+
+.loading-card {
+  grid-column: 1 / -1;
+  border: 2px solid #a2a2a2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+.loading-card h1 {
+  color: #a2a2a2;
+  border-color: #a2a2a2;
+  width: 100%;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 20px auto;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #a2a2a2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.controls-hidden {
+  display: none;
+}
