@@ -1,3 +1,159 @@
+/* CSS Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #222;
+}
+
+.source {
+  text-align: center;
+}
+
 #root {
-  color: red;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.film-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+#show-search {
+  width: 400px;
+  height: 1.5rem;
+  margin: 1rem auto;
+  display: block;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+}
+.shows-listing {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.show-card img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  display: block;
+  margin: 20px auto 20px auto;
+  border-radius: 8px;
+}
+
+.card {
+  width: 100%;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+header {
+  margin-bottom: 0.8rem;
+}
+
+.summary {
+  margin-top: 0.8rem;
+}
+
+.search-area {
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+select,
+input {
+  height: 1.5rem;
+  width: 300px;
+  border-radius: 3px;
+}
+
+main {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* single film css */
+
+.single-film-grid {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.show-single-film {
+  max-width: 500px;
+  width: 90%;
+}
+
+button.exit {
+  padding: 0.7rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  margin: 2rem 0;
+  background-color: black;
+  color: white;
+  font-weight: 700;
+}
+
+.app-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  color: white;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* css to hide divs as required */
+.hidden {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .film-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .film-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
