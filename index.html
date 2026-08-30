@@ -3,19 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Khaliun Baatarkhuu (khaliun-dev)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <main>
+      <section id="shows-page">
+        <h1>TV Shows</h1>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+        <input
+          id="show-search"
+          type="text"
+          placeholder="Search shows"
+        />
 
-    <!-- Loads YOUR javascript code -->
+        <select id="show-selector"></select>
+
+        <div id="shows-list"></div>
+      </section>
+
+      <section id="episodes-page" hidden>
+        <button id="back-to-shows">← Back to shows</button>
+
+        <h1>Episodes</h1>
+
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Search episodes"
+        />
+
+        <select id="episode-selector"></select>
+
+        <p id="episode-count"></p>
+
+        <div id="root"></div>
+      </section>
+    </main>
+
+    <p class="source">
+      All data has been sourced from
+      <a href="https://www.tvmaze.com/" target="_blank">TVMaze</a>
+    </p>
+
     <script src="script.js"></script>
   </body>
 </html>
