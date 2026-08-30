@@ -1,21 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Vitalii Kmit (vitalii-code)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="root">
+    <div id="root"></div>
+    <div id="controls">
+      <a href="/" id="back-link" class="controls-hidden"
+        >&larr; Back to shows</a
+      >
+      <input type="text" id="search-input" placeholder="Search..." />
+      <select class="controls-hidden" id="episode-select"></select>
+      <select class="controls-hidden" id="show-select"></select>
     </div>
+    <template id="error">
+      <article class="error-card">
+        <h1>Something went wrong</h1>
+        <p class="error-message"></p>
+      </article>
+    </template>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <template id="show-card">
+      <article>
+        <grid>
+          <h1 class="title"></h1>
+          <div>
+            <img class="thumb" />
+            <p class="description"></p>
+            <grid class="info-panel">
+              <b>
+                <p class="rating">Rated: 8</p>
+                <p class="genres">Genres: Horror</p>
+                <p class="status">Status Ended</p>
+                <p class="runtime">Runtime: 60</p>
+              </b>
+            </grid>
+          </div>
+          <div>
+            <button>Click to show more</button>
+          </div>
+        </grid>
+      </article>
+    </template>
+
+    <template id="episode-card">
+      <article>
+        <h1 class="title"></h1>
+        <img class="thumb" />
+        <p class="description"></p>
+      </article>
+    </template>
 
     <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+
+    <div id="grid">
+      <article class="loading-card">
+        <h1>Loading...</h1>
+        <p>Fetching episodes, please wait.</p>
+        <div class="spinner"></div>
+      </article>
+    </div>
+
+    <footer>
+      <p id="footer">
+        The data on this website has (originally) come from
+        <a href="TVMaze.com">TVMaze.com</a>
+      </p>
+    </footer>
   </body>
 </html>
