@@ -1,3 +1,75 @@
-#root {
-  color: red;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f9;
+}
+
+/* 3 columns per row on desktop screens */
+.episodes-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Fallback for smaller mobile/tablet screens so layout remains responsive */
+@media (max-width: 900px) {
+  .episodes-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .episodes-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.episode-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.episode-title {
+  font-size: 1.1rem;
+  margin-top: 0;
+}
+
+.episode-title a {
+  color: #333;
+  text-decoration: none;
+}
+
+.episode-title a:hover {
+  text-decoration: underline;
+  color: #0066cc;
+}
+
+.episode-image {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.episode-summary {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+.tvmaze-attribution {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.tvmaze-attribution a {
+  color: #0066cc;
+  text-decoration: none;
 }
