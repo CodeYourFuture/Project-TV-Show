@@ -1,21 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Martin Mwaka (temceo)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <form class="search-area">
+
+    <div id="show-controls">
+      <label for="show-search">Filtering for:</label>
+      <input type="search" id="show-search">
+      <p class="show-filter-display"></p>
+      <label for="show-select" class="show-label"></label>
+      <select id="show-select">
+        <option value="">Select a show</option>
+      </select>
     </div>
+    <div id="film-controls" class="hidden">
+      <label for="film-select">Choose an episode:</label>
+      <select id="film-select">
+        <option value="">Episodes</option>
+      </select>
+      <label for="film-search">Search episodes:</label>
+      <input type="search" id="film-search">
+      <p class="filter-display"></p>
+    </div>
+  </form>
+  <template id="film-card-template">
+    <section class="card">
+      <h3 class="title"></h3>
+      <img src="" alt="" />
+      <p class="summary"></p>
+    </section>
+  </template>
+  <template id="show-card-template">
+    <div class="show-card">
+      <h2 class="show-title"></h2>
+      <div class="show-content">
+        <div class="img-container">
+          <img src="" alt="" class="show-image">
+        </div>
+        <div class="show-summary"></div>
+        <div class="show-details">
+          <p><strong>Rating:</strong> <span class="show-ratings"></span></p>
+          <p><strong>Genres:</strong> <span class="show-genres"></span></p>
+          <p><strong>Status:</strong> <span class="show-status"></span></p>
+          <p><strong>Runtime:</strong> <span class="show-runtime"></span></p>
+        </div>
+      </div>
+    </div>
+  </template>
+  <main>
+    <div class="show-grid" id="show-grid"></div>
+    <div class="film-view">
+      <button class="return-to-shows hidden">Return to shows</button>
+      <div class="film-grid hidden" id="film-grid"></div>
+      <div class="single-film-grid hidden">
+        <button class="exit">Return to episodes</button>
+        <div class="show-single-film"></div>
+      </div>
+    </div>
+  </main>
+  <h3 class="source">
+    Film data source:
+    <a href="https://www.tvmaze.com/" target="_blank">tvmaze.com</a>
+  </h3>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+</body>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
 </html>
