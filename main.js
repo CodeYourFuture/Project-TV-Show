@@ -2,7 +2,8 @@ import { fetchShows, fetchEpisode } from "./api.js";
 import { state } from "./state.js";
 import { renderEpisodes } from "./render.js";
 import { createEpisodeCard} from "./ui.js";
-import { populateEpisodeSelect } from ",/selectors.js";
+import { populateEpisodeSelect } from "./selectors.js";
+import { handleSearch } from "./search.js";
 
 const root = document.getElementById("root");
 const searchInput = document.getElementById("q");
@@ -24,7 +25,7 @@ episodeOption.value = "";
 
 episodeSelect.append(episodeOption);
 
-filmBox.append(select, episodeSelect);
+filmBox.prepend(select, episodeSelect);
 
 fetchShows().then((shows) => {
   shows.sort((a, b) =>
@@ -41,6 +42,11 @@ fetchShows().then((shows) => {
   }
 });
 
+searchInput.addEventListener("keyup", function () {
+  handleSearch();
+});
+
+
 select.addEventListener("change", function () {
   const showId = select.value;
 
@@ -55,7 +61,7 @@ select.addEventListener("change", function () {
   if (state.episodeCache[showId]) {
     state.episodes = state.episodeCache[showId];
 
-    populateEpisodeSelect(state.episodes);
+    populateEpisodeSelect(episodeSelect, state.episodes);
 
     renderEpisodes(state.episodes);
     return;
@@ -68,7 +74,7 @@ select.addEventListener("change", function () {
       state.episodeCache[showId] = episodes;
       state.episodes = episodes;
 
-      populateEpisodeSelect(episodes);
+      populateEpisodeSelect(episodeSelect, episodes);
 
       status.textContent = "";
       renderEpisodes(episodes);
@@ -80,40 +86,6 @@ select.addEventListener("change", function () {
     });
 });
 
-function updateCount(list) {
-  const countElement = document.getElementById("search-count");
-
-  // If search box is empty → show total episodes
-  if (state.searchTerm.trim() === "") {
-    countElement.textContent = `Total episodes: ${state.episodes.length}`;
-    return;
-  }
-
-  // If typing → show matching episodes
-  countElement.textContent = `Matching episodes: ${list.length}`;
-}
-
-function handleSearch() {
-  const term = searchInput.value.toLowerCase();
-  state.searchTerm = term;
-
-  if (term === "") {
-    renderEpisodes(state.episodes);
-    return;
-  }
-
-  const filteredEpisodes = state.episodes.filter(function (episode) {
-    const name = episode.name.toLowerCase();
-
-    return name.indexOf(state.searchTerm) !== -1;
-  });
-
-  renderEpisodes(filteredEpisodes);
-}
-
-searchInput.addEventListener("keyup", function () {
-  handleSearch();
-});
 
 episodeSelect.addEventListener("change", function () {
   const episodeId = episodeSelect.value;
@@ -127,3 +99,7 @@ episodeSelect.addEventListener("change", function () {
 
   renderEpisodes(episode ? [episode] : []);
 });
+
+window.onload = () => {
+    fetchShows();
+};

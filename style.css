@@ -5,6 +5,19 @@
   padding: 20px;
 }
 
+#film-box {
+  display: flex;
+  align-items: centre;
+  gap: 10px;
+}
+
+#film-box select,
+#film-box input {
+  height: 40px;
+  width: 200px;
+  box-sizing: border-box;
+}
+
 img {
   width: 100%;
   height: auto;

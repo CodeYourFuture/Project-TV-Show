@@ -1,4 +1,4 @@
-export function populateEpisodeSelect(episodes) {
+export function populateEpisodeSelect(episodeSelect, episodes) {
   episodeSelect.innerHTML = "";
 
   const defaultOption = document.createElement("option");
