@@ -4,7 +4,9 @@ Make a change to the template and then pull changes
 Repo: https://github.com/CodeYourFuture/Module-Template
 -->
 
-# TV Show Project Requirements
+# How To Review
+
+## TV Show Project Requirements
 
 There are the main requirements that a submitted project needs checked by reviewers.
 Trainees should not need to refer to this document, and should focus on completing each level one at a time.
@@ -58,7 +60,7 @@ There are no rules about how the site should look, only how it behaves.
 	1. Display how many episodes match the current search
 	1. If the search box is cleared, **all** episodes should be shown
 
-# Reviewing the paired project
+## Reviewing the paired project
 The trainees have been working in pairs, so it is normal if you see evidence of collaboration.
 Submission is done via a PR, like usual.
 Each pair will have submitted their own final version, and these can differ so they should be reviewed independently.
@@ -70,7 +72,7 @@ If they did not include this in the PR description, ask for them to add this, an
 Check any changes made, and raise issues for problems in implementation or where the requirements are not met.
 Only the trainee submitting that PR should respond and make changes, not their partner.
 
-# General Advice for Reviewers
+## General Advice for Reviewers
 
 Everyone reviews code at CYF.
 
@@ -78,7 +80,7 @@ Mentors and trainees all review code, and collaborate on improving code quality.
 
 We are not reviewing code as if we were to merge this PR into production; we are opening a technical conversation for the purpose of insight and development.
 
-## Key points:
+### Key points:
 
 1. Ask questions instead of making statements:
 
@@ -95,17 +97,17 @@ We are not reviewing code as if we were to merge this PR into production; we are
    **YES** "I think there's some more to do here. Thanks for sharing where you're up to."
    **NO** "This is rubbish. Try harder."
 
-## Labels
+### Labels
 
 Reviewers, please add labels (provided) to the PR once you've reviewed. This helps to focus the trainee on the areas they should work on, and gives an overview for mentors on what the whole cohort needs to work on.
 
-## Solutions
+### Solutions
 
-### Where to find solutions?
+#### Where to find solutions?
 
 You can find the solutions for the module on the `solutions` branch.
 
-### Solutions branch
+#### Solutions branch
 
 The solutions branch typically contains:
 
@@ -119,7 +121,7 @@ Everyone is invited to contribute commonly encountered problems, mistakes, misun
 
 Use these resources to inform your code review, get unstuck, and improve your understanding.
 
-## Guides
+### Guides
 
 Here's a detailed checklist of the sorts of things we should check code for:
 
