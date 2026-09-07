@@ -116,21 +116,3 @@ You should also give the name of the partner you worked with.
 There is a stretch level 999 if you want to practice more, you should not submit this as part of your PR.
 If you want feedback, ask for this to be done separately.
 
-### Instructions for Reviewers
-
-#### Requirements
-If this is your first review of the TV show project, familiarise yourself with the task requirements.
-For your convenience, you can find a list of all the requirements [here](levels/Reviewers-All-Requirements.md).
-There are no rules about how the site should look, only how it behaves.
-
-#### How to review
-Submission is done via a PR, like usual.
-The trainees have been working in pairs, so it is normal if you see evidence of collaboration.
-Each pair will have submitted their own final version, and these can differ so they should be reviewed independently.
-
-Do not try to deploy the page for your own review.
-Use the URL to the deployed page provided by the trainee.
-If they did not include this in the PR description, ask for them to add this, and don't proceed with the review until they do so.
-
-Check any changes made, and raise issues for problems in implementation or where the requirements are not met.
-Only the trainee submitting that PR should respond and make changes, not their partner.

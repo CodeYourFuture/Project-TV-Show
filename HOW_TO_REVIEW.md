@@ -4,13 +4,83 @@ Make a change to the template and then pull changes
 Repo: https://github.com/CodeYourFuture/Module-Template
 -->
 
-# Everyone reviews code at CYF
+# How To Review
+
+## TV Show Project Requirements
+
+There are the main requirements that a submitted project needs checked by reviewers.
+Trainees should not need to refer to this document, and should focus on completing each level one at a time.
+There are no rules about how the site should look, only how it behaves.
+
+1. It is deployed on GitHub pages or Netlify
+1. The site must fetch data from an API at `TVMaze.com`, never a JSON file in the repo
+	1. The page should state somewhere that the data has (originally) come from [TVMaze.com](https://tvmaze.com/), and link back to that site. 
+	1. During a visit to the website it should never fetch any URL more than once. (Check this using the dev tools network inspector)
+	1. The site should indicate when data is loading.
+	1. If an error occurred loading the data, notify the user on the page with a useful message (Not only in the console)
+1. Listing Shows - When the site starts, present a listing of all shows ("shows listing")
+	1. For each show, display at least:
+		1. name
+		1. image
+		1. summary
+		1. genres
+		1. status
+		1. rating
+		1. runtime
+	1. When a show name is clicked, it should:
+		1. Fetch and present episodes from that show
+		1. Hide the "shows listing" view
+		1. Enable episode search / select (see below)
+	1. Have a navigation link or button to enable the user to return to the "shows listing"
+		1. When this is clicked, the episodes listing should be hidden
+	1. Ensure that the search and selector controls still work correctly when you switch from shows listing to episodes listing and back
+1. Listing Episodes - When a show is selected, all episodes must be on the page shown for that given show, with at least:
+	1. The name of the episode
+	1. The combined season number and episode number into a zero-padded episode code: `S02E07` is correct, `S2E7` is incorrect.
+	1. The medium-sized image for the episode
+	1. The summary text of the episode
+1. Select Shows - a `select` element to your page so the user can choose a show.
+	1. When the user first loads the page, use the fetched list of available shows, and add an entry to the drop-down per show.
+	1. When a user selects a show, display the episodes for that show after fetching the episode list.
+	1. The select must list shows in alphabetical order, case-insensitive.
+1. Select Episodes - a `select` drop-down which lets the user jump quickly to a particular episode:
+	1. The select options are updated whenever a new show is selected, and this select isn't used otherwise
+	1. The select input should list all episodes in the format: "S01E01 - Episode Title"
+	1. When the user makes a selection, they should be taken directly to that episode on the page
+1. Search Shows - When a user types a search term into the search box:
+	1. Only shows whose summary **OR** name contains the search term should be displayed
+	1. The search should be case-**in**sensitive
+	1. The display should update **immediately** after each keystroke changes the input
+	1. Display how many shows match the current search
+	1. If the search box is cleared, **all** shows should be shown
+1. Search Episodes - When a user types a search term into the search box:
+	1. Only episodes whose summary **OR** name contains the search term should be displayed
+	1. The search should be case-**in**sensitive
+	1. The display should update **immediately** after each keystroke changes the input
+	1. Display how many episodes match the current search
+	1. If the search box is cleared, **all** episodes should be shown
+
+## Reviewing the paired project
+The trainees have been working in pairs, so it is normal if you see evidence of collaboration.
+Submission is done via a PR, like usual.
+Each pair will have submitted their own final version, and these can differ so they should be reviewed independently.
+
+Do not try to deploy the page for your own review.
+Use the URL to the deployed page provided by the trainee.
+If they did not include this in the PR description, ask for them to add this, and don't proceed with the review until they do so.
+
+Check any changes made, and raise issues for problems in implementation or where the requirements are not met.
+Only the trainee submitting that PR should respond and make changes, not their partner.
+
+## General Advice for Reviewers
+
+Everyone reviews code at CYF.
 
 Mentors and trainees all review code, and collaborate on improving code quality. We are all helping each other to talk, write, and think about code more clearly.
 
 We are not reviewing code as if we were to merge this PR into production; we are opening a technical conversation for the purpose of insight and development.
 
-## Key points:
+### Key points:
 
 1. Ask questions instead of making statements:
 
@@ -27,17 +97,17 @@ We are not reviewing code as if we were to merge this PR into production; we are
    **YES** "I think there's some more to do here. Thanks for sharing where you're up to."
    **NO** "This is rubbish. Try harder."
 
-## Labels
+### Labels
 
 Reviewers, please add labels (provided) to the PR once you've reviewed. This helps to focus the trainee on the areas they should work on, and gives an overview for mentors on what the whole cohort needs to work on.
 
-## Solutions
+### Solutions
 
-### Where to find solutions?
+#### Where to find solutions?
 
 You can find the solutions for the module on the `solutions` branch.
 
-### Solutions branch
+#### Solutions branch
 
 The solutions branch typically contains:
 
@@ -51,7 +121,7 @@ Everyone is invited to contribute commonly encountered problems, mistakes, misun
 
 Use these resources to inform your code review, get unstuck, and improve your understanding.
 
-## Guides
+### Guides
 
 Here's a detailed checklist of the sorts of things we should check code for:
 
