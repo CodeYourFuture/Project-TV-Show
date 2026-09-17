@@ -1,3 +1,169 @@
 #root {
-  color: red;
+  color: #aaa;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #F5F5F5;
+}
+
+#shows-view h1 {
+  color: #333;
+  margin-top: 0;
+}
+
+#show-search,
+#search-input,
+#episode-selector {
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font: inherit;
+}
+
+#show-search {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#shows-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.show-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  min-width: 0;
+}
+
+.show-card h2 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.show-card h2 button,
+#back-to-shows {
+  color: #1A4FA0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.show-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.show-card div,
+.show-details {
+  color: #444;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+#episodes-view {
+  padding-top: 10px;
+}
+
+#back-to-shows {
+  margin-bottom: 16px;
+}
+
+#controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#search-input {
+  flex: 1;
+}
+
+#match-count {
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+}
+
+#episodes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.episode-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  min-width: 0;
+}
+
+.episode-card h2 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.episode-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.episode-card div {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #444;
+  margin: 0;
+}
+
+#status {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-top: 10px;
+}
+
+#status a {
+  color: #1A4FA0;
+}
+
+footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+}
+
+footer a {
+  color: #1A4FA0;
+}
+
+@media (max-width: 640px) {
+  #controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #match-count {
+    white-space: normal;
+  }
 }
