@@ -1,8 +1,8 @@
 /* Design palette */
 :root {
   --font: ui-sans-serif, system-ui, sans-serif;
-  --paper: hsla(275, 100%, 95%, 0.985);
-  --ink: hsla(257, 61%, 9%, 0.85);
+  --paper: #e9e6ee; 
+  --ink: #6a92a5c9;;
   --spacing-s: 4px;
   --spacing-m: 8px;
   --spacing-l: 24px;
@@ -96,6 +96,16 @@ button {
   margin-left: -999em;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  color: #ffffff;
+  background: #6e8a92;
+}
 @keyframes fade-in {
   from {
     opacity: 0;

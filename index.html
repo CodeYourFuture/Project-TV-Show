@@ -13,12 +13,22 @@
   <body>
     <header class="container">
       <h1>TV Show Project</h1>
-      <h2>Sample Solution</h2>
+      <h2>Fancy A Show Under A Sky</h2>
 
       <form class="container">
+        <!-- Search shows -->
+        <label for="show-search" class="is-invisible"> Search Shows </label>
+
+        <input
+          type="search"
+          id="show-search"
+          name="show-search"
+          placeholder="Search Shows"
+        />
+
         <!-- Search episodes -->
         <label for="episode-search" class="is-invisible">
-          Filter Episodes
+          Search Episodes
         </label>
 
         <input
@@ -37,14 +47,17 @@
 
         <!-- Select an episode -->
         <label for="episode-select" class="is-invisible">
-          Select One Episode
+          Select an episode
         </label>
 
         <select id="episode-select" name="episode-select">
           <option value="">Select an episode</option>
         </select>
 
-        <button type="reset">Reset</button>
+        <!-- Buttons -->
+        <button type="reset" id="reset-button">Reset</button>
+
+        <button type="button" id="back-to-shows">Back to shows</button>
       </form>
     </header>
 
@@ -74,6 +87,39 @@
           />
         </section>
       </template>
+
+      <!-- Show card template -->
+      <template id="show-card">
+        <section class="card">
+          <button class="show-name" data-show="name" type="button">
+            Show Name
+          </button>
+
+          <img class="card__image" data-show="image" src="" alt="" />
+
+          <div class="card__summary" data-show="summary">Summary</div>
+
+          <p>
+            <strong>Genres:</strong>
+            <span data-show="genres"></span>
+          </p>
+
+          <p>
+            <strong>Status:</strong>
+            <span data-show="status"></span>
+          </p>
+
+          <p>
+            <strong>Rating:</strong>
+            <span data-show="rating"></span>
+          </p>
+
+          <p>
+            <strong>Runtime:</strong>
+            <span data-show="runtime"></span> minutes
+          </p>
+        </section>
+      </template>
     </main>
 
     <footer>
@@ -81,6 +127,8 @@
         Data originally from
         <a href="https://tvmaze.com/">TV Maze</a>
       </h2>
+
+      <p>© 2026 Mandip Sanger. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>

@@ -1,4 +1,6 @@
 const SHOWS_URL = "https://api.tvmaze.com/shows";
+const resetButton = document.getElementById("reset-button");
+const backToShowsButton = document.getElementById("back-to-shows");
 
 let shows = [];
 let episodes = [];
@@ -18,10 +20,14 @@ const episodeTemplate = document.getElementById("episode-card");
 async function setup() {
   await loadShows();
 
+  // Search shows
   showSelect.addEventListener("change", function () {
     selectedShowId = showSelect.value;
 
     if (selectedShowId) {
+      episodeSelect.style.display = "block";
+      searchInput.style.display = "block";
+
       loadEpisodes(selectedShowId);
     }
   });
@@ -40,8 +46,28 @@ async function setup() {
 
     renderEpisodes([episodes[episodeIndex]]);
   });
+  //reset button
+  resetButton.addEventListener("click", function () {
+    searchInput.value = "";
+    episodeSelect.value = "";
+    if (selectedShowId) {
+      renderEpisodes();
+    }
+  });
+  //Back to shows button
+  backToShowsButton.addEventListener("click", function () {
+    selectedShowId = null;
+    episodes = [];
+    showSelect.value = "";
+    episodeSelect.innerHTML = '<option value="">Select an episode</option>';
+    searchInput.value = "";
+    cardContainer.innerHTML = "";
+    countContainer.textContent = "";
+    episodeSelect.style.display = "none";
+    searchInput.style.display = "none";
+    showSelect.style.display = "block";
+  });
 }
-
 // Fetch all shows
 async function loadShows() {
   showSelect.innerHTML = "<option>Loading shows...</option>";
@@ -62,14 +88,6 @@ async function loadShows() {
     });
 
     populateShowSelect();
-
-    // Select the first show
-    if (shows.length > 0) {
-      showSelect.value = shows[0].id;
-      selectedShowId = shows[0].id;
-
-      await loadEpisodes(selectedShowId);
-    }
   } catch (error) {
     console.error(error);
     showSelect.innerHTML = "<option>Could not load shows</option>";
@@ -81,6 +99,11 @@ async function loadShows() {
 function populateShowSelect() {
   showSelect.innerHTML = "";
 
+  const firstOption = document.createElement("option");
+  firstOption.value = "";
+  firstOption.textContent = "Select a show";
+  showSelect.append(firstOption);
+
   for (const show of shows) {
     const option = document.createElement("option");
 
@@ -89,6 +112,13 @@ function populateShowSelect() {
 
     showSelect.append(option);
   }
+}
+
+function renderShows() {
+  // use the list of shows to display the shows
+  // create show cards
+  // put show cards in shows container
+  // call this on page load or when reset shows is pressed
 }
 
 // Fetch episodes for selected show
@@ -124,7 +154,8 @@ async function loadEpisodes(showId) {
     renderEpisodes();
   } catch (error) {
     console.error(error);
-    cardContainer.textContent = "Sorry, there was an error loading the episodes.";
+    cardContainer.textContent =
+      "Sorry, there was an error loading the episodes.";
   }
 }
 
@@ -157,7 +188,7 @@ function renderEpisodes(episodeList = episodes) {
   const filteredEpisodes = episodeList.filter(function (episode) {
     return (
       episode.name.toLowerCase().includes(searchTerm) ||
-      episode.summary.toLowerCase().includes(searchTerm)
+      (episode.summary || "").toLowerCase().includes(searchTerm)
     );
   });
 
