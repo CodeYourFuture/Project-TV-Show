@@ -1,3 +1,109 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #202124;
+  background-color: #f5f5f5;
+}
+
+.site-header,
+.site-footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: white;
+  background-color: #24243e;
+}
+
+.site-header h1 {
+  margin: 0;
+}
+
 #root {
-  color: red;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.show-controls,
+.episode-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.show-list,
+.episode-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.show-controls select,
+.show-controls input,
+.episode-controls input,
+.episode-controls select {
+  width: 100%;
+  padding: 0.75rem;
+  font: inherit;
+  border: 1px solid #777;
+  border-radius: 4px;
+}
+
+.show-card,
+.episode-card {
+  overflow: hidden;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 15%);
+}
+
+.show-card div,
+.show-card p,
+.episode-card h3,
+.episode-card div {
+  margin: 1rem;
+}
+
+.show-title {
+  width: 100%;
+  padding: 1rem;
+  color: white;
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: left;
+  background-color: #24243e;
+  border: 0;
+  cursor: pointer;
+}
+
+.show-title:hover,
+.show-title:focus {
+  background-color: #3d3d63;
+}
+
+.episode-card h3 {
+  font-size: 1.25rem;
+}
+
+.show-card img,
+.episode-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.site-footer a {
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .show-controls,
+  .episode-controls {
+    grid-template-columns: 1fr;
+  }
 }
