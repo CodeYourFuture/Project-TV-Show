@@ -1,21 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="root">
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Rizqah Popoola (risikatpopoola)</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+</head>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+<body>
+  <input type="text" id="search-input" placeholder="Search..." />
+  <label for="show-selector">Choose A Show:</label>
+  <select id="show-selector"></select>
+  <label for="episode-selector">Choose an episode:</label>
+  <select id="episode-selector"></select>
+  <button id="show-all-button">Show All Episodes</button>
+  <button id="back-to-shows">Back to All Shows</button>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+  <p id="episode-count"></p>
+
+  <main id="root"></main>
+  <template id="show-card">
+    <section>
+      <h3 class="show-title"></h3>
+
+      <img class="show-image" src="" alt="" />
+
+      <p class="show-summary"></p>
+
+      <p><strong>Genres:</strong> <span class="show-genres"></span></p>
+      <p><strong>Status:</strong> <span class="show-status"></span></p>
+      <p><strong>Rating:</strong> <span class="show-rating"></span></p>
+      <p>
+        <strong>Runtime:</strong> <span class="show-runtime"></span> minutes
+      </p>
+    </section>
+  </template>
+  <template id="episode-card">
+    <section>
+      <h3>Episode title</h3>
+      <img id="episode-image" alt="" />
+      <summary>This is a story of love</summary>
+    </section>
+  </template>
+
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+</body>
+
 </html>
