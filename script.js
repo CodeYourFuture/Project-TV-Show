@@ -4,6 +4,7 @@ const searchInput = document.getElementById("search-input");
 const select = document.getElementById("episode-select");
 const article = document.getElementsByTagName("article");
 const backLink = document.getElementById("back-link");
+// const rootElem = document.getElementById("root");
 
 const SHOWS_URL = "https://api.tvmaze.com/shows";
 const PLACEHOLDER_IMAGE =
@@ -207,6 +208,7 @@ function loadShow(showId) {
 }
 
 function displayError(errorMessage) {
+  console.error(errorMessage);
   grid.innerHTML = "";
 
   const template = document.getElementById("error");
@@ -247,16 +249,7 @@ function render(episodeList) {
     grid.appendChild(clone);
   }
 
-  updateMatchCount(episodeList.length, currentEpisodes.length);
   populateEpisodeSelectOptions(episodeList);
-}
-
-function updateMatchCount(shown, total) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent =
-    shown === total
-      ? `Got ${total} episode(s)`
-      : `Displaying ${shown}/${total} episode(s)`;
 }
 
 // --- Search ---
