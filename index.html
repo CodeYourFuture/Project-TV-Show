@@ -10,18 +10,26 @@
 
   <body>
     <div id="root">
-      <div class="search-bar">
-        <select id="show-select" >
-          <option>Select a Show</option>
-        </select>
-        <select id="episode-select" >
-          <option>Select One Episode</option>
-        </select>
-        <input type="text" id="search" placeholder="Search episodes..." />
-        <p id="count">Displaying<span id="count-result">0</span>episodes</p>
-      </div>
-      <div id="card-container"></div>
+      <!-- when the app starts present a listing of all shows -->
+      <section id="shows-view">
+        <div id="shows-container"></div>
+      </section>
+      <!-- Hide the existing control on the start -->
+      <section id="episodes-view" hidden>
+        <div class="search-bar">
+          <select id="show-select">
+            <option>Select a Show</option>
+          </select>
+          <select id="episode-select">
+            <option>Select One Episode</option>
+          </select>
+          <input type="text" id="search" placeholder="Search episodes..." />
+          <p id="count">Displaying<span id="count-result">0</span>episodes</p>
+        </div>
+        <div id="card-container"></div>
+      </section>
     </div>
+
     <template id="episode-card">
       <section>
         <h2>episode title</h2>
@@ -29,6 +37,18 @@
         <img src="" alt="" />
         <p data-summary>summary</p>
       </section>
+    </template>
+    <!-- a template for one show card -->
+    <template id="show-card">
+      <article>
+        <h2><button type="button" data-show-name></button></h2>
+        <img src="" alt="" />
+        <div data-summary></div>
+        <p>Genres:<span data-genres></span></p>
+        <p>Status:<span data-status></span></p>
+        <p>Rated:<span data-Rating></span></p>
+        <p>Runtime:<span data-runtime></span></p>
+      </article>
     </template>
     <footer>
       <p>
