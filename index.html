@@ -1,19 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+    <title>TV Show Project | Ebrahim Moqbel (Ebrahim Moqbel)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
     <div id="root">
+      <!-- when the app starts present a listing of all shows -->
+      <section id="shows-view">
+        <div class="search-bar">
+          <label for="show-search">Filtering for</label>
+          <input type="text" id="show-search" placeholder="search shows.." />
+          <span id="show-count"></span>
+        </div>
+        <div id="shows-container"></div>
+      </section>
+      <!-- Hide the existing control on the start -->
+      <section id="episodes-view" hidden>
+        <a href="#" id="back-to-shows"> Back to shows</a>
+        <div class="search-bar">
+          <select id="show-select">
+            <option>Select a Show</option>
+          </select>
+          <select id="episode-select">
+            <option>Select One Episode</option>
+          </select>
+          <input type="text" id="search" placeholder="Search episodes..." />
+          <p id="count">Displaying<span id="count-result">0</span>episodes</p>
+        </div>
+        <div id="card-container"></div>
+      </section>
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <template id="episode-card">
+      <section>
+        <h2>episode title</h2>
+        <p data-episode-number>episode number</p>
+        <img src="" alt="" />
+        <p data-summary>summary</p>
+      </section>
+    </template>
+    <!-- a template for one show card -->
+    <template id="show-card">
+      <article>
+        <h2><button type="button" data-show-name></button></h2>
+        <img src="" alt="" />
+        <div data-summary></div>
+        <p>Genres:<span data-genres></span></p>
+        <p>Status:<span data-status></span></p>
+        <p>Rated:<span data-rating></span></p>
+        <p>Runtime:<span data-runtime></span></p>
+      </article>
+    </template>
+    <footer>
+      <p>
+        The data come originally from
+        <a href="https://tvmaze.com/" target="_blank">TVMaze.com</a>
+      </p>
+    </footer>
 
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
