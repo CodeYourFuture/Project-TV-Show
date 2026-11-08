@@ -14,6 +14,8 @@ const episodesView = document.getElementById("episodes-view");
 // shows listing
 const showsContainer = document.getElementById("shows-container");
 const showTemplate = document.getElementById("show-card");
+const showSearchInput = document.getElementById("show-search");
+const showCountDisplay = document.getElementById("show-count");
 
 // episodes listing
 const showSelect = document.getElementById("show-select");
@@ -22,10 +24,13 @@ const searchInput = document.getElementById("search");
 const cardContainer = document.getElementById("card-container");
 const countDisplay = document.getElementById("count-result");
 const template = document.getElementById("episode-card");
+// back link look up
+const backLink = document.getElementById("back-to-shows");
 
 async function setup() {
   showShowsView();
-  await loadShows();
+
+  showSearchInput.addEventListener("input", renderShows);
 
   showSelect.addEventListener("change", () => {
     if (showSelect.value) {
@@ -34,16 +39,24 @@ async function setup() {
   });
 
   searchInput.addEventListener("input", () => {
+    episodeSelect.value = "";
     renderEpisodes();
   });
 
+  backLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    showShowsView();
+  });
+
   episodeSelect.addEventListener("change", () => {
+    searchInput.value = "";
     if (episodeSelect.value === "") {
       renderEpisodes();
     } else {
       renderEpisodes([allEpisodes[Number(episodeSelect.value)]]);
     }
   });
+  await loadShows();
 }
 
 // ---------- view switching ----------
@@ -100,6 +113,10 @@ function populateShowSelect() {
   }
 }
 
+function stripTags(text) {
+  return (text ?? "").replace(/<[^>]*>/g, "");
+}
+
 function createShowCard(show) {
   const card = showTemplate.content.cloneNode(true);
 
@@ -132,11 +149,22 @@ function createShowCard(show) {
   return card;
 }
 
+// filter on name, genres and summary
+
 function renderShows() {
+  const searchValue = showSearchInput.value.toLowerCase();
+
+  const filteredShows = allShows.filter(
+    (show) =>
+      show.name.toLowerCase().includes(searchValue) ||
+      show.genres.join(" ").toLowerCase().includes(searchValue) ||
+      stripTags(show.summary).toLowerCase().includes(searchValue),
+  );
+
   showsContainer.innerHTML = "";
 
-  const showCards = allShows.map(createShowCard);
-  showsContainer.append(...showCards);
+  showsContainer.append(...filteredShows.map(createShowCard));
+  showCountDisplay.textContent = `found ${filteredShows.length} shows`;
 }
 
 // called when a show name is clicked (or picked in the dropdown)
@@ -243,13 +271,14 @@ function renderEpisodes(episodeList = allEpisodes) {
   const filteredEpisodes = episodeList.filter(
     (episode) =>
       episode.name.toLowerCase().includes(searchValue) ||
-      (episode.summary ?? "").toLowerCase().includes(searchValue),
+      stripTags(episode.summary ?? "")
+        .toLowerCase()
+        .includes(searchValue),
   );
 
   cardContainer.innerHTML = "";
 
-  const episodeCards = filteredEpisodes.map(createEpisodeCard);
-  cardContainer.append(...episodeCards);
+  cardContainer.append(...filteredEpisodes.map(createEpisodeCard));
 
   countDisplay.textContent = `${filteredEpisodes.length}/${allEpisodes.length}`;
 }

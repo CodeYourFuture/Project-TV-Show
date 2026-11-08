@@ -1,40 +1,215 @@
-/* target the search input */
-#search {
-  padding: 8px;
-  font-size: 16px;
-  width: 300px;
+:root {
+  --navy: #0b1d3a;
+  --navy-light: #1b3a6b;
+  --accent: #ffb703; /* gold */
+  --accent-dark: #e09f00;
+  --bg: #e9edf3; /* cool grey page background */
+  --card: #ffffff;
+  --text: #1c2433;
+  --muted: #5b6678;
 }
 
-/* the box holding all the cards */
+/* ---------- page ---------- */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+}
+
+/* ---------- search bars (navy strip) ---------- */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  background: var(--navy);
+  color: #fff;
+  padding: 16px 20px;
+  margin: 0 -16px 24px;
+  border-bottom: 4px solid var(--accent);
+  box-shadow: 0 4px 12px rgba(11, 29, 58, 0.25);
+}
+
+.search-bar label,
+.search-bar p {
+  margin: 0;
+}
+
+#show-count,
+#count {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+#count-result {
+  margin: 0 4px;
+}
+
+#search,
+#show-search,
+.search-bar select {
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+}
+
+#search,
+#show-search {
+  width: 300px;
+  max-width: 100%;
+}
+
+#search:focus,
+#show-search:focus,
+.search-bar select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.35);
+}
+
+/* ---------- back link ---------- */
+#back-to-shows {
+  display: inline-block;
+  margin: 16px 0;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+#back-to-shows:hover {
+  background: var(--accent-dark);
+  transform: translateX(-3px);
+}
+
+/* ---------- episodes listing ---------- */
 #card-container {
   display: flex;
-  /* lines cards up in a row */
   flex-wrap: wrap;
-  /* lets them wrap to the next line when the row fills up */
-  gap: 16px;
-  /* space between cards */
+  gap: 20px;
 }
 
-/* each individual episode card (the <section> inside the template) */
 #card-container section {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 12px;
+  background: var(--card);
+  border-top: 5px solid var(--navy-light);
+  border-radius: 10px;
+  padding: 14px;
   width: 250px;
-  /* fixed width so cards line up evenly */
+  box-shadow: 0 2px 8px rgba(11, 29, 58, 0.12);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#card-container section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(11, 29, 58, 0.22);
 }
 
 #card-container img {
   width: 100%;
-  /* image fills the card's width */
+  border-radius: 6px;
 }
 
 #card-container h2 {
   font-size: 18px;
   margin: 8px 0 4px;
+  color: var(--navy);
 }
 
 [data-episode-number] {
-  color: gray;
-  font-size: 14px;
+  display: inline-block;
+  background: var(--navy);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  margin: 0 0 8px;
 }
+
+/* ---------- shows listing ---------- */
+#shows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+#shows-container article {
+  background: var(--card);
+  border-left: 8px solid var(--accent);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(11, 29, 58, 0.15);
+  transition: box-shadow 0.2s;
+}
+
+#shows-container article:hover {
+  box-shadow: 0 10px 24px rgba(11, 29, 58, 0.25);
+}
+
+#shows-container h2 {
+  margin: 0 0 14px;
+}
+
+/* the show name is a button, styled like a heading */
+[data-show-name] {
+  font: inherit;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--navy);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+[data-show-name]:hover {
+  color: var(--navy-light);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 3px;
+}
+
+[data-show-name]:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* the row: image | summary | details */
+.show-body {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.show-body img {
+  width: 150px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(11, 29, 58, 0.3);
+}
+
+.show-body [data-summary] {
+  flex: 1;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.show-body .show-details {
+  width: 200px;
+  flex-shrink: 0;
+  background: var(--navy);
+  color: #fff;

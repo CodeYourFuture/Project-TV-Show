@@ -12,10 +12,16 @@
     <div id="root">
       <!-- when the app starts present a listing of all shows -->
       <section id="shows-view">
+        <div class="search-bar">
+          <label for="show-search">Filtering for</label>
+          <input type="text" id="show-search" placeholder="search shows.." />
+          <span id="show-count"></span>
+        </div>
         <div id="shows-container"></div>
       </section>
       <!-- Hide the existing control on the start -->
       <section id="episodes-view" hidden>
+        <a href="#" id="back-to-shows"> Back to shows</a>
         <div class="search-bar">
           <select id="show-select">
             <option>Select a Show</option>
@@ -46,7 +52,7 @@
         <div data-summary></div>
         <p>Genres:<span data-genres></span></p>
         <p>Status:<span data-status></span></p>
-        <p>Rated:<span data-Rating></span></p>
+        <p>Rated:<span data-rating></span></p>
         <p>Runtime:<span data-runtime></span></p>
       </article>
     </template>
