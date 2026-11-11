@@ -35,7 +35,9 @@ The initial catalogue is limited to the results returned by the app's current AP
 
 ## Deployment
 
-The app is hosted on **Vercel**. The verified public deployment URL can be added here when available.
+Live demo: **[TV Show Explorer on Netlify](https://tv-show-pro.netlify.app/)**.
+
+The app is hosted on Netlify. This is the deployment URL provided by the project owner; live availability has not been independently verified.
 
 ## Project background and credits
 
