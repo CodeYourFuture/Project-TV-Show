@@ -18,6 +18,11 @@ function makePageForEpisodes(episodeList) {
 function makeEpisodeCard(episode) {
   const card = document.createElement("section");
   card.className = "episode-card";
+
+  const title = document.createElement("h2");
+  title.textContent = `${episode.name} - ${makeEpisodeCode(episode.season, episode.number)}`;
+
+  
 }
 
 window.onload = setup;
