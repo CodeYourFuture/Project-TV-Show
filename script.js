@@ -33,4 +33,11 @@ function makeEpisodeCard(episode) {
   return card;
 }
 
+function render(episode) {
+  const root = document.getElementById("root");
+  root.innerHTML = "";
+  const cards = episodes.map(makeEpisodeCard);
+  root.append(...cards);
+}
+
 window.onload = setup;
