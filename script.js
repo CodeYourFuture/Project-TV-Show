@@ -29,6 +29,8 @@ function makeEpisodeCard(episode) {
   const summary = document.createElement("div");
   summary.innerHTML = episode.summary;
 
+  card.append(title, image, summary);
+  return card;
 }
 
 window.onload = setup;
