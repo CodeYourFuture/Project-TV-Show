@@ -6,4 +6,8 @@
   color: red;
 }
 
-
+.episode-card {
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+}
