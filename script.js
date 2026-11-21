@@ -26,7 +26,9 @@ function makeEpisodeCard(episode) {
   image.scr = episode.image.medium;
   image.alt = `Image from ${episode.name}`;
 
-  
+  const summary = document.createElement("div");
+  summary.innerHTML = episode.summary;
+
 }
 
 window.onload = setup;
