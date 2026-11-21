@@ -41,8 +41,8 @@ function render(episode) {
 }
 
 function setup() {
-  const allEpisode =getAllEpisode();
-  render(allEpisodes)
+  const allEpisode = getAllEpisode();
+  render(allEpisodes);
 }
 
 window.onload = setup;
