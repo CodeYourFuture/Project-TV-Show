@@ -12,7 +12,10 @@ function makeEpisodeCode(season, number) {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  rootElem.innerHTML = "";
+  const cards = episodeList.map(makeEpisodeCard);
+  rootElem.append(...cards);
+  // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 }
 
 function makeEpisodeCard(episode) {
