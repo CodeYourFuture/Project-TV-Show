@@ -40,4 +40,9 @@ function render(episode) {
   root.append(...cards);
 }
 
+function setup() {
+  const allEpisode =getAllEpisode();
+  render(allEpisodes)
+}
+
 window.onload = setup;
