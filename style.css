@@ -11,3 +11,7 @@
   border: 1px solid #ccc;
   padding: 0.5rem;
 }
+
+.episode-card img {
+  width: 100%;
+}
