@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,8 +9,17 @@
   </head>
 
   <body>
-    <div id="root">
-    </div>
+    <div id="root"></div>
+
+    <template id="episode-card">
+      <section>
+        <h3 id="episode-name">Episode Name</h3>
+        <p id="season-number">Season Number</p>
+        <p id="episode-number">Episode Number</p>
+        <img id="episode-image" />
+        <p id="episode-summary">Episode Summary</p>
+      </section>
+    </template>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
