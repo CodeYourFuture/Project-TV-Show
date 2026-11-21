@@ -44,7 +44,7 @@ function render(episode) {
 }
 
 function setup() {
-  const allEpisode = getAllEpisode();
+  const allEpisodes = getAllEpisode();
   render(allEpisodes);
 }
 
