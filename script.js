@@ -15,8 +15,6 @@ function makePageForEpisodes(episodeList) {
   rootElem.innerHTML = "";
   const cards = episodeList.map(makeEpisodeCard);
   rootElem.append(...cards);
-  // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
-}
 
 function makeEpisodeCard(episode) {
   const card = document.createElement("section");
