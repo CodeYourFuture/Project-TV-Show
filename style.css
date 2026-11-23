@@ -12,7 +12,12 @@
 /* ---------- page ---------- */
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   background: var(--bg);
   color: var(--text);
 }
@@ -85,9 +90,10 @@ body {
   background: var(--accent);
   color: var(--navy);
   font-weight: 700;
-  text-decoration: none;
   border-radius: 999px;
-  transition: background 0.2s, transform 0.2s;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
 
 #back-to-shows:hover {
@@ -109,7 +115,9 @@ body {
   padding: 14px;
   width: 250px;
   box-shadow: 0 2px 8px rgba(11, 29, 58, 0.12);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 #card-container section:hover {
@@ -213,3 +221,4 @@ body {
   flex-shrink: 0;
   background: var(--navy);
   color: #fff;
+}

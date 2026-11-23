@@ -44,7 +44,6 @@ async function setup() {
   });
 
   backLink.addEventListener("click", (event) => {
-    event.preventDefault();
     showShowsView();
   });
 
