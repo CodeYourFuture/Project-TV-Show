@@ -43,7 +43,7 @@ async function setup() {
     renderEpisodes();
   });
 
-  backLink.addEventListener("click", (event) => {
+  backLink.addEventListener("click", () => {
     showShowsView();
   });
 
@@ -95,9 +95,7 @@ async function loadShows() {
     renderShows();
   } catch (error) {
     console.error(error);
-    showSelect.innerHTML = "<option>Could not load shows</option>";
-    showsContainer.innerHTML =
-      "<p>Sorry, something went wrong loading the shows. Please try again later.</p>";
+    showErrorMessage();
   }
 }
 
@@ -211,12 +209,14 @@ async function loadEpisodes(showId) {
 }
 
 function showLoadingMessage() {
-  cardContainer.innerHTML = "<p>loading episodes, please wait...</p>";
+  showsContainer.innerHTML = "<p>loading shows...</p>";
+  showSelect.innerHTML = "<option>Loading shows...<option>";
 }
 
 function showErrorMessage() {
-  cardContainer.innerHTML =
-    "<p>Sorry, something went wrong loading the episodes. Please try again later.</p>";
+  showsContainer.innerHTML =
+    "<p>Sorry, something went wrong loading the shows. Please try again later.</p>";
+  showSelect.innerHTML = "<option>Could not load shows<option>";
 }
 
 // create episode code of the season and the episode number
