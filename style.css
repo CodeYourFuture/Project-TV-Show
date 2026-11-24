@@ -1,117 +1,378 @@
-/* Design palette */
+
+/* =================================
+   DESIGN PALETTE
+================================= */
+
 :root {
   --font: ui-sans-serif, system-ui, sans-serif;
-  --paper: #e9e6ee; 
-  --ink: #6a92a5c9;;
+
+  --paper: #e9e6ee;
+  --ink: #496b7a;
+  --primary: #6a92a5;
+  --secondary: #a9bac7;
+  --accent: #d6c9df;
+
   --spacing-s: 4px;
   --spacing-m: 8px;
-  --spacing-l: 24px;
+  --spacing-l: 16px;
+  --spacing-xl: 24px;
+
   --container: 1280px;
   --box: 410px;
+
+  --radius: 10px;
 }
 
-/* Base element styles */
+/* =================================
+   BASE STYLES
+================================= */
+
+* {
+  box-sizing: border-box;
+}
+
 html {
-  margin: 0;
-  background: linear-gradient(var(--ink), var(--paper), var(--ink), var(--ink));
+  min-height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--paper),
+    var(--secondary)
+  );
 }
 
 body {
-  font-family: var(--font);
-  background: linear-gradient(var(--ink), var(--ink), var(--ink), transparent);
-  color: var(--paper);
   margin: 0;
-  padding: var(--spacing-l);
+  padding: var(--spacing-xl);
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--ink);
+  background: transparent;
 }
 
 a:any-link {
-  color: currentColor;
+  color: inherit;
 }
 
-img {
-  width: 100%;
-  object-fit: cover;
-  aspect-ratio: 16/9;
-}
+/* =================================
+   HEADINGS
+================================= */
 
 h1 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: var(--spacing-s);
+  color: var(--paper);
 }
+
+h2 {
+  color: var(--ink);
+}
+
+header h2 {
+  margin-top: 0;
+  color: var(--paper);
+}
+
+/* =================================
+   PAGE CONTAINER
+================================= */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+/* =================================
+   SEARCH FORM
+================================= */
 
 form {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-m);
-  padding: var(--spacing-l) 0;
+  padding: var(--spacing-xl) 0;
 }
 
 input,
 select,
 button {
-  padding: var(--spacing-m);
-  min-width: 20ch;
-  margin: 0;
+  font: inherit;
+  padding: 12px;
+  border: 1px solid var(--secondary);
+  border-radius: var(--radius);
+  min-width: 150px;
+  color: var(--ink);
+  background: var(--paper);
 }
 
-/* Whole Page Layout */
-.container {
-  max-width: var(--container);
-  margin: auto;
+input,
+select {
+  flex: 1;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(auto, var(--box)));
-  gap: calc(var(--spacing-l) * 2) var(--spacing-l);
-  justify-content: center;
+button {
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--paper);
+  transition: background 200ms ease;
 }
 
-/* Card component  */
-.card {
-  display: grid;
-  grid-template:
-    "image image image" 140px
-    ". title ." auto
-    ". summary ." 1fr
-    ". ....... ." var(--spacing-l) / var(--spacing-l) 1fr var(--spacing-l);
-  border: 1px solid var(--ink);
-  box-shadow: var(--spacing-s) var(--spacing-s) var(--spacing-l) var(--ink);
-  animation: cubic-bezier(0.47, 0, 0.745, 0.715) 300ms fade-in;
+button:hover {
+  background: var(--primary);
 }
 
-.card__title {
-  grid-area: title;
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.card__summary {
-  grid-area: summary;
-}
-
-.card__image {
-  grid-area: image;
-}
+/* =================================
+   INVISIBLE LABELS
+================================= */
 
 .is-invisible {
   position: absolute;
-  margin-left: -999em;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  padding: 15px;
-  color: #ffffff;
-  background: #6e8a92;
+/* =================================
+   SHOW AND EPISODE GRID
+================================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, var(--box)), 1fr)
+  );
+  gap: var(--spacing-xl);
+  justify-content: center;
+  align-items: stretch;
 }
+
+/* =================================
+   CARD DESIGN
+================================= */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+
+  background: transparent;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+
+  box-shadow: 3px 3px 12px #496b7a45;
+
+  animation: fade-in 300ms ease;
+}
+
+/* =================================
+   CARD IMAGES
+================================= */
+
+.card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+   max-height: none;
+  object-fit: contain;
+  aspect-ratio: auto;
+  background: transparent;
+}
+
+/* =================================
+   SHOW NAME
+================================= */
+
+.show-name {
+  order: 1;
+  display: block;
+  width: 100%;
+  min-width: 0;
+
+  padding: var(--spacing-l);
+  margin: 0;
+
+  border: none;
+  border-radius: 0;
+
+  background: transparent;
+  color: var(--ink);
+
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.show-name:hover {
+  background: transparent;
+  color: var(--primary);
+}
+
+/* =================================
+   SHOW SUMMARY
+================================= */
+
+.card__summary {
+  order: 3;
+  padding: 0 var(--spacing-l);
+  margin: var(--spacing-s) 0 var(--spacing-l);
+
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: transparent;
+}
+
+/* =================================
+   SHOW INFORMATION
+   Genres, Status, Rating, Runtime
+================================= */
+
+.card > p {
+  order: 4;
+  margin: 0;
+  padding: var(--spacing-s) var(--spacing-l);
+
+  line-height: 1.5;
+  color: var(--ink);
+  background: transparent;
+}
+
+.card > p strong {
+  font-weight: 700;
+}
+
+/* =================================
+   EPISODE CARD
+================================= */
+
+.card__title {
+  order: 1;
+  padding: var(--spacing-l);
+  margin: 0;
+
+  font-size: 1.2rem;
+  color: var(--ink);
+  background: transparent;
+}
+
+.card__title + .card__summary {
+  order: 3;
+}
+
+/* =================================
+   COUNT DISPLAY
+================================= */
+
+#count-container {
+  margin: var(--spacing-xl) 0;
+  color: var(--ink);
+  font-size: 1.2rem;
+}
+
+/* =================================
+   FOOTER
+================================= */
+
+footer {
+  margin: var(--spacing-xl) calc(-1 * var(--spacing-xl))
+    calc(-1 * var(--spacing-xl));
+
+  padding: var(--spacing-xl);
+  text-align: center;
+
+  color: var(--paper);
+  background: var(--ink);
+}
+
+footer h2 {
+  color: var(--paper);
+  font-size: 1.1rem;
+}
+
+footer a {
+  color: var(--accent);
+}
+
+footer p {
+  margin-bottom: 0;
+}
+
+/* =================================
+   ANIMATION
+================================= */
+
 @keyframes fade-in {
   from {
     opacity: 0;
+    transform: translateY(8px);
   }
 
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 600px) {
+  body {
+    padding: var(--spacing-l);
+  }
+
+  form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  input,
+  select,
+  form button {
+    width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card__image {
+    height: 200px;
+  }
+
+  footer {
+    margin-left: calc(-1 * var(--spacing-l));
+    margin-right: calc(-1 * var(--spacing-l));
+    margin-bottom: calc(-1 * var(--spacing-l));
+  }
+}
+
+/* =================================
+   REDUCED MOTION
+================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

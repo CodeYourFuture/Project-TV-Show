@@ -9,7 +9,6 @@
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
-
   <body>
     <header class="container">
       <h1>TV Show Project</h1>
@@ -55,16 +54,22 @@
         </select>
 
         <!-- Buttons -->
-        <button type="reset" id="reset-button">Reset</button>
+        <button type="button" id="reset-button">Reset</button>
 
         <button type="button" id="back-to-shows">Back to shows</button>
       </form>
     </header>
 
     <main class="container">
+      <!-- Shows will be displayed here -->
+      <div id="shows-container" class="grid"></div>
+
       <h2 id="count-container" aria-live="polite"></h2>
 
+      <!-- Episode cards -->
       <div id="card-container" class="grid"></div>
+
+      <!-- Keep your existing episode-card and show-card templates here -->
 
       <!-- Episode card template -->
       <template id="episode-card">
@@ -82,44 +87,60 @@
             data-episode="image"
             src=""
             alt=""
-            height="140"
-            width="250"
+            height="120"
+            width="120"
           />
         </section>
       </template>
 
-      <!-- Show card template -->
-      <template id="show-card">
-        <section class="card">
-          <button class="show-name" data-show="name" type="button">
-            Show Name
-          </button>
+     <!-- Show card template -->
+<template id="show-card">
+  <section class="card">
+    <button
+      class="show-name"
+      data-show="name"
+      type="button"
+    >
+      Show Name
+    </button>
 
-          <img class="card__image" data-show="image" src="" alt="" />
+    <img
+      class="card__image"
+      data-show="image"
+      src=""
+      alt=""
+    />
 
-          <div class="card__summary" data-show="summary">Summary</div>
+    <div
+      class="card__summary"
+      data-show="summary"
+    >
+      Summary
+    </div>
 
-          <p>
-            <strong>Genres:</strong>
-            <span data-show="genres"></span>
-          </p>
+    <p>
+      <strong>Genres:</strong>
+      <span data-show="genres"></span>
+    </p>
 
-          <p>
-            <strong>Status:</strong>
-            <span data-show="status"></span>
-          </p>
+    <p>
+      <strong>Status:</strong>
+      <span data-show="status"></span>
+    </p>
 
-          <p>
-            <strong>Rating:</strong>
-            <span data-show="rating"></span>
-          </p>
+    <p>
+      <strong>Rating:</strong>
+      <span data-show="rating"></span>
+    </p>
 
-          <p>
-            <strong>Runtime:</strong>
-            <span data-show="runtime"></span> minutes
-          </p>
-        </section>
-      </template>
+    <p>
+      <strong>Runtime:</strong>
+      <span data-show="runtime"></span> minutes
+    </p>
+  </section>
+</template>
+
+
     </main>
 
     <footer>
