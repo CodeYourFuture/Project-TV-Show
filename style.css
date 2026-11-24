@@ -1,3 +1,9 @@
 #root {
   color: red;
 }
+
+footer {
+  text-align: centre;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
