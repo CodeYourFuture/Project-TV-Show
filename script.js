@@ -7,25 +7,29 @@ function setup() {
 }
 
 function makePageForEpisodes(episodeList) {
-  //const rootElem = document.getElementById("root");
-
   const episodeCards = episodeList.map(createEpisodeCard);
 
   document.body.append(...episodeCards);
-
-  //rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 }
 
-function createEpisodeCard(episode){
+function createEpisodeCard(episode) {
   const card = template.content.cloneNode(true);
 
-  const episodeCode = "S" + (episode.season > 9 ? "" : "0") + episode.season + "E" + (episode.number > 9 ? "" : "0") + episode.number;
+  const episodeCode =
+    "S" +
+    (episode.season > 9 ? "" : "0") +
+    episode.season +
+    "E" +
+    (episode.number > 9 ? "" : "0") +
+    episode.number;
 
   card.querySelector("h3").textContent = episode.name + " - " + episodeCode;
   card.querySelector(".episode-image").src = episode.image.medium;
   card.querySelector(".season-number").textContent = `Season ${episode.season}`;
-  card.querySelector(".episode-number").textContent = `Episode ${episode.number}`;
-  card.querySelector(".episode-summary").innerHTML = `Summary: ${episode.summary}`;
+  card.querySelector(".episode-number").textContent =
+    `Episode ${episode.number}`;
+  card.querySelector(".episode-summary").innerHTML =
+    `Summary: ${episode.summary}`;
   return card;
 }
 
