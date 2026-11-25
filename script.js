@@ -18,7 +18,10 @@ function makePageForEpisodes(episodeList) {
 
 function createEpisodeCard(episode){
   const card = template.content.cloneNode(true);
-  card.querySelector("h3").textContent = episode.name;
+
+  const episodeCode = "S" + (episode.season > 9 ? "" : "0") + episode.season + "E" + (episode.number > 9 ? "" : "0") + episode.number;
+
+  card.querySelector("h3").textContent = episode.name + " - " + episodeCode;
   card.querySelector(".episode-image").src = episode.image.medium;
   card.querySelector(".season-number").textContent = `Season ${episode.season}`;
   card.querySelector(".episode-number").textContent = `Episode ${episode.number}`;
