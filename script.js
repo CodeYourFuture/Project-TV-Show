@@ -18,20 +18,24 @@ function makePageForEpisodes(episodeList) {
 }
 
 function makeEpisodeCard(episode) {
-  const card = document.createElement("section");
+  const card = document.createElement("article");
   card.className = "episode-card";
 
   const title = document.createElement("h2");
   title.textContent = `${episode.name} - ${makeEpisodeCode(episode.season, episode.number)}`;
+  card.append(title);
 
-  const image = document.createElement("img");
-  image.src = episode.image.medium;
-  image.alt = `Image from ${episode.name}`;
+  if (episode.image) {
+    const image = document.createElement("img");
+    image.src = episode.image.medium;
+    image.alt = `Image from ${episode.name}`;
+    card.append(image);
+  }
 
   const summary = document.createElement("div");
-  summary.innerHTML = episode.summary;
+  summary.innerHTML = episode.summary || "<p>No summary available.</p>";
+  card.append(summary);
 
-  card.append(title, image, summary);
   return card;
 }
 
