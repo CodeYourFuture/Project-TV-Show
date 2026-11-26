@@ -83,6 +83,7 @@ function makePageForEpisodes(episodeList) {
   rootElem.append(...cards);
 }
 
+
 function makeEpisodeCard(episode) {
   const card = document.createElement("article");
   card.className = "episode-card";
