@@ -21,6 +21,16 @@ function makeEpisodeCode(season, number) {
   return `S${seasonText}E${numberText}`;
 }
 
+function handleSearch(event) {
+  const searchTerm = event.target.value.toLowerCase();
+
+  const matchingEpisodes = allEpisodes.filter((episode) => {
+    const name = episode.name.toLowerCase();
+    const summary = (episode.summary || "").toLowerCase();
+    return name.includes(searchTerm) || summary.includes(searchTerm);
+  });
+}
+
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "";
