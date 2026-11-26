@@ -18,7 +18,7 @@ function makePageForEpisodes(episodeList) {
 }
 
 function makeEpisodeCard(episode) {
-  const card = document.createElement("section");
+  const card = document.createElement("article");
   card.className = "episode-card";
 
   const title = document.createElement("h2");
