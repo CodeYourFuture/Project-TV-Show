@@ -4,6 +4,11 @@ let allEpisodes =[];
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
+  makeEpisodeSelect(getAllEpisodes);
+  updateMatchCount(allEpisodes.length, allEpisodes.length)
+
+  const searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", handleSearch);
 }
 
 function makeEpisodeCode(season, number) {
