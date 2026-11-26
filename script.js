@@ -57,6 +57,26 @@ function makeEpisodeSelect(episodeList) {
   });
 }
 
+function handleSelect(event) {
+  const selectedValue = event.target.value;
+
+  // Clear the search box so the page and the controls agree
+  document.getElementById("search-input").value = "";
+
+  if (selectedValue === "all") {
+    makePageForEpisodes(allEpisodes);
+    updateMatchCount(allEpisodes.length, allEpisodes.length);
+    return;
+  }
+
+  const selectedEpisodes = allEpisodes.filter(
+    (episode) => String(episode.id) === selectedValue,
+  );
+  makePageForEpisodes(selectedEpisodes);
+  updateMatchCount(selectedEpisodes.length, allEpisodes.length);
+}
+
+
 function makeEpisodeCard(episode) {
   const card = document.createElement("article");
   card.className = "episode-card";
