@@ -1,11 +1,11 @@
 //You can edit ALL of the code here
-let allEpisodes =[];
+let allEpisodes = [];
 
 function setup() {
   const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
   makeEpisodeSelect(getAllEpisodes);
-  updateMatchCount(allEpisodes.length, allEpisodes.length)
+  updateMatchCount(allEpisodes.length, allEpisodes.length);
 
   const searchInput = document.getElementById("search-input");
   searchInput.addEventListener("input", handleSearch);
@@ -29,13 +29,11 @@ function handleSearch(event) {
     const summary = (episode.summary || "").toLowerCase();
     return name.includes(searchTerm) || summary.includes(searchTerm);
   });
-}
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.innerHTML = "";
-  const cards = episodeList.map(makeEpisodeCard);
-  rootElem.append(...cards);
+  makePageForEpisodes(MatchingEpisodes);
+  updateMatchCount(matchingEpisodes.length, allEpisodes.length);
+
+  document.getElementById("episode-select").value = "all";
 }
 
 function makeEpisodeCard(episode) {
