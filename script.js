@@ -1,4 +1,10 @@
 //You can edit ALL of the code here
+
+const rootElem = document.getElementById("root");
+const searchInput = document.getElementById("search-input");
+const episodeSelect = document.getElementById("episode-select");
+const matchCount = document.getElementById("match-count");
+
 let allEpisodes = [];
 
 function setup() {
@@ -30,7 +36,7 @@ function handleSearch(event) {
     return name.includes(searchTerm) || summary.includes(searchTerm);
   });
 
-  makePageForEpisodes(MatchingEpisodes);
+  makePageForEpisodes(matchingEpisodes);
   updateMatchCount(matchingEpisodes.length, allEpisodes.length);
 
   document.getElementById("episode-select").value = "all";
@@ -82,7 +88,6 @@ function makePageForEpisodes(episodeList) {
   const cards = episodeList.map(makeEpisodeCard);
   rootElem.append(...cards);
 }
-
 
 function makeEpisodeCard(episode) {
   const card = document.createElement("article");
