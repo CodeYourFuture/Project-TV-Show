@@ -9,6 +9,10 @@ function setup() {
 
   const searchInput = document.getElementById("search-input");
   searchInput.addEventListener("input", handleSearch);
+
+  const episodeSelect = document.getElementById("episode-select");
+
+  episodeSelect.addEventListener("change", handleSelect);
 }
 
 function makeEpisodeCode(season, number) {
