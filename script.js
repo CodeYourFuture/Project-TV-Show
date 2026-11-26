@@ -25,9 +25,12 @@ function makeEpisodeCard(episode) {
   title.textContent = `${episode.name} - ${makeEpisodeCode(episode.season, episode.number)}`;
   card.append(title);
 
-  const image = document.createElement("img");
-  image.src = episode.image.medium;
-  image.alt = `Image from ${episode.name}`;
+  if (episode.image) {
+    const image = document.createElement("img");
+    image.src = episode.image.medium;
+    image.alt = `Image from ${episode.name}`;
+    card.append(image);
+  }
 
   const summary = document.createElement("div");
   summary.innerHTML = episode.summary;
