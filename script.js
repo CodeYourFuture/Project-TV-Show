@@ -36,6 +36,11 @@ function handleSearch(event) {
   document.getElementById("episode-select").value = "all";
 }
 
+function updateMatchCount(matching, total) {
+  const matchCount = document.getElementById("match-count");
+  matchCount.textContent = `Displaying ${matching}/${total} episodes`;
+
+
 function makeEpisodeCard(episode) {
   const card = document.createElement("article");
   card.className = "episode-card";
