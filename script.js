@@ -41,6 +41,22 @@ function updateMatchCount(matching, total) {
   matchCount.textContent = `Displaying ${matching}/${total} episodes`;
 }
 
+function makeEpisodeSelect(episodeList) {
+  const episodeSelect = document.getElementById("episode-select");
+
+  const allOption = document.createElement("option");
+  allOption.value = "all";
+  allOption.textContent = "Show all episodes";
+  episodeSelect.append(allOption);
+
+  episodeList.forEach((episode) => {
+    const option = document.createElement("option");
+    option.value = episode.id;
+    option.textContent = `${makeEpisodeCode(episode.season, episode.number)} - ${episode.name}`;
+    episodeSelect.append(option);
+  });
+}
+
 function makeEpisodeCard(episode) {
   const card = document.createElement("article");
   card.className = "episode-card";
