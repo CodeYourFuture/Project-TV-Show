@@ -76,6 +76,12 @@ function handleSelect(event) {
   updateMatchCount(selectedEpisodes.length, allEpisodes.length);
 }
 
+function makePageForEpisodes(episodeList) {
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = "";
+  const cards = episodeList.map(makeEpisodeCard);
+  rootElem.append(...cards);
+}
 
 function makeEpisodeCard(episode) {
   const card = document.createElement("article");
