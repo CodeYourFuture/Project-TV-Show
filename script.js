@@ -33,9 +33,9 @@ function makeEpisodeCard(episode) {
   }
 
   const summary = document.createElement("div");
-  summary.innerHTML = episode.summary;
+  summary.innerHTML = episode.summary || "<p>No summary available.</p>";
+  card.append(summary);
 
-  card.append(title, image, summary);
   return card;
 }
 
