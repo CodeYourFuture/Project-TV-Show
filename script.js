@@ -1,15 +1,14 @@
 //You can edit ALL of the code here
 const template = document.getElementById("episode-card");
+const container = document.getElementById("episodes");
+const searchBox = document.getElementById("search");
+const searchCount = document.getElementById("search-count");
+
+const state = { episodes: [], searchTerm: "" };
 
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-}
-
-function makePageForEpisodes(episodeList) {
-  const episodeCards = episodeList.map(createEpisodeCard);
-
-  document.body.append(...episodeCards);
+  state.episodes = getAllEpisodes();
+  makePageForEpisodes(state.episodes);
 }
 
 function createEpisodeCard(episode) {
@@ -32,5 +31,29 @@ function createEpisodeCard(episode) {
     `Summary: ${episode.summary}`;
   return card;
 }
+
+function makePageForEpisodes(episodeList) {
+  const episodeCards = episodeList.map(createEpisodeCard);
+  container.replaceChildren(...episodeCards);
+}
+
+function render() {
+  const filteredEpisodes = state.episodes.filter(function (episode) {
+    return episode.name.toLowerCase().includes(state.searchTerm.toLowerCase());
+  });
+
+  if (state.searchTerm.trim() === "") {
+    searchCount.textContent = "";
+  } else {
+    searchCount.textContent = `Episodes found: ${filteredEpisodes.length}`;
+  }
+
+  makePageForEpisodes(filteredEpisodes);
+}
+
+searchBox.addEventListener("input", function () {
+  state.searchTerm = searchBox.value;
+  render();
+});
 
 window.onload = setup;
