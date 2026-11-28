@@ -7,6 +7,8 @@ const matchCount = document.getElementById("match-count");
 
 let allEpisodes = [];
 
+const EPISODES_URL = "https://api.tvmaze.com/shows/82/episodes";
+
 function setup() {
   allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
