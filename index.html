@@ -1,21 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
+
+    <title>TV Show Project | Mandip Sanger (mandipsanger)</title>
+
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
-
   <body>
-    <div id="root">
+    <header class="container">
+      <h1>TV Show Project</h1>
+      <h2>Fancy A Show Under A Sky</h2>
+
+      <form class="container">
+        <!-- Search shows -->
+        <label for="show-search" class="is-invisible"> Search Shows </label>
+
+        <input
+          type="search"
+          id="show-search"
+          name="show-search"
+          placeholder="Search Shows"
+        />
+
+        <!-- Search episodes -->
+        <label for="episode-search" class="is-invisible">
+          Search Episodes
+        </label>
+
+        <input
+          type="search"
+          id="episode-search"
+          name="episode-search"
+          placeholder="Search Episodes"
+        />
+
+        <!-- Select a TV show -->
+        <label for="show-select" class="is-invisible"> Select a show </label>
+
+        <select id="show-select" name="show-select">
+          <option value="">Loading shows...</option>
+        </select>
+
+        <!-- Select an episode -->
+        <label for="episode-select" class="is-invisible">
+          Select an episode
+        </label>
+
+        <select id="episode-select" name="episode-select">
+          <option value="">Select an episode</option>
+        </select>
+
+        <!-- Buttons -->
+        <button type="button" id="reset-button">Reset</button>
+
+        <button type="button" id="back-to-shows">Back to shows</button>
+      </form>
+    </header>
+
+    <main class="container">
+      <!-- Shows will be displayed here -->
+      <div id="shows-container" class="grid"></div>
+
+      <h2 id="count-container" aria-live="polite"></h2>
+
+      <!-- Episode cards -->
+      <div id="card-container" class="grid"></div>
+
+      <!-- Keep your existing episode-card and show-card templates here -->
+
+      <!-- Episode card template -->
+      <template id="episode-card">
+        <section data-episode class="card">
+          <h3 class="card__title" data-episode="title">
+            Episode Name Goes Here
+          </h3>
+
+          <div class="card__summary" data-episode="summary">
+            Summary Goes Here
+          </div>
+
+          <img
+            class="card__image"
+            data-episode="image"
+            src=""
+            alt=""
+            height="120"
+            width="120"
+          />
+        </section>
+      </template>
+
+     <!-- Show card template -->
+<template id="show-card">
+  <section class="card">
+    <button
+      class="show-name"
+      data-show="name"
+      type="button"
+    >
+      Show Name
+    </button>
+
+    <img
+      class="card__image"
+      data-show="image"
+      src=""
+      alt=""
+    />
+
+    <div
+      class="card__summary"
+      data-show="summary"
+    >
+      Summary
     </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+    <p>
+      <strong>Genres:</strong>
+      <span data-show="genres"></span>
+    </p>
 
-    <!-- Loads YOUR javascript code -->
+    <p>
+      <strong>Status:</strong>
+      <span data-show="status"></span>
+    </p>
+
+    <p>
+      <strong>Rating:</strong>
+      <span data-show="rating"></span>
+    </p>
+
+    <p>
+      <strong>Runtime:</strong>
+      <span data-show="runtime"></span> minutes
+    </p>
+  </section>
+</template>
+
+
+    </main>
+
+    <footer>
+      <h2>
+        Data originally from
+        <a href="https://tvmaze.com/">TV Maze</a>
+      </h2>
+
+      <p>© 2026 Mandip Sanger. All rights reserved.</p>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
