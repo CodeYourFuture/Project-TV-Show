@@ -5,7 +5,7 @@ const searchBox = document.getElementById("search");
 const searchCount = document.getElementById("search-count");
 const episodeSelect = document.getElementById("episode-select");
 
-const state = { episodes: [], searchTerm: "", selectId: "all" };
+const state = { episodes: [], searchTerm: "" };
 
 function setup() {
   state.episodes = getAllEpisodes();
@@ -14,19 +14,22 @@ function setup() {
 }
 
 function getEpisodeCode(episode) {
-  return
+  return (
     "S" +
     (episode.season > 9 ? "" : "0") +
     episode.season +
     "E" +
     (episode.number > 9 ? "" : "0") +
-    episode.number;
+    episode.number
+  );
 }
 
 function createEpisodeCard(episode) {
   const card = template.content.cloneNode(true);
+
   const episodeCode = getEpisodeCode(episode);
 
+  card.querySelector("section").id = `episode-${episode.id}`;
   card.querySelector("h3").textContent = episode.name + " - " + episodeCode;
   card.querySelector(".episode-image").src = episode.image.medium;
   card.querySelector(".season-number").textContent = `Season ${episode.season}`;
@@ -61,11 +64,22 @@ searchBox.addEventListener("input", function () {
   render();
 });
 
+episodeSelect.addEventListener("change", function () {
+  state.searchTerm = "";
+  searchBox.value = "";
+  render();
+
+  const target = document.getElementById(`episode-${episodeSelect.value}`);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+});
+
 function populateSelect() {
-  state.episodes.foreach(function (episode) {
+  state.episodes.forEach(function (episode) {
     const option = document.createElement("option");
-    option.value = episode.id
-    option.textContent = `$getEpisodeCode(episode)} - ${episode.name}`;
+    option.value = episode.id;
+    option.textContent = `${getEpisodeCode(episode)} - ${episode.name}`;
     episodeSelect.append(option);
   });
 }
